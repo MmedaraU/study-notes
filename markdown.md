@@ -1,3 +1,42 @@
+- [References](#references)
+- [Introduction](#introduction)
+  - [What is Markdown?](#what-is-markdown)
+  - [How Markdown Works](#how-markdown-works)
+- [Syntax](#syntax)
+  - [Headings](#headings)
+    - [Alternate Syntax](#alternate-syntax)
+  - [Paragraphs](#paragraphs)
+  - [Line Breaks](#line-breaks)
+  - [Bold Text](#bold-text)
+  - [Italic Text](#italic-text)
+  - [Bold and Italic Text](#bold-and-italic-text)
+  - [Blockquotes](#blockquotes)
+  - [Lists](#lists)
+    - [Ordered Lists](#ordered-lists)
+  - [Unordered List](#unordered-list)
+    - [Nesting Other Elements in Unordered Lists](#nesting-other-elements-in-unordered-lists)
+  - [Code](#code)
+    - [Escaping Tick Marks](#escaping-tick-marks)
+  - [Code Blocks](#code-blocks)
+  - [Horizontal Rules](#horizontal-rules)
+  - [Links](#links)
+    - [Reference-style links](#reference-style-links)
+      - [Formatting First Part of Link](#formatting-first-part-of-link)
+      - [Formatting Second Part of Link](#formatting-second-part-of-link)
+  - [Images](#images)
+  - [Escaping Characters](#escaping-characters)
+- [Extended Syntax](#extended-syntax)
+  - [Tables](#tables)
+    - [Alignment of text in tables](#alignment-of-text-in-tables)
+    - [Formatting Text in Tables](#formatting-text-in-tables)
+  - [Fenced Code Blocks](#fenced-code-blocks)
+    - [Syntax Highlighting](#syntax-highlighting)
+  - [Footnotes](#footnotes)
+    - [Footnote reference](#footnote-reference)
+    - [Footnote content](#footnote-content)
+  - [Heading IDs](#heading-ids)
+  - [Definition Lists](#definition-lists)
+
 # References
 > The Markdown Guide by Matt Cone
 
@@ -388,6 +427,204 @@ Use [Duck Duck Go](https://duckduckgo.com "My Search Engine")
 Use [Duck Duck Go](https://duckduckgo.com)
 
 Use [Duck Duck Go](https://duckduckgo.com "My Search Engine")
+
+
+To quickly turn a URL or email address into a link, enclose it in angle brackets
+
+```
+<https://eff.org>
+
+<fake@example.com>
+```
+<https://eff.org>
+
+<fake@example.com>
+
+**Note**: Links can be emphasized - made bold or italicized by adding asterisks before and after the brackets and parentheses,
+
+### Reference-style links
+
+#### Formatting First Part of Link
+```
+[hobbit-hole][1] - the reference
+```
+
+#### Formatting Second Part of Link
+```
+[hobbit-hole]: https://en.wikipedia.org - place referred to
+```
+**Example**:
+The full [passage][1] is available on Wikipedia.
+
+[1]: https://en.wikipedia.org
+
+
+
+## Images
+```
+![Alt Text](path/to-image "optional-title")
+
+![Beautiful Planet](img/image.png "Image of Planet with Peach Background")
+```
+
+![Beautiful Planet](img/image.png "Image of Planet with Peach Background")
+
+
+## Escaping Characters
+Use a backlash in front of the character to be escaped.
+
+```
+\* Without the backlash, this would be a bullet in an unordered list.
+```
+\* Without the backlash, this would be a bullet in an unordered list.
+
+![Characters that can be escaped in Markdown](img/markdown-escaped-characters.png "Characters that can be escaped in Markdown")
+
+
+# Extended Syntax
+Other lightweight Markup languages exist, and are supersets of Markdown.
+1. CommonMark
+2. GitHub Flavored Markdown
+3. Markdown Extra
+4. MultiMarkdown
+
+
+## Tables
+Use three or more hyphens (---) to create column headers, and pipes (|) to separate each column.
+
+```
+| Syntax    | Description |
+| --------- | ----------- |
+| Header    | Title       |
+| Paragraph | Text        |
+```
+
+| Syntax    | Description |
+| --------- | ----------- |
+| Header    | Title       |
+| Paragraph | Text        |
+
+**Note**: An easier way to create tables in Markdown is by using the [Markdown Tables Generator](http://www.tablesgenerator.com/markdown_tables). It has a graphical interface.
+
+### Alignment of text in tables
+
+* Left align - Add a colon to the left of the hyphens
+* Right align - Add a colon to the right of the hyphens
+* Center align - Add a colon on either side of the hyphens
+
+```
+| Syntax    | Description |   Test Text |
+| :-------- | :---------: | ----------: |
+| Header    |    Title    | Here's this |
+| Paragraph |    Text     |    And more |
+```
+| Syntax    | Description |   Test Text |
+| :-------- | :---------: | ----------: |
+| Header    |    Title    | Here's this |
+| Paragraph |    Text     |    And more |
+
+### Formatting Text in Tables
+You can format text and add links and code only. 
+
+You cannot add code blocks, emphasis(bold or italic text), headings, blockquotes, lists, horizontal rules, images, or HTML tags.
+
+To escape pipe characters in tables, use its character code instead (&#124;).
+
+## Fenced Code Blocks
+Use three tick marks (```) or three tildes (~~~) on the lines before and after the code block.
+
+```
+\```
+"firstName": "John",
+"lastName": "Smith",
+"age": 25
+\```
+```
+
+```
+"firstName": "John",
+"lastName": "Smith",
+"age": 25
+```
+
+### Syntax Highlighting
+Many Markdown processors allow color highlighting for whatever language your code is written in.
+
+To add syntax highlighting, specify a language next to the tick marks or tildes before the fenced code block.
+
+```
+\```json
+"firstName": "John",
+"lastName": "Smith",
+"age": 25
+\```
+```
+
+```json
+"firstName": "John",
+"lastName": "Smith",
+"age": 25
+```
+
+## Footnotes
+### Footnote reference
+Add a caret and an identifier ([^1]) inside brackets. Identifiers can be words, numbers or just alphabets. They can't contain spaces or tabs. In the output, footnotes are numbered sequentially.
+
+
+### Footnote content
+Add footnote using another caret and number inside brackets with a colon and text ([^1]: My footnote)
+
+```
+Here's a simple footnote,[^1] and here's a longer one.[^bignote]
+
+[^1]: This is the first footnote.
+
+[^bignote]: Here's one with multiple paragraphs and code.
+
+            Indent paragraphs to include them in the footnote.
+            `{my code}`
+            Add as many paragraphs as you like.
+```
+
+Here's a simple footnote,[^1] and here's a longer one.[^bignote]
+
+[^1]: This is the first footnote.
+
+[^bignote]: Here's one with multiple paragraphs and code.
+
+  Indent paragraphs to include them in the footnote.
+  `{my code}`
+  Add as many paragraphs as you like.
+
+
+## Heading IDs
+To add custom heading IDs, enclose the custom ID in curly braces on the same line as the heading.
+
+```
+# A heading {#custom-id}
+```
+
+
+To link to heading ID
+```
+[Heading ID](#heading-id)
+```
+
+## Definition Lists
+```
+First Term
+: This is the definition of the first term.
+
+Second term
+: This is one definition of the second term
+: This is another definition of the second term
+```
+First Term
+: This is the definition of the first term.
+
+Second term
+: This is one definition of the second term  
+: This is another definition of the second term
 
 
 
