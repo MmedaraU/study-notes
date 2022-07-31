@@ -36,6 +36,10 @@
     - [Footnote content](#footnote-content)
   - [Heading IDs](#heading-ids)
   - [Definition Lists](#definition-lists)
+  - [Strikethrough](#strikethrough)
+  - [Task Lists](#task-lists)
+  - [Automatic URL Linking](#automatic-url-linking)
+    - [Disabling Automatic URL Linking](#disabling-automatic-url-linking)
 
 # References
 > The Markdown Guide by Matt Cone
@@ -625,6 +629,46 @@ First Term
 Second term
 : This is one definition of the second term  
 : This is another definition of the second term
+
+## Strikethrough
+Use two tilde symbols before the word(s).
+
+```
+The world is ~~flat~~ round
+```
+
+The world is ~~flat~~ round
+
+
+## Task Lists
+To create a task list, add a dash and an empty bracket followed by a space in front of task list items.  
+To select a checkbox, add an `x` between the brackets.
+
+```
+- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media
+```
+
+- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media
+
+## Automatic URL Linking
+Many Markdown processors automatically turn URLs into links.
+
+```
+http://example.com
+```
+
+http://example.com
+
+### Disabling Automatic URL Linking
+To disable it, denote the link as code
+```
+http://example.com
+```
+`http://example.com`
 
 
 
