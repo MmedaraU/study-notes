@@ -40,20 +40,32 @@
   - [Task Lists](#task-lists)
   - [Automatic URL Linking](#automatic-url-linking)
     - [Disabling Automatic URL Linking](#disabling-automatic-url-linking)
+- [GitHub Flavored Markdown](#github-flavored-markdown)
+  - [Alternative Heading Syntax](#alternative-heading-syntax)
+  - [Fenced code blocks](#fenced-code-blocks-1)
+  - [Linked References](#linked-references)
+  - [Blockquotes](#blockquotes-1)
+  - [Lists](#lists-1)
+  - [Backlash Escapes](#backlash-escapes)
+  - [Disallowed Raw HTML](#disallowed-raw-html)
+  - [Line Breaks](#line-breaks-1)
 
 # References
-> The Markdown Guide by Matt Cone
+> The Markdown Guide by Matt Cone  
+> The Github Flavored Markdown Official Specification
+
 
 # Introduction
 Can be used to create documents, books and technical documentation.
 
 ## What is Markdown?  
-Markdown is a lightweight markup language used to add formatting elements to plaintext text documents. It was created by John Gruber in 2004.
+Markdown is a lightweight markup language used to add formatting elements to plaintext text documents. It was created by John Gruber (with help from Aaron Swartz) in 2004.
 
 You can write Markdown using any text editor or any dedicated Markdown application,
 
-MArkdown is designed to be readable and unobtrusive. 
+Markdown is designed to be readable and unobtrusive. 
 
+*Note: Tab = 4 spaces*
 
 ## How Markdown Works  
 When you write in Markdown, the text is stored in plaintext file with a `.md ` or `.markdown` extension.
@@ -672,3 +684,98 @@ http://example.com
 
 
 
+# GitHub Flavored Markdown
+Dialect of Markdown supported for user content on Github.
+
+This is basically an extended form of the original Markdown.
+
+## Alternative Heading Syntax
+```
+### foo ### <h3>
+```
+* Closing sequence must be preceded by a space.
+
+## Fenced code blocks
+* Fewer than three backticks is not enough
+* A code block can be empty
+
+
+## Linked References
+```
+[Link Label]: link "title"
+[foo]: /img/image.png "animals"  (reference definition)
+
+[foo] (reference)
+```
+
+[foo]: /img/image.png "animals" 
+
+[foo]
+
+* The link label could als0 be a number or an alphabet.
+* The title can be omitted.
+* An empty link may be specified using angle brackets
+  ```
+  [foot]: <>
+
+  [foot]
+  ```
+  [foot]: <>
+
+  [foot]
+* Matching of labels is case-insensitive
+* A link reference definition cannot interrupt a paragraph.
+  ```
+  foo
+  [bar]: /img/image.png
+
+  [bar]
+  ```
+foo
+[bar]: /img/image.png
+
+[bar]
+
+* Link reference definitions can directly follow other block elements, e.g headings and thematic breaks
+
+* Reference definitions can occur one after the other, without intervening blank lines
+* They can also occur inside block containers, like lists and block quotations. They affect the entire document, not just the container.
+
+## Blockquotes
+* Blockquotes can interrupt paragraphs
+
+## Lists
+* Ordered list start numbers must be nine digits or less
+* A start number cannot be negative
+* Lists can contain blank items
+* To separate consecutive lists of the same type, or a list from an indented code block, you can insert a blank HTML comment.
+* List items need not be indented to the same level, but they may not be indented more than three spaces.
+
+## Backlash Escapes
+* Backlash escapes do not work in code blocks, code spans, autolinks or raw HTML.
+
+## Disallowed Raw HTML
+```
+<title>
+<textarea>
+<style>
+<xmp>
+<iframe>
+<noembed>
+<script>
+<plaintext>
+```
+
+## Line Breaks
+Alternate syntax
+```
+foo\
+baz
+```
+foo\
+baz
+
+* Leading spaces at the beginning of the next line are ignored
+* Line breaks do not occur inside code spans or HTML tags
+* Can be used with inline content generally
+* 
