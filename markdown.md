@@ -40,6 +40,7 @@
   - [Task Lists](#task-lists)
   - [Automatic URL Linking](#automatic-url-linking)
     - [Disabling Automatic URL Linking](#disabling-automatic-url-linking)
+  - [Notes and Warning](#notes-and-warning)
 - [GitHub Flavored Markdown](#github-flavored-markdown)
   - [Alternative Heading Syntax](#alternative-heading-syntax)
   - [Fenced code blocks](#fenced-code-blocks-1)
@@ -683,6 +684,21 @@ http://example.com
 ```
 `http://example.com`
 
+## Notes and Warning
+```
+> **Note**
+> This is a note
+```
+> **Note**
+> This is a note
+
+
+```
+> **Warning**
+> This is a warning
+```
+> **Warning**
+> This is a warning
 
 
 # GitHub Flavored Markdown
