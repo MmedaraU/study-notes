@@ -6,6 +6,7 @@
   - [Principles of HTML5](#principles-of-html5)
   - [Common HTML Terms](#common-html-terms)
     - [How they are used](#how-they-are-used)
+  - [Naming Conventions for files](#naming-conventions-for-files)
 - [The HTML5 Syntax](#the-html5-syntax)
   - [The HTML Skeleton](#the-html-skeleton)
     - [The Doctype](#the-doctype)
@@ -23,18 +24,40 @@
   - [Block and Inline Elements](#block-and-inline-elements)
   - [Divs and Spans](#divs-and-spans)
   - [Semantic Elements](#semantic-elements)
+    - [Structurally-based Elements](#structurally-based-elements)
+      - [Header `<header>`](#header-header)
+      - [Navigation `<nav>`](#navigation-nav)
+      - [Main `<main>`](#main-main)
+      - [Article `<article>`](#article-article)
+      - [Section `<section>`](#section-section)
+      - [Aside `<aside>`](#aside-aside)
+      - [Footer `<footer>`](#footer-footer)
+      - [Addresses `<address>`](#addresses-address)
     - [Using Text-Based Elements](#using-text-based-elements)
-      - [Headings](#headings)
-      - [Paragraphs](#paragraphs)
+      - [Headings `<h1>` to `<h6>`](#headings-h1-to-h6)
+      - [Heading Groups `<hgroup>`](#heading-groups-hgroup)
+      - [Paragraphs `<p>`](#paragraphs-p)
       - [Bold Text (`<strong>` and `<em>`)](#bold-text-strong-and-em)
       - [Italic Text (`<em>` and `<i>`)](#italic-text-em-and-i)
-    - [Structurally-based Elements](#structurally-based-elements)
-      - [Header](#header)
-      - [Navigation](#navigation)
-      - [Article](#article)
-      - [Section](#section)
-      - [Aside](#aside)
-      - [Footer](#footer)
+      - [Time `<time>`](#time-time)
+      - [Figure, `<figure>` and `<figcaption>`](#figure-figure-and-figcaption)
+      - [Output `<output>`](#output-output)
+      - [Mark `<mark>`](#mark-mark)
+      - [Blockquotes `<blockquote>` (for long quotations)](#blockquotes-blockquote-for-long-quotations)
+      - [Short quotations `<q>`](#short-quotations-q)
+      - [Pre-formatted text `<pre>`](#pre-formatted-text-pre)
+      - [Abbreviations `<abbr>`](#abbreviations-abbr)
+      - [Citations `<cite>`](#citations-cite)
+      - [Defining terms `<dfn>`](#defining-terms-dfn)
+      - [Subscript and superscript, `<sub>` and `<sup>`](#subscript-and-superscript-sub-and-sup)
+      - [Elements for code](#elements-for-code)
+      - [Machine-readable data `<data>`](#machine-readable-data-data)
+    - [Other Elements](#other-elements)
+      - [Lists](#lists)
+        - [Unordered Lists](#unordered-lists)
+        - [Ordered Lists](#ordered-lists)
+        - [Description Lists](#description-lists)
+    - [Other Standards for Semantics](#other-standards-for-semantics)
   - [General HTML Elements](#general-html-elements)
     - [Creating Hyperlinks](#creating-hyperlinks)
       - [The anchor `<a>` element](#the-anchor-a-element)
@@ -42,6 +65,7 @@
       - [Linking Email Addresses](#linking-email-addresses)
       - [Open Links in a New Window](#open-links-in-a-new-window)
       - [Linking to parts of the same page](#linking-to-parts-of-the-same-page)
+- [Web Forms](#web-forms)
 
 # References
 > HTML5: The Missing Manual, *2nd Edition* by Matthew MacDonald  
@@ -50,6 +74,7 @@
 >  
 > Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, *4th Edition* by Jennifer Niederst Robbins
 > 
+>> **All screenshots of the exercises tried out are from the Google Chrome browser, version 104.0.5112.102**
 
 # Introduction
 
@@ -76,7 +101,7 @@ By the same token, new features may be added to HTML at any time.
 3. **Be practical**: Changes should have a practical purpose. The more demanding a change, the bigger the payoff needs to be.
 
 ## Common HTML Terms
-1. **Elements**: Elements are designators that define the structure and content of objects. They are identified by the use of less-than and greater-than angle brackets surrounding the element name.
+1. **Elements**: Elements consist of both the content and the tags surrounding the content.
 
 2. **Tags**: Tags comprise of the use of less-than and greater-than angle brackets surrounding an element. Tags mostly occur in pairs of opening and closing tags.
 
@@ -93,7 +118,7 @@ By the same token, new features may be added to HTML at any time.
 <element-name attribute="attribute-value">Element Content</element-name>
 ```
 * `<a>` - the opening tag
-* `a` - element (name)
+* `a` - element name
 * `href` - attribute (the hyperlink reference attribute)
 * `https://google.com` - the attribute value
 * `Google` - element content
@@ -101,6 +126,16 @@ By the same token, new features may be added to HTML at any time.
 
 * `<a>...</a>` - element
 
+## Naming Conventions for files
+1. Use proper suffixes: HTML and XHTML files must end with `.html`. Web graphics must be labelled according to their format, `.gif`, `.png`, `.jpg`, `.jpeg`, etc.
+
+2. Never use character spaces within filenames: An underline or hyphen is often used to visually seperate words within filenames.
+
+3. Avoid special characters: Filenames should be limited to letters, nimbers, underscores, hyphens, and periods.
+
+4. Filenames may be case-sensitive, depending on server configuration: It is preferable to consistently use all lowercase letters in filenames.
+
+5. Keep filenames short, as much as you can. 
 
 # The HTML5 Syntax
 
@@ -128,6 +163,8 @@ This is more fleshed out
 </html>
 ```
 ### The Doctype
+`<!DOCTYPE html>`
+
 The doctype clearly indicates the standard that was used to write the document markup that follows.  It indicates what version of HTML is being used and is placed at the beginning of the HTML document.
 Despite the fact that HTML is a living language, the doctype remains. Without a doctype, most browsers will lapse into *quirks mode*, which differs from browser to browser.  
 When you add a doctype, the browser recognises that you want to use the stricter standards mode, ensuring consistent formatting and layout on every modern browser.
@@ -139,18 +176,22 @@ Other agents such as HTML5 validators, search engines, design tools, and other h
 
 
 ### Character Encoding
+`<meta charset="UTF-8">`
+
 A standard that tells a computer how to convert your text into a sequence of bytes when it's stored in a file, and how to convert it back again when the file is opened.
 
 Traditionally, on (English) websites, the encoding used is called **UTF-8**. It's compact, fast and supports all on-English characters you could need.
 
 ### Specifying Language
+`<html lang="en">`
+
 It's advisable to specify the language used for the web page. This is useful, especially for search engines when filtering search results.  
 This can also help screen readers if a page has text from multiple languages, by indicating the languages of different sections.
 
 To specify the language of content, you can add the `lang` attribute to any element, along with the appropriate language code.
 
 ### The `<head>` element
-Identifies the top of the document, and includes any metadata. The content in the `<head>` is not displaye don the web page.
+Identifies the top of the document, and includes any metadata. The content in the `<head>` is not displayed on the web page.
 The document title is also included here and is displayed om the tile bar in the browser window. It also includes links to external files.
 
 ### The `<body>` element
@@ -219,11 +260,87 @@ Divs and spans are commonly used with `class` or `id` attributes for styling pur
 
 Semantic code describes the value of content on a page, regardless of the style or appearance of the element.
 
+### Structurally-based Elements
 
+These are all block-level elements that do not have any implied position or style. They can be used multiple times per page, so long as it reflects the proper semantic meaning.
+
+![Structural Semantics](img/html-structural-semantics.png)
+
+#### Header `<header>`
+
+The `<header>` element is used to identify the top of a page, article, section, or other section of a page. The `<header>` element may include a heading, introductory text, and even navigation.
+
+```html
+<!--Possible Section Header-->
+<header>
+  <h1>This is a header</h1>
+</header>
+
+<header>
+<!--Typical Page Header-->
+  <nav>
+    <ul>
+      <li>Home</li>
+      <li>About Us</li>
+      <li>Contact Us</li>
+    </ul>
+  </nav>
+</header>
+```
+
+#### Navigation `<nav>`
+The `<nav>` element identifies a section of major navigational links on a page. It's usually reserved for primary navigation sections only, such as global navigation, a table of contents, previous/next links.
+
+Commonly, links within the `<nav>` element link to other pages within the same website or to other parts of the same web page. Miscellaneous one-off links should be wrapped in the anchor `<a>` element.
+
+```html
+  <nav>
+    <ul>
+      <li>Home</li>
+      <li>About Us</li>
+      <li>Contact Us</li>
+    </ul>
+  </nav>
+```
+
+#### Main `<main>`
+The `<main>` element identifies a web page's primary content, not just a portion of important content inside your document. 
+
+You can't put the `<main>` element inside the `<article>` element or any other semantic element.
+
+The `<main>` element can only be used in a page. It often excludes content like headers and footers.
+
+#### Article `<article>`
+
+The `<article>` element is used to identify a section of self-content that may be independently distributed or reused. It's often used to mark up blog posts. newspaper articles, user-submitted content (e.g forum posts), etc.
+
+To decide if the `<article>` tag should be used, the content should be such that could be replicated elsewhere without any confusion. If the content  is removed from the context of the page and placed somewhere else, it should still make sense.
+
+#### Section `<section>`
+
+The `<section>` element is used to identify a thematic grouping of content, that is content that makes sense to be together under a certain sub-heading or as sub-headings or discussions under a particular topic. 
+
+The content placed in the `<section>` element should make sense as contributing as a part of a whole topic. It is commonly used to break up and provide hierarchy to a page, and usually contains a heading.
+
+
+#### Aside `<aside>`
+
+The `<aside>` element holds information that is tangentially related to the content surrounding it. Example: sidebars, inserts or brief explanation.
+
+The `<aside>` element can be thought of as appearing to the left or right side of a page.
+
+#### Footer `<footer>`
+The `<footer>` element identifies the end of a page, article, section or other segment of a page.
+
+#### Addresses `<address>`
+The `<address>` element is used to create an area for the contact information for the author or maintainer of the document.
+It is generally placed at the emd of the document, section, or article. Most likely placed in the footer.
+
+Should be used solely for the author's info.
 
 ### Using Text-Based Elements
 
-#### Headings
+#### Headings `<h1>` to `<h6>`
 Headings are block-level elements, and they come in six different rankings, `<h1>` through `<h6>`. They are used to establish hierarchy.
 
 Headings should be used in an order relevant to the content of a page. The primary heading of a page or section should be marked up with an `<h1>` elements, and subsequent headings should use `<h2>` through `<h6>` elements as necessary.
@@ -238,7 +355,19 @@ Headings should be used in an order relevant to the content of a page. The prima
 ```
 ![Headings](img/html-headings.png)
 
-#### Paragraphs
+#### Heading Groups `<hgroup>`
+The `<hgroup>` element is used to wrap an a group of headings. It is especially used when there is a subheading. 
+
+The highest-ranked heading is used in the document outline.
+
+```html
+  <hgroup>
+    <h1>Creating a Simple Page</h1>
+    <h2>(HTML Overview)</h2>
+  </hgroup>
+```
+
+#### Paragraphs `<p>`
 Paragraphs are defined using the `<p>` block-level element.
 
 ```html
@@ -247,6 +376,8 @@ Paragraphs are defined using the `<p>` block-level element.
 <p>Counterculture: a way of life and set of attitudes opposed to or at variance with the prevailing social norm.</p>
 ```
 ![Paragraphs](img/html-paragraphs.png)
+
+**Note: Text that is not contained within tags is called *naked* or *anonymous text*.**
 
 #### Bold Text (`<strong>` and `<em>`)
 These are both inline elements. 
@@ -280,71 +411,247 @@ They however look very similar.
 <p>The name <em>Shay</em> means a gift.</p>
 ```
 
-### Structurally-based Elements
+#### Time `<time>`
 
-These are all block-level elements that do not have any implied position or style. They can be used multiple times per page, so long as it reflects the proper semantic meaning.
+The `<time>` element flags valid date or time. It has no built-in formatting. It is to be used for precise, not vague, dates.
 
-![Structural Semantics](img/html-structural-semantics.png)
+The `<time>` element performs two roles;
+1. Indicates where the date or time value is in the markup
+2. It provides the date or time value in a form that any software program can understand.
 
-#### Header
+The `datetime` attribute provides the format for the system to properly decipher. Time indicated with reference to the Greenwich Mean Time (GMT). e.g `-04:00` means 4 hours behind GMT.
 
-The `<header>` element is used to identify the top of a page, article, section, or other section of a page. The `<header>` element may include a heading, introductory text, and even navigation.
+The `pubdate` attribute is a boolean attribute that indicates that the date is the publication date of the current content.
 
-```html
-<!--Possible Section Header-->
-<header>
-  <h1>This is a header</h1>
-</header>
-
-<header>
-<!--Typical Page Header-->
-  <nav>
-    <ul>
-      <li>Home</li>
-      <li>About Us</li>
-      <li>Contact Us</li>
-    </ul>
-  </nav>
-</header>
-```
-
-#### Navigation
-The `<nav>` element identifies a section of major navigational links on a page. It's usually reserved for primary navigation sections only, such as global navigation, a table of contents, previous/next links.
-
-Commonly, links within the `<nav>` element link to other pages within the same website or to other parts of the same web page. Miscellaneous one-off links should be wrapped in the anchor `<a>` element.
+When indicating time zones, users get the time in a format they expect.
 
 ```html
-  <nav>
-    <ul>
-      <li>Home</li>
-      <li>About Us</li>
-      <li>Contact Us</li>
-    </ul>
-  </nav>
+<!--Dates-->
+Registration begins on <time>2014-11-25</time>
+
+The party starts <time datetime="2014-03-21">March 21<sup>st</sup></time>.
+
+<!--Times (uses the 24-hour clock)-->
+The party starts at <time datetime="16:30">4:30pm</time>.
+
+<!--Date and Time-->
+The party starts <time datetime="2014-03-21 16:30">March 21<sup>st</sup> at 4:30pm</time>.
+
+The party starts <time datetime="2014-03-21T16:30">March 21<sup>st</sup> at 4:30pm</time>.
+
+<!--Time Zones(with reference to UTC)-->
+The party starts <time datetime="2014-03-21 16:30-05:00">March 21<sup>st</sup> at 4:30pm</time>. <!--Indicates UTC-5:00-->
+
+<!--The Pubdate attribute-->
+Published on <time datetime="2014-03-21" pubdate>March 31, 2014</time>
+```
+*Note: The `<sup>` element stands for superscript text, and the `<sub>` element stands for subscript text.*
+
+#### Figure, `<figure>` and `<figcaption>`
+The `<figure>` element can be thought of as a picture that's seperate from the text, yet referred to in the text.
+Figures often have captions.
+In cases where the figcaption includes a complete description of the image, the `alt` attribute can be removed from the `<img>` element.
+
+A figure could also contain a video, a code snippet, text or a table. A figure should be treated and referenced as a self-contained unit - content that if removed from its original placement in the main flow, the figure and the main flow would still make sense.
+
+```html
+  <figure>
+    <img src="img/image.png"
+      alt="A picture of a fictional planet tilting about 30 degrees to the left and seperated into three sections with the first section being transparent, the second colored cream and the third a dark blue. The second section is more like a band while the first and third are larger and roughly the same size. The background is peach with floating multi-coloured planets scattered around.">
+    <figcaption>A picture of a fictional planet tilting about 30 degrees to the left.</figcaption>
+```
+![HTML Figures](img/html-figure.png)
+
+#### Output `<output>`
+The `<output> `element is a placeholder your code can use to show a piece of calculated information.
+
+#### Mark `<mark>`
+The `<mark>` element represents a section of text that's highlighted for reference. It's appropriate when quoting someone's text and you want to bring attention to something.
+
+It can also be used to flag important content or keywords, or to make up document changes, in combination with `<del>` and `<ins>`.
+
+By default, text in the `<mark>` element is highlighted with a bright yellow background.
+
+*Note: The `<del>` element is used to indicate deleted text, and `<ins>` is used to indicate inserted text.*
+
+#### Blockquotes `<blockquote>` (for long quotations)
+The `<blockquote>` element is used to mark up long quotations, testimonials, or sections of copy from another source. 
+It is recommended that the content in a blockquote should be contained within other elements.[See sectioning roots]
+
+```html
+  <p>Someone has something to say:</p>
+
+  <blockquote>
+    <p>This is the first line of text in the quote.</p>
+
+    <p>This is the second, and an even longer, line of text in the quote.</p>
+  </blockquote>
+```
+![Blockquotes](img/html-blockquotes.png)
+
+#### Short quotations `<q>`
+```html
+<p>
+  I said, <q>"This is a short quote."</q>
+</p>
+```
+**Note: Browsers should automatically add quotation marks around `<q>` and `<blockquote>` elements, so you don't have to include them in the source document.**
+![HTML Quotes](img/html-quote.png)
+
+#### Pre-formatted text `<pre>`
+Text within the `<pre>` element retain source formatting.
+The text retains all the whitespace - it is displayed exactly as it is typed, and with a fixed-width font.
+![Pre-formatted Text](img/html-preformatted-text.png)
+
+![Other Text-Based Elements](img/html-other-text-based-elements.png)
+
+#### Abbreviations `<abbr>`
+The `<abbr>` element is used for abbreviations and acronyms.
+
+**Abbreviations** are shortened versions of a word ending with a period. Example: Conn. for Connecticut.
+
+**Acronyms** are abbreviations formed by the first letters of the words in a phrase. Example: WWW.
+
+The `title` element provides the long version of the shortened term.
+
+```html
+  <abbr title="Points">pts.</abbr>
+  <abbr title="World Wide Web">WWW</abbr>
+```
+![HTML Abbreviations](img/html-abbr.png)
+
+#### Citations `<cite>`
+The `<cite>` element is used to identify a reference to another document e.g books, magazines, article, etc.
+
+It is rendered in italics by default.
+```html
+  <p>The name of the books I used to learn are <cite>Learn to code HTML and CSS</cite> by Shay Howe, <cite>HTML5: The
+      Missing Manual</cite> by Matthew MacDonald and <cite>Learning Web Design</cite> by Jennifer Niederst Robbins.</p>
+```
+![Citations](img/html-cite.png)
+
+#### Defining terms `<dfn>`
+The `<dfn>` element is used to point out the first and defining instance of a word in a document.
+```html
+  <p><dfn>Script typefaces</dfn> are based on handwriting.</p>
+```
+![Definition Terms](img/html-definition-terms.png)
+
+#### Subscript and superscript, `<sub>` and `<sup>`
+
+Typically used with ordinal numbers, mathematical equations and chemical formulas.
+```html
+  <p>H<sub>2</sub>0</p>
+  <p>E = MC<sup>2</sup></p>
+```
+![Superscript and subscript](img/html-sub-and-sup.png)
+
+#### Elements for code
+* `<code>` - code
+* `<var>` - variables
+* `<samp>` - program samples
+* `<kbd>` - user-centered keystrokes
+
+They are typically rendered in a constant-width font. Variables are rendered in italics.
+
+#### Machine-readable data `<data>`
+The `<data>` element helps computers make sense of content. It can be used for all sorts of data, including dates, times, measurements, weights, etc.
+
+It makes use of the `value` attribute.
+```html
+<data value="12">Twelve</data>
+<data value="2011-11-12">Last Saturday</data>
 ```
 
-#### Article
+### Other Elements
 
-The `<article>` element is used to identify a section of self-content that may be independently distributed or reused. It's often used to mark up blog posts. newspaper articles, user-submitted content, etc.
+#### Lists
 
-To decide if the `<article>` tag should be used, the content should be such that could be replicated elsewhere without any confusion. If the content  is removed from the context of the page and placed somewhere else, it should still make sense.
+All list elements are displayed as block elements by default.
 
-#### Section
+##### Unordered Lists
+List items appear in no particular order. Each list item is displayed with a bullet before it.
 
-The `<section>` element is used to identify a thematic grouping of content, that is content that makes sense to be together under a certain sub-heading or as sub-headings or discussions under a particular topic. 
+```html
+<ul>
+  <li><a href="#">List Item 1</a></li>
+  <li><a href="#">List Item 2</a></li>
+  <li><a href="#">List Item 3</a></li>
+  <li><a href="#">List Item 4</a></li>
+  <li><a href="#">List Item 5</a></li>
+</ul>
+```
+![Unordered Lists](img/html-unordered-lists.png)
 
-The content placed in the `<section>` element should make sense as contributing as a part of a whole topic. It is commonly used to break up and provide hierarchy to a page, and usually contains a heading.
 
+##### Ordered Lists
+List items appear in an ordered sequence.
 
-#### Aside
+```html
+<ol>
+  <li><a href="#">List Item 1</a></li>
+  <li><a href="#">List Item 2</a></li>
+  <li><a href="#">List Item 3</a></li>
+  <li><a href="#">List Item 4</a></li>
+  <li><a href="#">List Item 5</a></li>
+</ol>
+```
+![Ordered Lists](img/html-ordered-lists.png)
 
-The `<aside>` element holds information that is tangentially related to the content surrounding it. Example: sidebars, inserts or brief explanation.
+To start from a number other than one (1), you can use the `start` attribute to specify another starting number.
+```html
+  <ol start="11">
+    <li><a href="#">List Item 11</a></li>
+    <li><a href="#">List Item 12</a></li>
+    <li><a href="#">List Item 13</a></li>
+    <li><a href="#">List Item 14</a></li>
+    <li><a href="#">List Item 15</a></li>
+  </ol>
+```
+![Unordered List with start attribute](img/html-ordered-lists-2.png)
 
-The `<aside>` element can be thought of as appearing to the left or right side of a page.
+##### Description Lists
+These lists contain name and value pairs. Description lists can be used for terms and definitions, questions and answers, etc.
 
-#### Footer
-The `<footer>` element identifies the end of a page, article, section or other segment of a page.
+```html
+  <dl>
+    <dt>Term</dt>
+    <dd>Definition</dd>
 
+    <dt>Question</dt>
+    <dd>Answer</dd>
+
+    <dt>Term</dt>
+    <dd>Definition</dd>
+    <dd>Definition 2</dd>
+  </dl>
+```
+
+![Decription List](img/html-description-lists.png)
+
+**Note: Any list can be nested within another list, it just has to be placed within a list item.**
+```html
+  <ol>
+    <li></li>
+    <li>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </li>
+    <li></li>
+  </ol>
+```
+
+### Other Standards for Semantics
+1. **Accessible Rich Internet Applications (ARIA)**: This is a developing standard that lets you supply extra info for screen readers through attributes on any HTML element. It introduces the `role` attribute, which indicates the purpose of a given element.
+
+2. **Resource Description Framework (RDFa)**: A standard for embedding detailed metadata into your web documents using attributes. It's a settled, stable standard.
+
+3. **Microformats**: A simple, streamlined approach to putting metadata in your pages. They're a loose collection of agreed-upon conventions that lets pages share structured info. It piggybacks on the `class` attribute.
+
+4. **Microdata**: Imports its own attributes.
 ## General HTML Elements
 
 ### Creating Hyperlinks
@@ -365,9 +672,12 @@ The `<a>` element is an inline element. However, with the introduction of HTML5,
 
 Links pointing to other pages of the same website have a *relative path*. The `href` attribute needs to include the file name and/or directory as the case may be.
 
-Links pointing to other website require an absolute path. The `href` attribute needs to include the full domain.
+Links pointing to other websites require an absolute path. The `href` attribute needs to include the full domain.
 
 ```html
+<!------Absolute Paths------>
+<a href="http://www.google.com">Google</a>
+
 <!-----Relative Paths------>
 
 <!--If file is in the same folder-->
@@ -375,9 +685,6 @@ Links pointing to other website require an absolute path. The `href` attribute n
 
 <!--If file is in the same folder-->
 <a href="about.html">About</a> 
-
-<!------Absolute Paths------>
-<a href="http://www.google.com">Google</a>
 ```
 #### Linking Email Addresses
 
@@ -395,7 +702,7 @@ The `?` after the email address is necessary to bind the next parameter to the h
 
 The `&` after the `subject` parameter is to seperate the `body` parameter from it.
 
-Spaces are encoded using `%20` and line breaks are encoded using `%0A`.
+Spaces are encoded using `%20` and line breaks are encoded using `%0A`.    
 
 #### Open Links in a New Window
 
@@ -416,3 +723,6 @@ This required the use of an `id` attribute on the element you're trying to link 
 ...
 </body>
 ```
+
+# Web Forms
+
