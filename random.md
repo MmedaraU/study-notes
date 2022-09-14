@@ -45,3 +45,12 @@ The requests and responses are handled via the HTTP protocol.
   * `www` - host name
 
 * `/2012/samples/first.html` - The absolute path through directories on the server to the requested HTML document.
+
+
+# Some Concepts to Know
+
+1. Progressive enhancement: Designing a baseline experience that makes content availble to even the most rudimentary browsers, and later adding more advanced features for browsers that can handle them.
+
+2. Graceful degradation: This is the flip side of progressive enhancement. It starts by building the decked-ot version of the site and later including support for older or non-supporting browsers.
+
+3. Responsive Web Design: A strategy for providing custom layouts to devices based on their viewport sizes.
