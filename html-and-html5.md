@@ -19,8 +19,10 @@
     - [Loosened Rules](#loosened-rules)
     - [Removed Elements](#removed-elements)
     - [Adapted Elements](#adapted-elements)
-- [Working with HTML](#working-with-html)
+  - [Special Characters](#special-characters)
   - [Comments](#comments)
+  - [IDs and Classes](#ids-and-classes)
+- [All about the elements](#all-about-the-elements)
   - [Block and Inline Elements](#block-and-inline-elements)
   - [Divs and Spans](#divs-and-spans)
   - [Semantic Elements](#semantic-elements)
@@ -52,19 +54,26 @@
       - [Subscript and superscript, `<sub>` and `<sup>`](#subscript-and-superscript-sub-and-sup)
       - [Elements for code](#elements-for-code)
       - [Machine-readable data `<data>`](#machine-readable-data-data)
+      - [Inserted and deleted text `<ins>` and `<del>`](#inserted-and-deleted-text-ins-and-del)
     - [Other Elements](#other-elements)
       - [Lists](#lists)
         - [Unordered Lists](#unordered-lists)
         - [Ordered Lists](#ordered-lists)
         - [Description Lists](#description-lists)
+      - [Line Breaks `<br>`](#line-breaks-br)
+      - [Word Breaks `<wbr>`](#word-breaks-wbr)
+      - [Bidirectional override `<bdo>`](#bidirectional-override-bdo)
+      - [Bidirectional isolation `<bdi>`](#bidirectional-isolation-bdi)
+      - [Elements for East Asian Languages `<ruby>`, `<rt>` and `<rp>`](#elements-for-east-asian-languages-ruby-rt-and-rp)
     - [Other Standards for Semantics](#other-standards-for-semantics)
-  - [General HTML Elements](#general-html-elements)
-    - [Creating Hyperlinks](#creating-hyperlinks)
-      - [The anchor `<a>` element](#the-anchor-a-element)
-      - [Relative and Absolute Paths](#relative-and-absolute-paths)
-      - [Linking Email Addresses](#linking-email-addresses)
-      - [Open Links in a New Window](#open-links-in-a-new-window)
-      - [Linking to parts of the same page](#linking-to-parts-of-the-same-page)
+- [Creating Hyperlinks](#creating-hyperlinks)
+  - [The anchor `<a>` element](#the-anchor-a-element)
+  - [Linking between files (Relative and Absolute Paths)](#linking-between-files-relative-and-absolute-paths)
+  - [Linking within a page](#linking-within-a-page)
+  - [Linking Email Addresses](#linking-email-addresses)
+  - [Linking Telephone Numbers](#linking-telephone-numbers)
+  - [Open Links in a New Window](#open-links-in-a-new-window)
+  - [Linking to parts of the same page](#linking-to-parts-of-the-same-page)
 - [Web Forms](#web-forms)
 
 # References
@@ -226,7 +235,17 @@ Elements adapted to a new purpose.
 6. `<em>` represents with emphatic stress; text that might have a different inflection when read out loud.
 7. `<i>` for italic text with no greater importance.
 
-# Working with HTML
+## Special Characters
+Characters that are not part of the standard set of ASCII characters, and other symbols that might be but are interpreted differently are *special characters* and have to be escaped to be used in HTML.
+
+*Escaping* means representing a symbol by its numeric or named character reference. All character references begin with an `&` and end with an `;`.
+
+```html
+  <p>&copy;</p>
+
+  <p>&#169;</p>
+```
+![Special Characters](img/html-special-characters.png)
 
 ## Comments
 ```html
@@ -238,6 +257,17 @@ Elements adapted to a new purpose.
 ```
 
 Any content wrapped in a comment is not displayed on the web page.
+
+## IDs and Classes
+The `id` attribute is used to assign a unique identifier to an element in the document.  
+The value of an `id` must be used only once in a document.
+
+The `class` attribute classifies elements into conceptual groups. Multiple elements can share a class name. By marking elements up with the same class, you can apply the same styles to several elements.
+
+The values for `id` and `class` attributes should start with a letter or underscore. The attribute values can contain letters, numbers, hyphens, underscores, periods and colons. They should not contain any character spaces or special characters.  
+Values are also case-sensitive.  
+
+# All about the elements
 
 ## Block and Inline Elements
 *Block-level elements* begin on a new line, stacking on top of each other, and occupy any available width. Block-level elements may be nested inside one another and may wrap inline-level elements. They are mainly used for larger pieces of content.
@@ -490,6 +520,7 @@ It is recommended that the content in a blockquote should be contained within ot
 ![Blockquotes](img/html-blockquotes.png)
 
 #### Short quotations `<q>`
+This is an inline element.
 ```html
 <p>
   I said, <q>"This is a short quote."</q>
@@ -563,6 +594,13 @@ It makes use of the `value` attribute.
 <data value="2011-11-12">Last Saturday</data>
 ```
 
+#### Inserted and deleted text `<ins>` and `<del>`
+These elements are used to mark up edits to the document, indicating parts that have been inserted or deleted.
+```html
+  <p>Chief Executive Officer: <del title="retired">Peter Pan</del><ins>Pippi Longstockings</ins></p>
+```
+![Inserted and deleted text](img/html-ins-and-del.png)
+
 ### Other Elements
 
 #### Lists
@@ -627,7 +665,7 @@ These lists contain name and value pairs. Description lists can be used for term
   </dl>
 ```
 
-![Decription List](img/html-description-lists.png)
+![Description List](img/html-description-lists.png)
 
 **Note: Any list can be nested within another list, it just has to be placed within a list item.**
 ```html
@@ -644,6 +682,61 @@ These lists contain name and value pairs. Description lists can be used for term
   </ol>
 ```
 
+#### Line Breaks `<br>`
+The `<br>` element is an inline element, and an empty or void element. It is used to break up lines of text.
+
+```html
+  <p>This is a sentence with <br>a break in the middle of it.</p>
+```
+![Line Breaks](img/html-line-breaks.png)
+
+#### Word Breaks `<wbr>`
+The `<wbr>` element lets you indicate where a word should break if it needs to.
+```html
+  <p>The biggest word you've ever heard and this is how it goes:
+    <em>supercali<wbr>fragilistic<wbr>expialidocious</em>!
+  </p>
+```
+![Word Break 1](img/html-word-break-1.png)
+![Word Break 2](img/html-word-break-2.png)
+![Word Break 3](img/html-word-break-3.png)
+
+#### Bidirectional override `<bdo>`
+The `<bdo>` element allows for phrases in right-to-left `rtl`, reading languages, such as Hebrew and Arabic.
+```html
+  <p>This is how you write Shalom:
+    <br>
+    <bdo dir="rtl">&#x05E9;&#x05DC;&#x05D5;&#x05DD;</bdo>
+  </p>
+```
+![bdo](img/html-bdo.png)
+
+#### Bidirectional isolation `<bdi>`
+The `<bdi>` element is used to isolate a selection *might* read in a different direction, such as a name or a comment added by a user.
+
+#### Elements for East Asian Languages `<ruby>`, `<rt>` and `<rp>`
+The `<ruby>`, `<rt>` and `<rp>` elements are used to add ruby annotation to East Asian languages.
+
+*Ruby annotations* are little notes that appear above ideographs and provide pronunciation clues or translations.
+
+* `<rt>` - ruby text. It is typically displayed in a smaller font above the main text. 
+  
+* `<rp>` - ruby parentheses. As a backup for browsers that don't support ruby, you can put the ruby text in parentheses marked with the `<rp>` element.
+
+```html
+  <ruby>
+    &#x05E9;<rp>(</rp>
+    <rt>han</rt>
+    <rp>)</rp>
+
+    &#x05DC;<rp>(</rp>
+    <rt>zi</rt>
+    <rp>)</rp>
+  </ruby>
+```
+![Ruby (for East Asian Languages)](img/html-ruby.png)
+
+
 ### Other Standards for Semantics
 1. **Accessible Rich Internet Applications (ARIA)**: This is a developing standard that lets you supply extra info for screen readers through attributes on any HTML element. It introduces the `role` attribute, which indicates the purpose of a given element.
 
@@ -652,11 +745,11 @@ These lists contain name and value pairs. Description lists can be used for term
 3. **Microformats**: A simple, streamlined approach to putting metadata in your pages. They're a loose collection of agreed-upon conventions that lets pages share structured info. It piggybacks on the `class` attribute.
 
 4. **Microdata**: Imports its own attributes.
-## General HTML Elements
 
-### Creating Hyperlinks
 
-#### The anchor `<a>` element
+# Creating Hyperlinks
+
+## The anchor `<a>` element
 
 The `<a>` element is used to create hyperlinks. Hyperlinks provide the ability to link from one web page or resource to another.
 
@@ -668,7 +761,7 @@ To create a link, the `href` attribute (a hyperlink reference) is required. The 
 
 The `<a>` element is an inline element. However, with the introduction of HTML5, anchor elements can wrap block, inline or other level elements.
 
-#### Relative and Absolute Paths
+## Linking between files (Relative and Absolute Paths)
 
 Links pointing to other pages of the same website have a *relative path*. The `href` attribute needs to include the file name and/or directory as the case may be.
 
@@ -683,10 +776,42 @@ Links pointing to other websites require an absolute path. The `href` attribute 
 <!--If file is in the same folder-->
 <a href="about.html">About</a> 
 
-<!--If file is in the same folder-->
-<a href="about.html">About</a> 
+<!--If file is one folder forward-->
+<a href="next-folder/about.html">About</a> 
+
+<!--If file is one folder back-->
+<a href="../index.html">Home</a>
+
+<!--The ../ indicates that we're going back one directory level-->
+
+<!--If file is two folders back-->
+<a href="../../index.html">Home</a>
+
+<!--Site root relative path names - paths start from root folder-->
+<a href="/../index.html">Home</a>
+
+<!-- The / at the beginning indicates the root folder -->
+<!-- These links can be used from any file-->
+<!-- These links don't work on your computer 'cause your root folder will be your hard drive -->
+
 ```
-#### Linking Email Addresses
+
+## Linking within a page
+To do this, the `id` attribute is used. Place an `id` at the point you want to link to.
+
+```html
+<!--Linking to specific points on the same page-->
+<div id="specific"></div>
+<a href="#specific">Home</a>
+
+<!--Linking to specific points on other pages-->
+<!--about.html-->
+<div id="specific"></div>
+<!--index.html-->
+<a href="about.html#specific">Home</a>
+```
+
+## Linking Email Addresses
 
 ```html
 <a href="mailto:umana.mmedara@gmail.com">Email Me</a>
@@ -704,7 +829,21 @@ The `&` after the `subject` parameter is to seperate the `body` parameter from i
 
 Spaces are encoded using `%20` and line breaks are encoded using `%0A`.    
 
-#### Open Links in a New Window
+## Linking Telephone Numbers
+```html
+<a href="tel:+2345678900123">Call us at (567) 890 0123</a> 
+```
+
+Users get a confirmation box when they click the link.
+
+1. Recommended that you include the full international dialing number, including the country code.
+
+2. Also include the telephone number in the content of the link so that the number is available if the link doesn't work.
+3. If your site has numbers that may be mistaken for phone numbers, you can turn off auto-detection in the `meta` element.
+   ```html
+    <meta name="format-detection" content="telephone=no">
+   ```
+## Open Links in a New Window
 
 `<a href="http://google.com" target="_blank">Google</a>`
 
@@ -712,7 +851,22 @@ Hyperlinks have the ability to determine where a link opens when clicked. This r
 
 The `_blank` value indicates a new window.
 
-#### Linking to parts of the same page
+The `target` attribute is used to name the new browser window opened
+
+```html
+<!--Targeting new browser window-->
+<a href="about.html" target="_blank">About</a>
+<!--Problematic for accessibility, and inaccessible if pop-up windows are blocked-->
+
+
+<!--Name browser window-->
+<a href="about.html" target="display">About</a>
+<!--If you give other links the same name, the links open in the same window-->
+
+<!--Links can be opened in new windows with specified dimensions-->
+```
+
+## Linking to parts of the same page
 
 This required the use of an `id` attribute on the element you're trying to link to.
 
@@ -725,4 +879,3 @@ This required the use of an `id` attribute on the element you're trying to link 
 ```
 
 # Web Forms
-
