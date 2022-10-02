@@ -10,10 +10,10 @@
 - [The HTML5 Syntax](#the-html5-syntax)
   - [The HTML Skeleton](#the-html-skeleton)
     - [The Doctype](#the-doctype)
-      - [Quirks Mode and Standards Mode](#quirks-mode-and-standards-mode)
     - [Character Encoding](#character-encoding)
     - [Specifying Language](#specifying-language)
     - [The `<head>` element](#the-head-element)
+    - [The `meta` tag](#the-meta-tag)
     - [The `<body>` element](#the-body-element)
   - [Syntax Changes](#syntax-changes)
     - [Loosened Rules](#loosened-rules)
@@ -22,6 +22,8 @@
   - [Special Characters](#special-characters)
   - [Comments](#comments)
   - [IDs and Classes](#ids-and-classes)
+  - [Quirks Mode and Standards Mode](#quirks-mode-and-standards-mode)
+  - [Sectioning Roots](#sectioning-roots)
 - [All about the elements](#all-about-the-elements)
   - [Block and Inline Elements](#block-and-inline-elements)
   - [Divs and Spans](#divs-and-spans)
@@ -181,8 +183,6 @@ When you add a doctype, the browser recognises that you want to use the stricter
 Other agents such as HTML5 validators, search engines, design tools, and other human beings also make use of the doctype to determine what flavor of markup you're using.
 
 
-#### Quirks Mode and Standards Mode
-
 
 ### Character Encoding
 `<meta charset="UTF-8">`
@@ -202,6 +202,71 @@ To specify the language of content, you can add the `lang` attribute to any elem
 ### The `<head>` element
 Identifies the top of the document, and includes any metadata. The content in the `<head>` is not displayed on the web page.
 The document title is also included here and is displayed om the tile bar in the browser window. It also includes links to external files.
+
+### The `meta` tag
+The `<meta>` tag defines metadata about an HTML document.
+
+The `meta` tags are typically used to specify character set. page description, keywords, author of the document, and viewport settings.
+
+```html
+<meta charset="UTF-8">
+<!--Specifies the character encoding for the HTML document-->
+
+<meta name="keywords" content="HTML, CSS, JavaScript">
+<!--Defines keywords-->
+
+<meta name="description" content="Free Web Tutorials for HTML and CSS">
+<!--Defines description of the web page-->
+
+<meta name="author" content="Mmedara Umana">
+<!--Defines author of the page-->
+
+```
+
+The `content` attribute specifies the value associated with the `http-equiv` or `name` attribute.
+
+The `name` attribute specifies a name for the metadata.
+
+```html
+  <meta charset="UTF-8">
+  <!--Specifies the character set for the document-->
+
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="description" content="Free Web Tutorials for HTML and CSS">
+  <meta name="author" content="Mmedara Umana">
+  <!--Used to provide document metadata in name-value pairs-->
+
+  <meta http-equiv="refresh" content="30">
+  <!--Specifies the number of seconds until the page should be reloaded-->
+
+  <meta http-equiv="refresh" content="30; url=...">
+  <!--Specifies the number of seconds until the page should be redirected to the specified url-->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="content-security-policy" content="...">
+  <!--Aloows page authors specify a content policy for the page.-->
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <!--declares the MIME type and character encoding of the document.-->
+
+  <meta http-equiv="default-style" content="...">
+  <!--sets the name of the default CSS style sheet set.-->
+
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <!--sets the name of the default CSS style sheet set.-->
+  <!--The content must be IE-edge. USer agents are required to ignore this.-->
+
+```
+the `http-equiv` attribute provides an HTTP header for the information/value of the content attribute.
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--Setting viewport of device-->
+```
+The `width-device-width` sets the width of the page to follow the screen-width of the device.
+
+The `initial-scale=1.0` sets the initial zoom level when the page is loaded.
 
 ### The `<body>` element
 All visible content appears here.
@@ -266,6 +331,16 @@ The `class` attribute classifies elements into conceptual groups. Multiple eleme
 
 The values for `id` and `class` attributes should start with a letter or underscore. The attribute values can contain letters, numbers, hyphens, underscores, periods and colons. They should not contain any character spaces or special characters.  
 Values are also case-sensitive.  
+
+
+## Quirks Mode and Standards Mode
+
+## Sectioning Roots
+ Section roots break out sections of a document into their own seperate outlines, THey are root elements that have no ancestors.
+
+They are `body`, `blockquote`, `fieldset`, `figure` and `td`.
+
+They do not appear in the document outline.
 
 # All about the elements
 
@@ -712,7 +787,31 @@ The `<bdo>` element allows for phrases in right-to-left `rtl`, reading languages
 ![bdo](img/html-bdo.png)
 
 #### Bidirectional isolation `<bdi>`
-The `<bdi>` element is used to isolate a selection *might* read in a different direction, such as a name or a comment added by a user.
+The `<bdi>` element is used to isolate a selection that *might* read in a different direction, such as a name or a comment added by a user.  
+It is particularly useful when a website dynamically inserts text and doesn't know the directionality of the text.
+
+```html
+<h1>Wrestling Championships</h1>
+
+<ul>
+  <li>
+    <bdi class="name">English name</bdi>
+  </li>
+  <li>
+    <bdi class="name">French name</bdi>
+  </li>
+  <li>
+    <bdi class="name">Arabic name</bdi>
+  </li>
+  <li>
+    <bdi class="name">Arabic name</bdi>
+  </li>
+  <li>
+    <bdi class="name">Arabic name</bdi>
+  </li>
+</ul>
+```
+The same effect can be achieved by using the CSS rule `unicode-bidi: isolate;`. This is not semantic.
 
 #### Elements for East Asian Languages `<ruby>`, `<rt>` and `<rp>`
 The `<ruby>`, `<rt>` and `<rp>` elements are used to add ruby annotation to East Asian languages.
