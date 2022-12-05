@@ -77,6 +77,21 @@
   - [Open Links in a New Window](#open-links-in-a-new-window)
   - [Linking to parts of the same page](#linking-to-parts-of-the-same-page)
 - [Web Forms](#web-forms)
+  - [Form Controls](#form-controls)
+    - [The `action` and `method` attributes](#the-action-and-method-attributes)
+    - [Form labels](#form-labels)
+    - [Form Inputs](#form-inputs)
+    - [Input Attributes](#input-attributes)
+      - [Hidden Inputs](#hidden-inputs)
+    - [Form Dropdowns](#form-dropdowns)
+    - [Progress Bars and Meters](#progress-bars-and-meters)
+  - [Form Validation](#form-validation)
+    - [Validating in Two Places](#validating-in-two-places)
+  - [Turning Validation Off](#turning-validation-off)
+    - [Catching Missing Information](#catching-missing-information)
+    - [Validation with Regular Expressions](#validation-with-regular-expressions)
+    - [Custom Validation](#custom-validation)
+- [Creating editable content](#creating-editable-content)
 
 # References
 > HTML5: The Missing Manual, *2nd Edition* by Matthew MacDonald  
@@ -142,7 +157,7 @@ By the same token, new features may be added to HTML at any time.
 
 2. Never use character spaces within filenames: An underline or hyphen is often used to visually seperate words within filenames.
 
-3. Avoid special characters: Filenames should be limited to letters, nimbers, underscores, hyphens, and periods.
+3. Avoid special characters: Filenames should be limited to letters, numbers, underscores, hyphens, and periods.
 
 4. Filenames may be case-sensitive, depending on server configuration: It is preferable to consistently use all lowercase letters in filenames.
 
@@ -550,6 +565,8 @@ The party starts <time datetime="2014-03-21 16:30-05:00">March 21<sup>st</sup> a
 <!--The Pubdate attribute-->
 Published on <time datetime="2014-03-21" pubdate>March 31, 2014</time>
 ```
+![Date data types](img/date-data-types.png)
+
 *Note: The `<sup>` element stands for superscript text, and the `<sub>` element stands for subscript text.*
 
 #### Figure, `<figure>` and `<figcaption>`
@@ -978,3 +995,301 @@ This required the use of an `id` attribute on the element you're trying to link 
 ```
 
 # Web Forms
+
+## Form Controls
+
+1. The `<form>` element bundles together all the form controls or fields.  
+  ```html
+    <form id="myForm" action="processApplication.cgi">
+    <p>Please complete the form</p>
+  </form>
+  ```
+
+
+2. The `<fieldset>` element groups fields in the form into logical chunks. Each chunk gets a title using the `<legend>` element.
+  ```html
+    <fieldset>
+      <legend>Contact Details</legend>
+      <label for="name">Name</label>
+      <input type="text">
+    </fieldset>
+  ```
+
+### The `action` and `method` attributes
+* The `action` attribute
+    It also tells the browser where to post the page when it's submitted by providing a URL to the application or script that will process the form.
+    ```html
+    <form action="application.cgi"></form>
+    <form action="application.php"></form>
+    ```
+
+* The `method` attribute
+    The `method` attribute is the HTTP method browsers should use to submit form data. How the info should be sent to the server.  
+    The two methods are `POST` and `GET`. The `method` attribute is optional and will default to `GET` if omitted. `post` and `get` are not case-sensitive.
+
+    + The `POST` method
+      - The browser sends a separate server request containing special headers followed by the data.
+      - Only the server sees the content of this request. Best for personal information.
+      - It is preferable for sending a lot of data; doesn't have a character limit.
+
+    + The `GET` method
+      Here, the encoded data gets tacked right onto the URL sent to the server. 
+      `get http://www.bandname.com/cgi-bin/mailinglist.pl?name=Sally%20Strongarm&email=strongarm%40example.com`
+      + Appropriate if users should be able to bookmark results of a form submission.
+      + Not appropriate for forms with private information.
+      + Cannot be used when uploading a file.
+
+### Form labels
+* Labels
+  Used to provide captions for form controls. The value of `for` attribute should be the same as `id`.
+  ```html
+   <label for="username">Username</label>
+   <input type="text" name="username" id="username">
+
+  <label>Username
+  <input type="text" name="username" id="username">
+  </label>
+   ```
+### Form Inputs
+![Form Inputs](img/html-basic-form-inputs.png)
+
+***If a browser runs into an `<input>` element with a type that it doesn't recognize, it treats it as text.***
+
+1. text
+   * provides a box for short text
+2. password 
+    Though passwords are not visible, they are not encrypted by browser.
+3. checkbox
+   * provides checkboxes; can select multiple
+4. radio
+   * provides buttons; can only select one at a time
+5. `<textarea>`
+     ```html
+      <textarea name="" id="" cols="30" rows="10" title="name" placeholder="name"></textarea>
+     ```
+6. submit
+7. image
+   * allows you upload an image
+8. reset
+9.  button
+10. `<select>` and `<option>`
+11. email
+12. url
+13. search
+    * for search boxes; *not available*
+14. tel
+    * not available
+15. number
+    * Doesn't accept fractions
+    * Though with the `step` attribute, which indicates basically how many decimal places the number can have.
+    ```html
+    <input type="number" id="weight" min="50" max="1000" step="0.1" value="160">
+    ```
+16. range
+    * provides a slider
+    ```html
+    <input type="range" id="weight" min="50" max="1000" value="160">
+    ```
+17. date, month, week, time
+    * Date value can use the `min` and `max` attributes.
+    ![Date data types](img/date-data-types.png)
+18. color
+19. 
+
+### Input Attributes
+* `spellcheck`
+* `autocomplete`
+* `autocorrect`
+* `autocapitalize`
+* `multiple`
+* `disabled`
+* `placeholder`: Provides hint within form control
+* `required`
+* `accept`
+* `formaction`
+* `formenctype`
+* `formmethod`
+* `formnovalidate`
+* `formtarget`
+* `max`
+* `maxlength`
+* `min`
+* `pattern`
+* `readonly`
+* `selectionDirection`
+* `step`
+
+#### Hidden Inputs
+Provide a way to pass data to the server without displaying to users. Typically used for tracking codes, keys, etc.  
+The info can be viewed in the page source, so this should not be used for sensitive info.
+
+`<input type="hidden" name="tracking-code" value="abc-123">`
+
+### Form Dropdowns
+1. The `<select>` element
+   * It shows a list where you can select one or more items.  
+   * The `<option>` element is used with the `<select>` element to list the options.
+   * The `selected` attribute pre-selects an `<option>`
+   * THe `multiple` attribute is used with the `<select>` element to allow multiple selections.
+  
+    ```html
+    <legend>What's Your Number?</legend>
+    <input id="theNumbers">
+      <select>
+      <option value="1" label="number-1">1</option>
+      <option value="2" label="number-2">2</option>
+      <option value="3" label="number-3">3</option>
+      <option value="4" label="number-4">4</option>
+      <option value="5" label="number-5">5</option>
+      <option value="6" label="number-6">6</option>
+      <option value="7" label="number-7">7</option>
+      <option value="8" label="number-8">8</option>
+      <option value="9" label="number-9">9</option>
+      <option value="10" label="number-10">10</option>
+    </select>
+    ```
+    
+2. The `<datalist>` element
+   Gives a way to fuse a drop-down list of suggestions to an ordinary text box.  
+   Gives the ability to choose from a drop-down or type your own option.  
+   The options are presented with the `<option>` element.
+   * The `label` attribute shows the text that appears in the text box
+   * The `value` attribute tracks the text that will be sent to the web server.
+    ```html
+    <legend>What's Your Number?</legend>
+    <input id="theNumbers">
+      <datalist>
+      <option value="1" label="number-1">1</option>
+      <option value="2" label="number-2">2</option>
+      <option value="3" label="number-3">3</option>
+      <option value="4" label="number-4">4</option>
+      <option value="5" label="number-5">5</option>
+      <option value="6" label="number-6">6</option>
+      <option value="7" label="number-7">7</option>
+      <option value="8" label="number-8">8</option>
+      <option value="9" label="number-9">9</option>
+      <option value="10" label="number-10">10</option>
+    </datalist>
+    ```
+
+### Progress Bars and Meters
+
+* Progress Bars  
+    Used to show how far a task has progressed. THe scale is a matter of convenience; the browser doesn't show it.
+    ```html
+    <!--Set percentage of progress-->
+    <progress value="0.25">25%</progress>
+
+    <!--Set max value-->
+    <progress value="50" max="200">25%</progress>
+    
+    <!--Indeterminate progress bar-->
+    <progress>Task in progress...</progress>
+    ```
+* Meters
+   Indicates a value within a known range; a gauge.
+    ```html
+
+    <meter value="50" min="5" max="200">25%</meter>
+
+    <meter value="50" min="5" max="200" high="150" low="13" optimum="65">25%</meter>
+    ``` 
+
+* The `<scale>` element
+
+Content between tags only shows in browsers that don't support the `<progress>` and `<meter>` tags.
+
+**Note**
++ You can add placeholder text in form controls using the `placeholder` attribute.
+  ```html
+    <input type="name" placeholder="Mmedara Umana">
+  ```
+
++ The `autofocus` attribute allows immediate focus on a form control when the user gets on the page.
+  ```html
+    <input type="name" placeholder="Mmedara Umana" autofocus>
+  ```
+* You can place form controls outside the form to which they belong by using the `form` attribute with the `id` of the form.
+   ```html
+    <p>If you're interested in the offer, fill in your details below</p>
+    <input type="text" name="Name" form="myForm" placeholder="Your Name">
+   ``` 
+
+## Form Validation
+
+### Validating in Two Places
+1. Client-side validation
+   These are checks that happen in the browser before a form is submitted.
+
+2. Server-side validation
+   These are checks that happen after the form is submitted / sent back to the server. When there's an issue, an error page should be sent back.
+
+**Note:** You need both types of validation. 
+
+## Turning Validation Off
+
+* To turn off validation, for maybe testing, you use the `novalidate` attribute for the `<form>` element.
+  ```html
+    <form id="form-1" novalidate></form>
+  ```
+
+* Another way is to provide a submit button that bypasses validation.
+  ```html
+    <input type="submit" value="Save for Later" formnovalidate>
+  ```
+
+### Catching Missing Information
+You can't style validation messages, but you can change the appearance of the input fields based on whether or not they are validated.
+
+Pseudo-classes are used to enforce this;
+1. `required` and `optional`
+2. `valid` and `invalid`
+3. `in-range` and `out-of-range` - applies formatting to controls that use the `min` and `max` attributes.
+
+**Note:**  
+You can combine pseudo-classes.  
+Blank values pass validation unless they use the `required` attribute.
+
+### Validation with Regular Expressions
+Regular expressions are designed to match patterned text. It can make sure that a number or an email address has the correct number of letters and is in the right order.
+
+`[A-Z]{3} - [0-9]{3}`
+
+* The first square brackets `[A-Z]` defines the range of allowed characters. 
+
+`[A-Z]` allows any uppercase letter from A to Z.  Same with `[0-9]`.
+`{3}` means you need three uppercase letters.  
+The dash means a dash must follow the three-letter sequence.  
+
+* Regular expressions can be enforced on any `<input>` or `<textarea>` element by adding a `pattern` attribute.
+  ```html
+  <label for="registrationNumber">Registration Number</label>
+  <input id="registrationNumber" placeholder="Name" pattern="[A-Z]{3} - [0-9]{3}">
+  ```
+
+### Custom Validation
+Some JavaScript properties can be used to set custom validation for forms.
+
+1. The `setCustomValidity()` method
+   Lets you write custom validation logic for specific fields and have it work with the HTML5 validation system. Uses the `onInput` event.
+   ```html
+    <label for="comments">What do you want to say?</label>
+    <textarea id="comments" oninput="validateComments(this)"></textarea>
+    ```
+    ```js
+    function validateComments(input) {
+    if (input.value.length < 20) {
+      input.setCustomValidity("You need to comment in more detail.");
+    }
+  else {
+  // There's no error. Clear any error message.
+  input.setCustomValidity("");
+  }
+  }
+  ```
+
+# Creating editable content
+```html
+  <div id="editableElement" contenteditable="true">This text can be edited.</div>
+```
+ You could also use the `designMode` property, but it edits the whole page.
