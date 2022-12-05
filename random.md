@@ -1,5 +1,17 @@
-# How the Web Works
+- [References](#references)
+- [How the Web Works](#how-the-web-works)
+  - [The Internet vs The Web](#the-internet-vs-the-web)
+  - [Serving up Information](#serving-up-information)
+  - [About Browsers](#about-browsers)
+  - [Intranets and Extranets](#intranets-and-extranets)
+  - [Web Page Addresses (URLs)](#web-page-addresses-urls)
+  - [Parts of a URL](#parts-of-a-url)
+- [Some Concepts to Know](#some-concepts-to-know)
+
+# References
 > Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, *4th Edition* by Jennifer Niederst Robbins
+
+# How the Web Works
 
 ## The Internet vs The Web
 The *Internet* is a network of connected computers, owned by no one. It is a cooperative effort governed by a system of standards and rules.  
