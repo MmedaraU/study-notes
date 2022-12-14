@@ -92,6 +92,16 @@
     - [Validation with Regular Expressions](#validation-with-regular-expressions)
     - [Custom Validation](#custom-validation)
 - [Creating editable content](#creating-editable-content)
+- [HTML Media](#html-media)
+  - [Images](#images)
+    - [Image Formats](#image-formats)
+      - [The `gif` format](#the-gif-format)
+      - [The `jpeg` format](#the-jpeg-format)
+      - [The `png` format](#the-png-format)
+      - [The `svg` format](#the-svg-format)
+  - [Audio](#audio)
+  - [Video](#video)
+  - [The `<iframe>` element](#the-iframe-element)
 
 # References
 > HTML5: The Missing Manual, *2nd Edition* by Matthew MacDonald  
@@ -619,6 +629,7 @@ This is an inline element.
 </p>
 ```
 **Note: Browsers should automatically add quotation marks around `<q>` and `<blockquote>` elements, so you don't have to include them in the source document.**
+
 ![HTML Quotes](img/html-quote.png)
 
 #### Pre-formatted text `<pre>`
@@ -1149,7 +1160,7 @@ The info can be viewed in the page source, so this should not be used for sensit
     </select>
     ```
     
-2. The `<datalist>` element
+2. The `<datalist>` element  
    Gives a way to fuse a drop-down list of suggestions to an ordinary text box.  
    Gives the ability to choose from a drop-down or type your own option.  
    The options are presented with the `<option>` element.
@@ -1218,10 +1229,10 @@ Content between tags only shows in browsers that don't support the `<progress>` 
 ## Form Validation
 
 ### Validating in Two Places
-1. Client-side validation
+1. Client-side validation  
    These are checks that happen in the browser before a form is submitted.
 
-2. Server-side validation
+2. Server-side validation  
    These are checks that happen after the form is submitted / sent back to the server. When there's an issue, an error page should be sent back.
 
 **Note:** You need both types of validation. 
@@ -1270,9 +1281,9 @@ The dash means a dash must follow the three-letter sequence.
 ### Custom Validation
 Some JavaScript properties can be used to set custom validation for forms.
 
-1. The `setCustomValidity()` method
+1. The `setCustomValidity()` method  
    Lets you write custom validation logic for specific fields and have it work with the HTML5 validation system. Uses the `onInput` event.
-   ```html
+  ```html
     <label for="comments">What do you want to say?</label>
     <textarea id="comments" oninput="validateComments(this)"></textarea>
     ```
@@ -1281,11 +1292,11 @@ Some JavaScript properties can be used to set custom validation for forms.
     if (input.value.length < 20) {
       input.setCustomValidity("You need to comment in more detail.");
     }
-  else {
-  // There's no error. Clear any error message.
-  input.setCustomValidity("");
-  }
-  }
+    else {
+    // There's no error. Clear any error message.
+    input.setCustomValidity("");
+    }
+    }
   ```
 
 # Creating editable content
@@ -1293,3 +1304,105 @@ Some JavaScript properties can be used to set custom validation for forms.
   <div id="editableElement" contenteditable="true">This text can be edited.</div>
 ```
  You could also use the `designMode` property, but it edits the whole page.
+
+# HTML Media
+## Images
+The `<img>` element is a self-containing, or empty element; doesn't wrap any other content and it exists as a single tag.  
+It is an inline element.
+```html
+  <img src="img/image.png" alt="A beautiful image of a planet">
+  <img src="img/image.png" alt="A beautiful image of a planet" width="72" height="72">
+```
+
+The `alt` attribute value is picked up by search engines and assistive technologies to help. Even if it isn't being used, don't omit it.  
+The `src` attribute is a url that shows where the image file is.  
+By default, images align with the baseline of text.
+
+### Image Formats
+#### The `gif` format  
+**The Graphic Interchange Format** was the first format supported by browsers.  
+Offers transparency and the ability to include animations.
+Appropriate for images with flat colours and hard edges or when transparency or animation is required. Best for logos, line art, icons,etc.  
+Works nicely for images with a combination of small amounts of photographic imagery, and large, flat areas of colour.  
+Adopted for versatility, small file sies, cross-platform compatibility.  
+Excels at compressing 
+
+1. 8-bit indexed colour
+    Can contain up to 256 colors (2<sup>8</sup>). Indexed colour means set of colours in image are stores in a colour table or colour map.  
+    Each pixel contains a  numeric reference. index to a position in the colour table.
+    
+    ![2-bit index colour image and table](img/2-bit-index-colour-table-and-image.png)
+    For a 2-bit image, there are 2<sup>2</sup>(4) colour slots in the table. For 8-bit, there are 2<sup>8</sup>(256) slots
+2. Gif compression
+   Gif compression is lossless - no image info is sacrificed to compress the indexed image.  
+   If there is any sacrifice, it is often due to a change to the limited colour palette for gifs.
+
+3. Transparency
+    Can make parts of the image transparent.
+
+4. Interlacing
+   Makes image appear in series of passes or gradually; from blurry to clear. When interlacing, gifs fill in horizontal rows.
+5. Animation
+   USes a flip-book animation concept - series of frames moving quickly.
+
+#### The `jpeg` format  
+**Joint Photographic Experts Group**
+Works best with images with smooth color blends, and photographic images. Images with a lot of detail.
+
+1. 24-bit truecolor images
+   They do not use palettes, but are capable of displaying colors from the millions of colours in the RGB color space.
+
+2. Lossy compression
+   Some image information is thrown out.
+
+3. Progressive jpegs
+   Similar to interlacing. Some programs let you specify how many passes it takes. (I think this is what Twitter and WhatsApp use.)
+
+4. Decompression
+   Need to be decompressed before displayed. Takes longer to decode and assemble a jpeg than a gif.
+
+#### The `png` format  
+**Portable Network Graphic**
+Can contain any image type, but especially efficient for storing images with flat colours.  
+It is the only format that allows multiple levels of transparency.
+
+1. Multiple image formats
+  * 8-bit indexed colour images
+    Can store 8-bit indexed images. May also be saved at 1-, 2-, and 4-bit depths. Indexed `pngs` are generally referred to as `png-8`.
+    
+  * RGB/Truecolor (24- and 48-bit)
+    Each colour channel (RGB) can bedefined by 8-bit or 16-bit information resulting in 24-bit or 48-bit RGB images (`png-24` for 24-bit).  
+    24-bit images are useless for the Web, and 24-bit should be used with care, 'cause of size.
+
+  * Grayscale
+    Pngs can support 16-bit grayscale images (about 65,536 shades of gray). This enable black-and-white images to be stored with great detail. Not appropriate for the Web.
+
+2. Transparency
+    Able to contain multiple levels of transparency, referred to as alpha-channel/alpha transparency.
+
+3. Progressive display
+    Similar to interlacing. Pngs can be coded for this, and it occurs in a series of seven passes. They fill in both horizontally and vertically.
+    However, this adds to the file size.
+
+4. Gamma correction
+    *Gamma* refers to the brightness setting of a monitor. Pngs can be tagged with info regarding the gamma setting they wee created in, which is then interpreted to make gamma compensations. Helps png retain intended brightness and colour intensity.
+
+5. Embedded text
+    Have the ability to store strings of text. Useful for permanently attached text, such as copyright information or image description.
+    
+#### The `svg` format  
+
+
+
+## Audio
+
+
+## Video
+
+## The `<iframe>` element
+Used for displaying a website within another website.
+```html
+<iframe src="index.html" frameborder="0" width="100" height="100">
+  Your browser doesn't support inline frames.
+</iframe>
+```
