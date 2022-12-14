@@ -99,6 +99,7 @@
       - [The `jpeg` format](#the-jpeg-format)
       - [The `png` format](#the-png-format)
       - [The `svg` format](#the-svg-format)
+    - [Image Transparency](#image-transparency)
   - [Audio](#audio)
   - [Video](#video)
   - [The `<iframe>` element](#the-iframe-element)
@@ -1391,9 +1392,22 @@ It is the only format that allows multiple levels of transparency.
     Have the ability to store strings of text. Useful for permanently attached text, such as copyright information or image description.
     
 #### The `svg` format  
+**Scalable Vector Graphics**
+Vector image format, not bitmapped/raster like the others.  
+It contains instructions for drawing shpaes instead of grids of pixels.  
+* Great choice for icons, logos, charts and other line drawings.  
+* Not appropriate for photographic imagery.  
+* They can scale very large without any change in quality.
 
+### Image Transparency
+1. Binary Transparency
+    Pixels are entirely transparent or entirely opaque. Supported by gif and png.  
+    Here, transparency is basically given a slot on the color table. Have a probability of creating `halos`.  
+    Halos occur as a result when the image no longer matches the background. Technically, the result of anti-liased edges that have been blended with a colour other than the background colour of a page.
 
-
+2. Alpha/Alpha-channel Transparency
+    Up to 256 channels of transparency ranging from totally opaque to totally transparent. Blend seamlessly with any background colour or pattern.  
+    Alpha channel is added to the RGB channel (RGBa).
 ## Audio
 
 
