@@ -100,7 +100,7 @@
       - [The `png` format](#the-png-format)
       - [The `svg` format](#the-svg-format)
     - [Image Transparency](#image-transparency)
-    - [The `<figure>` element](#the-figure-element)
+  - [The `<figure>` element](#the-figure-element)
   - [Audio](#audio)
     - [Audio Fallbacks](#audio-fallbacks)
     - [Audio Formats](#audio-formats)
@@ -285,7 +285,7 @@ The `name` attribute specifies a name for the metadata.
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta http-equiv="content-security-policy" content="...">
-  <!--Aloows page authors specify a content policy for the page.-->
+  <!--Allows page authors specify a content policy for the page.-->
 
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <!--declares the MIME type and character encoding of the document.-->
@@ -1339,7 +1339,7 @@ By default, images align with the baseline of text.
 Offers transparency and the ability to include animations.
 Appropriate for images with flat colours and hard edges or when transparency or animation is required. Best for logos, line art, icons,etc.  
 Works nicely for images with a combination of small amounts of photographic imagery, and large, flat areas of colour.  
-Adopted for versatility, small file sies, cross-platform compatibility.  
+Adopted for versatility, small file sizes, cross-platform compatibility.  
 Excels at compressing 
 
 1. 8-bit indexed colour
@@ -1386,7 +1386,7 @@ It is the only format that allows multiple levels of transparency.
     Can store 8-bit indexed images. May also be saved at 1-, 2-, and 4-bit depths. Indexed `pngs` are generally referred to as `png-8`.
     
   * RGB/Truecolor (24- and 48-bit)
-    Each colour channel (RGB) can bedefined by 8-bit or 16-bit information resulting in 24-bit or 48-bit RGB images (`png-24` for 24-bit).  
+    Each colour channel (RGB) can be defined by 8-bit or 16-bit information resulting in 24-bit or 48-bit RGB images (`png-24` for 24-bit).  
     24-bit images are useless for the Web, and 24-bit should be used with care, 'cause of size.
 
   * Grayscale
@@ -1408,7 +1408,7 @@ It is the only format that allows multiple levels of transparency.
 #### The `svg` format  
 **Scalable Vector Graphics**
 Vector image format, not bitmapped/raster like the others.  
-It contains instructions for drawing shpaes instead of grids of pixels.  
+It contains instructions for drawing shapes instead of grids of pixels.  
 * Great choice for icons, logos, charts and other line drawings.  
 * Not appropriate for photographic imagery.  
 * They can scale very large without any change in quality.
@@ -1423,8 +1423,8 @@ It contains instructions for drawing shpaes instead of grids of pixels.
     Up to 256 channels of transparency ranging from totally opaque to totally transparent. Blend seamlessly with any background colour or pattern.  
     Alpha channel is added to the RGB channel (RGBa).
 
-### The `<figure>` element
-``html
+## The `<figure>` element
+```html
 <figure>
   <img src="dog.jpg" alt="A beautiful black, brown, and white hound dog wearing a kerchief.">
 </figure>
@@ -1488,18 +1488,18 @@ When a browser recognizes a file format, it downloads that and ignores the other
 
 ### Audio Formats
 1. MP3
-    **File extension**: `.mp3`
-    **Mime type**: audio/mp3
+    **File extension**: `.mp3`  
+    **Mime type**: audio/mp3  
     Most popular audio format.
 
 2. Ogg Vorbis
-    **File extension**: `.ogg`
-    **Mime type**: audio/ogg
+    **File extension**: `.ogg`  
+    **Mime type**: audio/ogg  
     Free, open standard that offers quality, compressed audio comparable to mp3.
 
 3. WAV
-    **File extension**: `.wav`
-    **Mime type**: audio/wav
+    **File extension**: `.wav`  
+    **Mime type**: audio/wav  
     The original format for raw digital audio. Doesn't use compression so file sizes are large and unsuitable for most web uses.
 
 ## Video
@@ -1546,23 +1546,23 @@ Could also use Flash.
 The H.264-encoded file should always come first.
 
 ### Video Formats/Codecs
-1. H.264
-    **File extension**: `.mp4`
-    **Mime type**: video/mp4
-    **Audio codec**: mp3
-    **Container format**: MPEG-4
+1. H.264  
+    **File extension**: `.mp4`  
+    **Mime type**: video/mp4  
+    **Audio codec**: mp3  
+    **Container format**: MPEG-4  
     Industry standard for video encoding, particularly when dealing with HD video.
 
-2. Ogg Theora
-    **File extension**: `.ogv`
-    **Mime type**: video/ogg
-    **Audio codec**: Vorbis
-    **Container format**: Ogg
+2. Ogg Theora  
+    **File extension**: `.ogv`  
+    **Mime type**: video/ogg  
+    **Audio codec**: Vorbis  
+    **Container format**: Ogg  
     Free open standard for video by creators of the Vorbis audio standard. Quality not up to H.264 but good enough.
 
-3. WebM
-    **File extension**: `.webm`
-    **Mime type**: video/webm
+3. WebM  
+    **File extension**: `.webm`  
+    **Mime type**: video/webm  
     Created when Google purchased VPB and made it a free standard.
 
 The **video codec** compresses the video into a stream of data e.g H.264, Theora, WebM.
