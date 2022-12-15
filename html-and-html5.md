@@ -110,6 +110,13 @@
     - [Video Captions](#video-captions)
       - [Adding Captions to videos](#adding-captions-to-videos)
   - [Media Groups](#media-groups)
+- [Tables](#tables)
+    - [Table Structure](#table-structure)
+  - [Combining Multiple Cells](#combining-multiple-cells)
+  - [Table Borders](#table-borders)
+    - [For space between borders](#for-space-between-borders)
+    - [Adding Borders to Rows](#adding-borders-to-rows)
+    - [Table Striping](#table-striping)
 
 # References
 > HTML5: The Missing Manual, *2nd Edition* by Matthew MacDonald  
@@ -1488,7 +1495,7 @@ When a browser recognizes a file format, it downloads that and ignores the other
 2. Ogg Vorbis
     **File extension**: `.ogg`
     **Mime type**: audio/ogg
-    Free, open standard that offers qyality, compressed audio comparable to mp3.
+    Free, open standard that offers quality, compressed audio comparable to mp3.
 
 3. WAV
     **File extension**: `.wav`
@@ -1643,3 +1650,232 @@ The files have to be assigned the same `mediagroup` name
 <video src="game-cam1" controls mediagroup="goal-25"></video>
 <audio src="game-cam2" controls mediagroup="goal-25"></video>
 ```
+
+# Tables
+```html
+<table>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Availability</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+    </tr>
+    <tr>
+      <th scope="row">Book 1</th>
+      <td>In Stock</td>
+      <td>2</td>
+      <td>12.00</td>
+    </tr>
+    <th scope="row">Book 2</th>
+    <td>Out of Stock</td>
+    <td>0</td>
+    <td>22.00</td>
+    </tr>
+  </table>
+```
+
+The `<table>` element initializes the table.
+
+The `<tr>` element indicates table rows.
+
+The `<td>` element represents table data within data cells. The `<td>` element is placed in the `<tr>` element.  
+The columns in a row are created based on how many `<tr>` elements there are.
+
+The `<th>` element indicates the table header. It works just like the `<tr>` element by creating rows. Purely for semantic value.  
+Table headers may be placed within both rows and columns.  
+The `scope` attribute indicates exactly what content a table header relates to. The four values are `row`, `col`, `colgroup`, `rowgroup`.
+![Basic Table](img/html-table.png)
+
+### Table Structure
+```html
+  <table>
+    <caption>Books to get</caption>
+
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Availability</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <th scope="row">Book 1</th>
+        <td>In Stock</td>
+        <td>2</td>
+        <td>12.00</td>
+      </tr>
+      <th scope="row">Book 2</th>
+      <td>Out of Stock</td>
+      <td>0</td>
+      <td>22.00</td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td>Subtotal</td>
+        <td></td>
+        <td></td>
+        <td>34.00</td>
+      </tr>
+      <tr>
+        <td>Tax</td>
+        <td></td>
+        <td></td>
+        <td>24.35</td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td>58.35</td>
+      </tr>
+    </tfoot>
+  </table>
+```
+
+The `<caption>` element is used to provide a caption of title for a table. It must come immediately after the opening `table` tag, and is positioned at the top of the table by default.
+
+Content in a table can be further grouped into head, body and foot.  
+The `<thead>` element wraps the heading row(s) of the table. It should be placed at the top of the table after the caption.  
+The `<tbody>` element indicates the main content after the head.  
+The `<tfoot>` element indicates data that outlines the contents of a table.
+
+## Combining Multiple Cells
+```html
+  <table>
+    <caption>Books to get</caption>
+
+    <thead>
+      <tr>
+        <th scope="col" colspan="2">Item</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <th scope="row">Book 1</th>
+        <td>In Stock</td>
+        <td>2</td>
+        <td>12.00</td>
+      </tr>
+      <th scope="row">Book 2</th>
+      <td>Out of Stock</td>
+      <td>0</td>
+      <td>22.00</td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="3">Subtotal</td>
+        <td>34.00</td>
+      </tr>
+      <tr>
+        <td colspan="3">Tax</td>
+        <td>24.35</td>
+      </tr>
+      <tr>
+        <td colspan="3">Total</td>
+        <td>58.35</td>
+      </tr>
+    </tfoot>
+  </table>
+```
+The `colspan` attribute is used to combine columns.  
+The `rowspan` attribute is used to combine rows.
+![Combining Table Cells](img/html-combining-table-cells.png)
+
+
+## Table Borders
+Set with css
+```css
+  table {
+border-collapse: collapse;
+}
+  th, td {
+border: 1px solid #c6c7cc;
+padding: 10px 15px;
+}
+```
+![Table Borders](img/html-table-borders.png)
+
+
+
+### For space between borders
+```css
+    table {
+      border-collapse: separate;
+      border-spacing: 4px;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #c6c7cc;
+    }
+
+    th,
+    td {
+      padding: 10px 15px;
+    }
+```
+![Table Border Spacing](img/html-table-border-spacing.png)
+
+
+### Adding Borders to Rows
+```css
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid #c6c7cc;
+      padding: 10px 15px;
+    }
+
+    tfoot tr:last-child td {
+      border-bottom: 0;
+    }
+```
+Borders cannot be applied to `<tr>`
+![Table borders to rows](img/html-table-borders-to-rows.png)
+
+### Table Striping
+Applying alternating colors to rows
+```css
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    th,
+    td {
+      padding: 10px 15px;
+    }
+
+    thead {
+      background: #395870;
+      color: #fff;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f0f0f2;
+    }
+
+    td {
+      border-bottom: 1px solid #c6c7cc;
+      border-right: 1px solid #c6c7cc;
+    }
+
+    td:first-child {
+      border-left: 1px solid #c6c7cc;
+    }
+```
+![Table Striping](img/html-table-striping.png)
