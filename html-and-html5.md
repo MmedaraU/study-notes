@@ -100,9 +100,16 @@
       - [The `png` format](#the-png-format)
       - [The `svg` format](#the-svg-format)
     - [Image Transparency](#image-transparency)
+    - [The `<figure>` element](#the-figure-element)
   - [Audio](#audio)
+    - [Audio Fallbacks](#audio-fallbacks)
+    - [Audio Formats](#audio-formats)
   - [Video](#video)
-  - [The `<iframe>` element](#the-iframe-element)
+    - [Video Fallbacks](#video-fallbacks)
+    - [Video Formats/Codecs](#video-formatscodecs)
+    - [Video Captions](#video-captions)
+      - [Adding Captions to videos](#adding-captions-to-videos)
+  - [Media Groups](#media-groups)
 
 # References
 > HTML5: The Missing Manual, *2nd Edition* by Matthew MacDonald  
@@ -1408,10 +1415,203 @@ It contains instructions for drawing shpaes instead of grids of pixels.
 2. Alpha/Alpha-channel Transparency
     Up to 256 channels of transparency ranging from totally opaque to totally transparent. Blend seamlessly with any background colour or pattern.  
     Alpha channel is added to the RGB channel (RGBa).
-## Audio
 
+### The `<figure>` element
+``html
+<figure>
+  <img src="dog.jpg" alt="A beautiful black, brown, and white hound dog wearing a kerchief.">
+</figure>
+```
+A block-level element used to identify and wrap self-contained content, often in the form of media.
+It may surround images, audio clips, videos, blocks of code, diagrams, illustrations, or other self-contained media.  
+More than one item can be contained in a `<figure>` element. If moved out of the page,it should not disrupt the content or legibility of page.
+
+To add a caption or legend to a figure, the `<figcaption>` element is used. It may appear anywhere within the figure element.  
+The `<figcaption>` may replace the `alt` attribute if descriptive enough.
+```html
+<figure>
+  <img src="dog.jpg">
+  <figcaption>A beautiful black, brown, and white hound dog wearing a kerchief.</figcaption>
+</figure>
+```
+![Figure with Caption](img/html-figure-with-caption.png)
+## Audio
+```html
+<audio src="sound.mp3" controls></audio>
+
+<!--Preload attribute-->
+<audio src="sound.mp3" controls preload="metadata"></audio>
+<audio src="sound.mp3" controls preload="none"></audio>
+<audio src="sound.mp3" controls preload="auto"></audio>
+
+<!--Autoplay attribute-->
+<audio src="sound.mp3" controls autoplay></audio>
+
+<!--Loop attribute-->
+<audio src="sound.mp3" controls loop></audio>
+```
+The `src` attribute points to the the audio file to be played.
+The `controls` attribute tells the browser to include a basic set of playback controls.  
+
+The `preload` attribute tells the browser how it should download a media file.
+1. `auto` - Tells browser to start downloading whole file, so it's available when the play button is clicked.
+2. `metadata` - Tells browser to grab first small chunk of data from file to determine basic details, such as length of audio.
+3. `none` - Tells the browser to hold off completely.
+Different browsers choose their own default action.
+
+The `autoplay` attribute tells the browser to start playback once page is done loading.
+
+The `loop` attribute tells the browser to start over when playback ends.
+
+
+### Audio Fallbacks
+Different browsers support different audio file formats
+
+```html
+<audio controls>
+  <source src="jazz.ogg" type="audio/ogg">
+  <source src="jazz.mp3" type="audio/mpeg">
+  <source src="jazz.wav" type="audio/wav">
+  Please <a href="jazz.mp3" download>download</a> the audio file. 
+</audio>
+```
+Could also use Flash.
+
+When a browser recognizes a file format, it downloads that and ignores the others. If any browser doesn't recognize any, then there is a link to download the file.
+
+### Audio Formats
+1. MP3
+    **File extension**: `.mp3`
+    **Mime type**: audio/mp3
+    Most popular audio format.
+
+2. Ogg Vorbis
+    **File extension**: `.ogg`
+    **Mime type**: audio/ogg
+    Free, open standard that offers qyality, compressed audio comparable to mp3.
+
+3. WAV
+    **File extension**: `.wav`
+    **Mime type**: audio/wav
+    The original format for raw digital audio. Doesn't use compression so file sizes are large and unsuitable for most web uses.
 
 ## Video
+```html
+<video src="video.mp4" controls></video>
+
+<!--Preload attribute-->
+<video src="video.mp4" controls preload="metadata"></video>
+<video src="video.mp4" controls preload="none"></video>
+<video src="video.mp4" controls preload="auto"></video>
+
+<!--Autoplay attribute-->
+<video src="video.mp4" controls autoplay></video>
+
+<!--Loop attribute-->
+<video src="video.mp4" controls loop></video>
+
+<!--Poster attribute-->
+<video src="video.mp4" controls poster="video-cover-image.jpg"></video>
+
+<!--muted attribute-->
+<video src="video.mp4" controls muted></video>
+```
+
+If the `controls` attribute is  ott added, the video is not displayed. 
+
+The `poster` attribute lets us specify an image in the form of a URL to be shown before a video is played. The poster image is used in three situations
+1. If first frame hasn't been downloaded yet
+2. If you've set the `preload` attribute to `none`
+3. If the selected video wasn't found
+
+The `muted` attribute shuts off sound. Advisable when video is on autoplay.
+
+### Video Fallbacks
+```html
+<video controls>
+  <source src="video.mp4" type="video/mp4">
+    <source src="video.webm" type="video/webm">
+  Please <a href="video.mp4" download>download</a> the video file. 
+</video>
+```
+Could also use Flash.
+
+The H.264-encoded file should always come first.
+
+### Video Formats/Codecs
+1. H.264
+    **File extension**: `.mp4`
+    **Mime type**: video/mp4
+    **Audio codec**: mp3
+    **Container format**: MPEG-4
+    Industry standard for video encoding, particularly when dealing with HD video.
+
+2. Ogg Theora
+    **File extension**: `.ogv`
+    **Mime type**: video/ogg
+    **Audio codec**: Vorbis
+    **Container format**: Ogg
+    Free open standard for video by creators of the Vorbis audio standard. Quality not up to H.264 but good enough.
+
+3. WebM
+    **File extension**: `.webm`
+    **Mime type**: video/webm
+    Created when Google purchased VPB and made it a free standard.
+
+The **video codec** compresses the video into a stream of data e.g H.264, Theora, WebM.
+
+The **audio codec** compresses one or more tracks of audio using a related standard. e.g H.264 uses mp3, Theora uses Vorbis.
+
+The **container format** packages everything together with some descriptive information, and optionally other frills like still images and subtitles. Often correlates to file extension. e.g MPEG-4 for `mp4`, Ogg for `.ogv`.  
+Most container formats support a range of different video and audio formats. E.g Matroska container `.mkv` can hold video thats encoded with H.264 or Theora.
+
+A **MIME type** or content type is a piece of information that determines the type of content in a web resource. E.g text/html. text/css, audio/mp3.  
+Before a resource is sent to a web server, the MIME type is sent first.
+
+### Video Captions
+A *subtitle* is a caption that appears superimposed over video.
+A *timed text track* is a sequence of subtitles.
+
+```vtt
+00:00:05.000 --> 00:00:10.000
+This caption appears 5 seconds in and lingers until the 10 second mark.
+
+00:01:00.000 --> 00:01:10.000
+Now 1 minute has passed. Think about that for 10 seconds.
+
+00:01:10.000 --> 00:01:15.000
+This caption appears immediately after the second caption disappears.
+
+00:01:30.000 --> 00:01:35.000
+Captions can use <i>line breaks</i> and <b>simple</b> HTML markup
+```
+#### Adding Captions to videos
+You can add captions using the `<track>` element.
+```html
+<video controls width="700" height="400">
+<source src="butterfly.mp4" type="video/mp4">
+<source src="butterfly.webm" type="video/webm">
+<track src="butterfly.vtt" srclang="en" kind="subtitles" label="English" default>
+</video>
+```
+There are five choice for the `kind` attribute.
+1. **Subtitles**: Text consists of transcriptions or translations of dialogue.
+2. **Captions**: Text includes dialogue and descriptions for sound effects and musical cues.
+3. **Descriptions**: Text that can replace the video when its not available and may be spoken by speech synthesis.
+4. **Chapters**: Chapter titles, which viewers can use as a navigation aid.
+5. **Metadata**: Bits of information you can retrieve in your JS code.
+Its up to another tool to retrieve the value of the `kind` attribute and act on it.
+
+The `label` attribute sets the text in the video player's caption menu. Useful for switching between multiple tracks.
+The `default` attribute determines which is picked first.
+```html
+<video controls width="700" height="400">
+<source src="butterfly.mp4" type="video/mp4">
+<source src="butterfly.webm" type="video/webm">
+<track src="butterfly.vtt" srclang="en" kind="subtitles" label="English" default>
+<track src="butterfly_fr.vtt" srclang="fr" kind="subtitles" label="French">
+
+</video>
 
 ## The `<iframe>` element
 Used for displaying a website within another website.
@@ -1419,4 +1619,27 @@ Used for displaying a website within another website.
 <iframe src="index.html" frameborder="0" width="100" height="100">
   Your browser doesn't support inline frames.
 </iframe>
+
+<!--Seamless attribute-->
+<iframe src="index.html" seamless>
+  Your browser doesn't support inline frames.
+</iframe>
+```
+
+By default, styles applied to inline frames will not be applied to pages within the frame.
+
+The `seamless` attribute allows styles from page be applied to page within frame. It also allows links clicked within page in frame to be opened in the current page instead of in the frame.
+
+## Media Groups
+The `mediagroup` attribute is used to link multiple media files together, so playback is synchronized.  
+The files have to be assigned the same `mediagroup` name
+
+```html
+<video src="game-cam1" controls mediagroup="goal-25"></video>
+<video src="game-cam2" controls mediagroup="goal-25"></video>
+```
+
+```html
+<video src="game-cam1" controls mediagroup="goal-25"></video>
+<audio src="game-cam2" controls mediagroup="goal-25"></video>
 ```
