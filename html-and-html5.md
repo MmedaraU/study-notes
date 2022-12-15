@@ -1879,3 +1879,5 @@ Applying alternating colors to rows
     }
 ```
 ![Table Striping](img/html-table-striping.png)
+
+**To align text in a table, use the `vertical-align` property. It works only with inline or table-cell elements.**Can also use text-align.
