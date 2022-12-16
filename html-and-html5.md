@@ -119,11 +119,11 @@
     - [Table Striping](#table-striping)
 
 # References
-> HTML5: The Missing Manual, *2nd Edition* by Matthew MacDonald  
+> **HTML5: The Missing Manual, 2nd Edition** by *Matthew MacDonald*  
 > 
-> Learn to Code HTML and CSS: Develop and Style Websites by Shay Howe 
+> **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe* 
 >  
-> Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, *4th Edition* by Jennifer Niederst Robbins
+> **Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, 4th Edition** by *Jennifer Niederst Robbins*
 > 
 >> **All screenshots of the exercises tried out are from the Google Chrome browser, version 104.0.5112.102**
 
