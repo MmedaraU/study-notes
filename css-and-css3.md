@@ -26,6 +26,10 @@
       - [Child Pseudo-elements](#child-pseudo-elements)
     - [SIbling Selector](#sibling-selector)
     - [The `:not()` selector](#the-not-selector)
+- [Inheritance](#inheritance)
+- [The Cascade](#the-cascade)
+- [Specificity](#specificity)
+  - [Overriding Specificity](#overriding-specificity)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -66,7 +70,7 @@ selector {
 1. Inline  
     Usually placed between HTML tags. Styles only apply to that element.
     ```html
-    <h1 style="color:#666"></h1>
+    <h1 style="color:#666;"></h1>
     ```
 
 2. Internal Style Sheets  
@@ -98,6 +102,36 @@ selector {
       </head>
     ```
 
+**Note**: Imported styles have to be placed before internal styles, and before style in an external style sheet.
+```html
+  <style>
+    @import url (css/styles.css);
+  </style>
+  
+  <link rel="stylesheet" href="main.css">
+
+  <style>
+    table {border-collapse: separate; border-spacing: 0;}
+  </style>
+```
+OR
+
+```css
+/*External Style Sheet - main.css*/
+@import url (css/styles.css);
+....
+```
+
+```html
+<!--HTML-->
+<head>
+  <link rel="stylesheet" href="main.css">
+...
+  <style>
+    table {border-collapse: separate; border-spacing: 0;}
+  </style>
+</head>
+```
 ## Comments
 ```css
 /*This is a comment in CSS*/
@@ -319,3 +353,54 @@ p:not(.sentence-one) {...}
 ```
 
 1. Can't be used with descendant selectors, pseudo-elements, group selectors or combinators.
+
+
+# Inheritance
+Descendants inherit properties from ancestors.  
+
+Doesn't just apply to tag styles. Also, class styles, ID styles, etc.
+
+Some CSS properties are not inherited. Examples are `border`, `vertical-align`, `white-space`, `margin`, `padding`, etc.
+
+# The Cascade
+The cascade governs how styles interact and which styles get precedence when there's a conflict.
+
+The cascade is a set of rules for determining which style properties get applied to an element. It specifies how a web browser should handle multiple styles when applied to the same tag and what to do when CSS properties conflict.
+
+1. The last style applied to a tag based on its position on the style sheet is the one implemented. All styles cascade from the top of the style sheet to the bottom.
+  ```css
+  p {color:orange;}
+  ...
+  p {color:green;}
+  /*The paragraph will be green*/
+  ```
+
+2. The most specific style is applied to the element
+  ```css
+  .paragraph {color:orange;}
+  ...
+  p {color:green;}
+  /*The paragraph will be orange*/
+  ```
+
+# Specificity
+Every selector has a specificity weight. A selector's specificity weight coupled with its placement in the cascade identifies how styles will be rendered.
+
+In order of importance: 
+**Inline Style - ID - Class - Type**
+
+The higher the specificity weight of a selector, the more superiority it is given when a conflict occurs.
+
+## Overriding Specificity
+Using the `!important` tag
+  ```css
+  p {color:orange !important;} 
+  ...
+  p {color:green;}
+  /*The paragraph will be orange*/
+  ```
+
+**Note**
+1. `!important` only works on individual properties, not entire styles.
+2. When two styles have `!important` tag, the more specific style wins.
+
