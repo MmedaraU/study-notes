@@ -35,6 +35,13 @@
   - [Hexadecimal Color Notation](#hexadecimal-color-notation)
   - [RGB / RGBa](#rgb--rgba)
   - [HSL / HSLa](#hsl--hsla)
+- [Size/Length Values](#sizelength-values)
+  - [Absolute Units](#absolute-units)
+    - [Pixels](#pixels)
+  - [Relative Units](#relative-units)
+    - [Keywords](#keywords)
+    - [Percentages](#percentages)
+    - [Ems](#ems)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -508,3 +515,64 @@ p {
   color: hsla(0, 100%, 50%, 0.3); /*Bright red*/
 }
 ```
+
+# Size/Length Values
+These are the values used when indicating length, width or size in CSS.
+
+## Absolute Units
+Absolute units are best used for the print style sheets.
+
+### Pixels
+Essentially, a pixel in CSS is supposed to match to a pixel on a screen. That isn't necessarily the case.
+
+Equal to 1/96 of an inch.
+
+```css
+div {
+  border-width: 1px;
+}
+```
+
+**Other absolute units include**
+* `pt` - points; 1/72 inch
+* `pc` - picas; equal to 12 points
+* `mm`
+* `cm`
+* `in`
+
+## Relative Units
+
+### Keywords
+`font-size: x-small;`
+
+1. xx-small
+2. x-small
+3. small
+4. medium: same as base size.
+5. large
+6. x-large
+7. xx-large
+8. larger
+9. smaller
+
+### Percentages
+`font-size: 100%;`
+
+Usually relative to the parent element or base (font) size.
+* 100% - base size
+
+### Ems
+In typography, `em` refers to the size of a capital *M* for a particular font.
+
+In CSS, it is calculated based on element's font size.
+**1 em = 100%**
+
+For consistency, set body `width` to 100% when using ems. Mind the nesting.
+
+**Other relative units include**
+* `ex` - x-height; relative to height of lowercase *x*
+* `ch` - zero width; equal to width of zero
+* `vw` - viewport width unit
+* `vh` - viewport height unit
+* `vm` - viewport minimum unit
+* `rem` - root em; relative to em size of root element (html)
