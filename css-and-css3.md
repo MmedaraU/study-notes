@@ -30,12 +30,18 @@
 - [The Cascade](#the-cascade)
 - [Specificity](#specificity)
   - [Overriding Specificity](#overriding-specificity)
+- [Colors](#colors)
+  - [Keyword Colors](#keyword-colors)
+  - [Hexadecimal Color Notation](#hexadecimal-color-notation)
+  - [RGB / RGBa](#rgb--rgba)
+  - [HSL / HSLa](#hsl--hsla)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
 > 
 > **CSS3: The Missing Manual** by *David Sawyer McFarland*
 > 
+> **Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, 4th Edition** by *Jennifer Niederst Robbins*
 
 
 # Introduction
@@ -404,3 +410,101 @@ Using the `!important` tag
 1. `!important` only works on individual properties, not entire styles.
 2. When two styles have `!important` tag, the more specific style wins.
 
+
+
+
+# Colors
+
+## Keyword Colors
+These values are just the names of the colors you intend to use. Most common colors have keywords, and a few weird ones.  
+Colors have to be part of CSS recommendations.
+
+```css
+p {
+  color: black;
+}
+```
+
+## Hexadecimal Color Notation
+Oldest color system used by web designers.
+Example: `#6600FF` contains three hexadecimal numbers.
+`66` - represents red channel
+`00` - represents green channel
+`FF` - represents blue channel
+
+The figures go from *0-9*, and the letters go from *a-f*. There are over 16.7 million hexadecimal colors.
+
+The final color value is a blend of the amounts of red, green and blue specified.
+
+```
+#6600FF
+#RRGGBB
+```
+
+Can be shortened to three characters if each set contains the same two numbers. Example:
+```
+#6600FF -----> #60F
+
+#FFFFFF -----> #FFF
+```
+
+
+## RGB / RGBa
+Color value consists of three numbers for each hue (red, green and blue).
+
+The numbers can be from **0-255** or in percentages from **0-100**.
+```css
+p {
+color: rgb(255,255,255); /*White*/
+}
+
+p {
+color: rgb(100%, 100%, 100%); /*white*/
+}
+```
+
+The *a* in RGBa stands for alpha. It controls transparency / level of opacity. It accepts values between 0 and 1.  
+`0` is totally opaque, and `1` is invisible.
+```css
+p {
+color: rgb(255,255,255,0.72); /*White*/
+}
+
+p {
+color: rgb(100%, 100%, 100%, 0.5); /*white*/
+}
+```
+
+## HSL / HSLa
+```css
+p {
+  color: hsl(0, 100%, 50%); /*Bright red*/
+}
+```
+
+HSL stands for hue, saturation and lightness/luminance. 
+
+First value, *hue* is in degrees from *0-360*, which maps to a circle of hues. Think ROYGBIV.  
+Each color is separated by around *51 degrees*. 
+* red - 0, 360  
+* yellow - around 50  
+* orange - 100  
+* green - 150, etc.
+
+The second value is the *saturation*, or how pure the color is. Specified in percentages.
+* 0% - dull gray (no matter the hue)
+* 100% - pure colour (bright and vibrant)
+
+
+The third value is the *lightness*, specified in percentages.
+* 0% - completely black
+* 100% - completely white
+* 50% - pure colour
+
+
+It also has an alpha channel, and supports opacity.
+```css
+p {
+  color: hsla(0, 100%, 50%, 0.3); /*Bright red*/
+}
+```
