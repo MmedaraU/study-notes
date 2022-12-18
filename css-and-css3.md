@@ -42,13 +42,32 @@
     - [Keywords](#keywords)
     - [Percentages](#percentages)
     - [Ems](#ems)
+- [Formatting Text](#formatting-text)
+  - [Font Types/Formats](#font-typesformats)
+  - [Properties](#properties)
+    - [The `font-family` property](#the-font-family-property)
+      - [Generic font families](#generic-font-families)
+      - [Using self-hosted fonts](#using-self-hosted-fonts)
+    - [The `color` property](#the-color-property)
+    - [The `font-size` property](#the-font-size-property)
+    - [The `font-style` property](#the-font-style-property)
+    - [The `font-weight` property](#the-font-weight-property)
+    - [The `font-variant` property](#the-font-variant-property)
+    - [The `text-transform` property](#the-text-transform-property)
+    - [The `text-decoration` property](#the-text-decoration-property)
+    - [The `letter-spacing` and `word-spacing` property](#the-letter-spacing-and-word-spacing-property)
+    - [The `text-shadow` property](#the-text-shadow-property)
+    - [The `line-height` property](#the-line-height-property)
+    - [The `text-align` property](#the-text-align-property)
+    - [The `text-indent` property](#the-text-indent-property)
+  - [The `font` shorthand](#the-font-shorthand)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
 > 
 > **CSS3: The Missing Manual** by *David Sawyer McFarland*
 > 
-> **Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, 4th Edition** by *Jennifer Niederst Robbins*
+<!-- > **Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, 4th Edition** by *Jennifer Niederst Robbins* -->
 
 
 # Introduction
@@ -558,7 +577,7 @@ div {
 ### Percentages
 `font-size: 100%;`
 
-Usually relative to the parent element or base (font) size.
+Usually relative to the parent element OR base (font) size.
 * 100% - base size
 
 ### Ems
@@ -576,3 +595,221 @@ For consistency, set body `width` to 100% when using ems. Mind the nesting.
 * `vh` - viewport height unit
 * `vm` - viewport minimum unit
 * `rem` - root em; relative to em size of root element (html)
+
+**Note**: You can also use negative values.
+
+# Formatting Text
+A *typeface* is what we see; the artistic impression of how text looks, feels and reads.
+
+A *font* is a file that contains a typeface.
+
+## Font Types/Formats
+1. **Embedded Open Type(EOT)**
+Work only in Internet Explorer. 
+
+2. **True Type(`.ttf` ** and **Open Type(`.otf`)**
+Most commonly used formats. Has wide support in web browsers.  
+Can also be used for word processing.
+
+3. **Web Open Font Format `.woff`**
+Designed specifically for the web. Basically compressed versions of `.ttf` and `.otf`.
+
+Generally smaller in size and download quicker. Have wide browser support.
+
+4. **Scalable Vector Graphic `.svg`**
+Not actually a font format. Support for svg fonts is limited.  
+File sizes are large. Only format understood by older Safari versions.
+
+**Note**: A single font file contains just one weight and style. So each variation has to be downloaded if we're using web fonts.
+
+
+## Properties
+### The `font-family` property  
+The `font-family` property specifies the font to be used.
+```css
+p {
+  font-family: Arial;
+}
+
+p {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*The sans-serif is a generic font family. The browser gets to chose the actual font*/
+}
+```
+To use a font, the visitor must have it installed on their computer. In case the font isn't present, fallbacks are created.  
+The browser uses the first font it discovers the computer has.  
+Font names consisting of two or more words have to be wrapped in quotation marks.
+
+#### Generic font families
+1. **Serif fonts**  
+Best for long passages of text. It is believed that the 'serifs' gently lead the eye from letter to letter, making text easier to read.
+
+Examples are Times New Roman, Times, Georgia.
+
+2. **Sans-serif fonts**  
+Used for headlines. Clean, simple appearance.
+
+Examples are Arial, Helvetica, Verdana.
+
+
+3. **Monospace fonts**  
+Used to display computer code. Each letter is the same width. 
+
+
+#### Using self-hosted fonts
+Have to use the `@font-face` directive.
+```css
+@font-face {
+  font-family: "League Gothic";
+  src: url('fonts/League_Gothic_font.eot');
+  src: url('fonts/League_Gothic_font.eot?#iefix') format('embedded-opentype'),/*For IE9 Compability Mode*/
+  src: url('fonts/League_Gothic_font.woof') format('woff'),
+  src: url('fonts/League_Gothic_font.ttf') format('truetype'),
+  src: url('fonts/League_Gothic_font.svg') format('svg');
+}
+
+p {
+  font-family: "League Gothic";
+}
+```
+
+### The `color` property  
+Changes the color of the text. Uses color values.  
+*See [colors](#colors).*
+
+
+### The `font-size` property  
+Sets text size. Accepts measurement / length values.  
+*See [size/length values](#sizelength-values).*
+
+Base text size should be 16px but to be on the safe side, set it to the root element or the body element.
+
+For keywords, using 16px as base font size.
+
+1. xx-small = 9px
+2. x-small = 10px
+3. small = 13px
+4. medium: same as base font size.
+5. large = 18px
+6. x-large = 24px
+7. xx-large = 32px
+8. larger
+9. smaller
+
+### The `font-style` property  
+```css
+p {
+font-style: normal/oblique/italic/inherit;
+}
+```
+
+Oblique is identical to italic; also a slanted version of a font.  
+The difference is:  
+*Italic* is usually a separate typeface design with curved letter forms.  
+**WHILE** *oblique* takes the normal font design and just slants it.
+
+### The `font-weight` property  
+Specifies if a font is bold or not, or the specific weight it should have.
+
+1. **Keyword values** - normal, bold, bolder, lighter, inherit
+2. **Numeric values** - 100-900 (normal - 400, bold - 700)
+
+### The `font-variant` property
+Switches types faces between variants.
+1. `small-caps`
+2. `inherit`
+3. `normal`  
+
+### The `text-transform` property
+Change case of text  
+1. `uppercase`
+2. `lowercase`
+3. `capitalize`
+4. `none`
+5. `inherit`
+
+### The `text-decoration` property
+![Text Decoration](img/css-text-decoration.png)
+1. `underline`
+2. `overline`
+3. `line-through`
+4. `blink` - makes text blink
+5. `none`
+
+You can combine multiple keywords for multiple effects
+```css
+text-decoration: underline overline;
+```
+
+### The `letter-spacing` and `word-spacing` property
+Controls spacing between words and letters respectively.
+Uses length values.
+See *[length](#sizelength-values)*
+
+Note:  
+Space between letters is called *tracking*.
+
+### The `text-shadow` property
+Lets you add drop shadows to text.
+```css
+text-shadow: horizontal-offset vertical-offset blur color;
+
+text-shadow: -4px 4px 3px #999;
+```
+
+1. **Horizontal offset**  
+How far to the left or right of the text the shadow should appear.
+Negative values (-4px) make the shadow appear on the left, and positive values on the right.
+
+2. **Vertical offset**  
+How far above or below the text the shadow should appear.
+Negative values make the shadow above the text, and positive values below.
+
+3. **Blur**  
+How blurry the shadow is.
+
+### The `line-height` property
+Adjust the space between lines. Uses *[length](#sizelength-values)* values.
+
+Percentage values are relative to `font-size`.
+
+Normal `line-height` setting for a browser is 120%.
+
+Note:  
+To determine the amount of space that appears between lines of text, the browser subtracts the font size from the line height.  
+The result - *leading* is the amount of space between lines in a paragraph.
+
+You could also specify line height with just a number.
+```css
+line-height: 1.5;
+```
+The browser multiplied this number by the font size to determine the line height.
+
+### The `text-align` property
+Aligns text.
+
+1. `left`
+2. `right`
+3. `justify`
+4. `center`
+
+### The `text-indent` property
+Used to create a space between the text and the edge, to indicate a paragraph. Accepts *[length](#sizelength-values)* values.
+
+## The `font` shorthand
+```css
+font: style variant weight size/line-height font-family;
+
+font: italic small-caps bold 14px/22px "Helevetica Neue", Helvetica, Arial, sans-serif;
+
+/*Can omit some, but must include font-family and font-size*/
+font: 14px "Helevetica Neue", Helvetica, Arial, sans-serif;
+
+/*Font size must come before font family, at the end. The rest can be arranged in any order*/
+font: italic bold small-caps 14px Arial;
+font: bold small-caps italic 14px Arial;
+
+/*Omitting a value form a list is the same as setting it to normal*/
+font: 1.5em Arial; /*The other properties are set to normal and won't be inherited*/
+```
+
