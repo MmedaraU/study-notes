@@ -35,7 +35,7 @@
   - [Hexadecimal Color Notation](#hexadecimal-color-notation)
   - [RGB / RGBa](#rgb--rgba)
   - [HSL / HSLa](#hsl--hsla)
-- [Size/Length Values](#sizelength-values)
+- [Measurement Values](#measurement-values)
   - [Absolute Units](#absolute-units)
     - [Pixels](#pixels)
   - [Relative Units](#relative-units)
@@ -61,6 +61,14 @@
     - [The `text-align` property](#the-text-align-property)
     - [The `text-indent` property](#the-text-indent-property)
   - [The `font` shorthand](#the-font-shorthand)
+- [Styling Lists](#styling-lists)
+  - [The `list-style-type` property](#the-list-style-type-property)
+  - [The `list-style-position` property](#the-list-style-position-property)
+- [Margins, Paddings and Borders](#margins-paddings-and-borders)
+  - [The Box Model](#the-box-model)
+    - [The `box-sizing` property](#the-box-sizing-property)
+    - [The `width` and `height` property](#the-width-and-height-property)
+    - [The `overflow` property](#the-overflow-property)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -535,7 +543,7 @@ p {
 }
 ```
 
-# Size/Length Values
+# Measurement Values
 These are the values used when indicating length, width or size in CSS.
 
 ## Absolute Units
@@ -679,8 +687,8 @@ Changes the color of the text. Uses color values.
 
 
 ### The `font-size` property  
-Sets text size. Accepts measurement / length values.  
-*See [size/length values](#sizelength-values).*
+Sets text size. Accepts measurement values.  
+*See [measurement values](#measurement-values).*
 
 Base text size should be 16px but to be on the safe side, set it to the root element or the body element.
 
@@ -743,8 +751,8 @@ text-decoration: underline overline;
 
 ### The `letter-spacing` and `word-spacing` property
 Controls spacing between words and letters respectively.
-Uses length values.
-See *[length](#sizelength-values)*
+Uses measurement values.
+See *[measurement](#measurement-values)*
 
 Note:  
 Space between letters is called *tracking*.
@@ -769,7 +777,7 @@ Negative values make the shadow above the text, and positive values below.
 How blurry the shadow is.
 
 ### The `line-height` property
-Adjust the space between lines. Uses *[length](#sizelength-values)* values.
+Adjust the space between lines. Uses *[measurement](#measurement-values)* values.
 
 Percentage values are relative to `font-size`.
 
@@ -794,7 +802,7 @@ Aligns text.
 4. `center`
 
 ### The `text-indent` property
-Used to create a space between the text and the edge, to indicate a paragraph. Accepts *[length](#sizelength-values)* values.
+Used to create a space between the text and the edge, to indicate a paragraph. Accepts *[measurement](#measurement-values)* values.
 
 ## The `font` shorthand
 ```css
@@ -813,3 +821,75 @@ font: bold small-caps italic 14px Arial;
 font: 1.5em Arial; /*The other properties are set to normal and won't be inherited*/
 ```
 
+# Styling Lists
+
+## The `list-style-type` property
+Decides the type of bullets for unordered lists, and the numbering scheme for ordered lists
+**Bullets**
+1. `disc`
+2. `circle`
+3. `square`
+
+**Numbering Schemes**
+1. `decimal`
+2. `decimal-leading-zero`
+3. `upper-alpha`
+4. `lower-alpha`
+5. `upper-roman`
+6. `lower-roman`
+7. `lower-greek`, etc.
+
+![List Style Type](img/css-list-style-type.png)
+
+## The `list-style-position` property
+1. `inside`
+2. `outside`
+
+![List Style Position](img/css-list-style-position.png)
+
+**Tip:**  
+You can adjust the space between the bullet and text by increasing the `padding-left` property. Works only if `list-style-position` is set to `outside` or don't use it at all.
+
+You could also use an image instead with the `list-style-image` property.
+
+
+# Margins, Paddings and Borders
+
+## The Box Model
+![The Box Model](img/css-box-model.png)
+
+**Padding**: The space between the content and the content's border.
+
+**Border**: Line drawn around each edge of the box.
+
+**Margin**: Space that separates one element from another. This space is called a *gutter*.
+
+### The `box-sizing` property
+1. `content-box`
+2. `border-box`
+
+When set to `content-box`, the width and height values are applied to the content box. The padding, margin and borders are added on after that.
+
+When set to `border-box`, the width and height values include the padding, margin and borders.
+
+### The `width` and `height` property
+Can only be specified for block-level elements and non-text inline elements.
+
+*  `height`
+*  `width`
+*  `max-height`
+*  `min-height`
+*  `max-width`
+*  `min-width`
+
+### The `overflow` property
+Specifies what to do when content doesn't fit
+1. `visible`
+2. `hidden`
+3. `scroll`
+4. `auto`
+5. `inherit`
+
+When set to `auto`, the browser decides. Usually scroll.
+
+Accepts [measurement values](#measurement-values)
