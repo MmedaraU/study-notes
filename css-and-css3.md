@@ -69,6 +69,9 @@
     - [The `box-sizing` property](#the-box-sizing-property)
     - [The `width` and `height` property](#the-width-and-height-property)
     - [The `overflow` property](#the-overflow-property)
+  - [Margins](#margins)
+    - [Collapsing Margins](#collapsing-margins)
+  - [Padding](#padding)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -893,3 +896,36 @@ Specifies what to do when content doesn't fit
 When set to `auto`, the browser decides. Usually scroll.
 
 Accepts [measurement values](#measurement-values)
+
+## Margins
+Uses *[measurement](#measurement-values)* values.
+```css
+margin-right: 0px; /*Applies to all sides*/
+margin-left: 0px;
+margin-top: 0px;
+margin-bottom: 0px;/*Don't need to add the px*/
+
+/*Shorthand*/
+margin: top right bottom left;
+margin: top|bottom left|right;
+margin: top left|right bottom;
+```
+
+### Collapsing Margins
+When two margins collide, the browser applies the larger margin.  
+To prevent this, use top or bottom padding instead or add a border.  
+Left and right margins don't collapse.
+
+## Padding
+Uses *[measurement](#measurement-values)* values.
+```css
+padding-right: 0px; /*Applies to all sides*/
+padding-left: 0px;
+padding-top: 0px;
+padding-bottom: 0px;/*Don't need to add the px*/
+
+/*Shorthand*/
+padding: top right bottom left;
+padding: top|bottom left|right;
+padding: top left|right bottom;
+```
