@@ -66,12 +66,15 @@
   - [The `list-style-position` property](#the-list-style-position-property)
 - [Margins, Paddings and Borders](#margins-paddings-and-borders)
   - [The Box Model](#the-box-model)
+    - [The `display` property](#the-display-property)
     - [The `box-sizing` property](#the-box-sizing-property)
     - [The `width` and `height` property](#the-width-and-height-property)
     - [The `overflow` property](#the-overflow-property)
+    - [The `box-shadow` property](#the-box-shadow-property)
   - [Margins](#margins)
     - [Collapsing Margins](#collapsing-margins)
   - [Padding](#padding)
+  - [Borders](#borders)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -863,9 +866,13 @@ You could also use an image instead with the `list-style-image` property.
 
 **Padding**: The space between the content and the content's border.
 
-**Border**: Line drawn around each edge of the box.
+**Border**: Line drawn around each edge of the box. Sits between the padding and margin.
 
 **Margin**: Space that separates one element from another. This space is called a *gutter*.
+
+### The `display` property
+Determines how an element will be displayed
+`inline` `inline-block` `block` `none`
 
 ### The `box-sizing` property
 1. `content-box`
@@ -896,6 +903,17 @@ Specifies what to do when content doesn't fit
 When set to `auto`, the browser decides. Usually scroll.
 
 Accepts [measurement values](#measurement-values)
+
+### The `box-shadow` property
+Applied similarly to [`text-shadow`](#the-text-shadow-property) property. Optional values include:
+```css
+box-shadow: (inset) vertical-offset horizontal-offset shadow-radius (spread) shadow-color;
+
+box-shadow: inset 4px 3px 2px 1px black;
+```
+The `inset` keyword tells a browser to draw the shadow inside the box.
+
+The `spread` expands the shadow by the specified amount.
 
 ## Margins
 Uses *[measurement](#measurement-values)* values.
@@ -929,3 +947,44 @@ padding: top right bottom left;
 padding: top|bottom left|right;
 padding: top left|right bottom;
 ```
+
+## Borders
+Has three main properties; `border-color`, `border-width` and `border-style`.
+```css
+border: width style color;
+border: 1px solid black;
+
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+border-left: 1px solid black;
+border-right: 1px solid black;
+```
+The `border-width` property accepts
+* Measurement values, except percentages.
+* Keywords - `thin`, `medium` and `thick`.
+
+The `border-style` controls the type of line drawn. Accepts keywords like
+* `solid`
+* `dotted`
+* `dashed`
+* `double`
+* `groove`
+* `ridge`
+* `inset`
+* `outset`
+* `none`
+* `hidden`  
+`None` and `hidden` work the same way; removing the border completely.
+
+The `border-radius` property lets you curve the radius of the element. Applied similarly to padding and margin. Other applications include:
+```css
+border-radius: horizontal-radius/vertical-radius;
+border-radius: top-left top-right bottom-right bottom-left;
+
+border-radius: 40px/20px;
+border-radius: 40px/20px 10px/30px 20px/40px 10px;
+```
+* `border-top-left-radius`
+* `border-top-right-radius`
+* `border-bottom-left-radius`
+* `border-bottom-right-radius`
