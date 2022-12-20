@@ -75,6 +75,8 @@
     - [Collapsing Margins](#collapsing-margins)
   - [Padding](#padding)
   - [Borders](#borders)
+- [The `float` property](#the-float-property)
+  - [Clearing Floats](#clearing-floats)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -988,3 +990,16 @@ border-radius: 40px/20px 10px/30px 20px/40px 10px;
 * `border-top-right-radius`
 * `border-bottom-left-radius`
 * `border-bottom-right-radius`
+
+# The `float` property
+Moves an element to the left or right. Content below the floated element wraps around it.
+`left`  
+`right`
+`none`
+
+## Clearing Floats
+To prevent content from wrapping.
+`left`  
+`right` 
+`both`  
+`none`
