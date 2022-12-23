@@ -76,7 +76,7 @@
   - [Padding](#padding)
   - [Borders](#borders)
 - [The `float` property](#the-float-property)
-  - [Clearing Floats](#clearing-floats)
+  - [Clearing Floats `clear`](#clearing-floats-clear)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -880,7 +880,7 @@ Determines how an element will be displayed
 1. `content-box`
 2. `border-box`
 
-When set to `content-box`, the width and height values are applied to the content box. The padding, margin and borders are added on after that.
+When set to `content-box`, the width and height values are applied to the content box. The padding, margin and borders are added on after that. This is the default value.
 
 When set to `border-box`, the width and height values include the padding, margin and borders.
 
@@ -976,7 +976,9 @@ The `border-style` controls the type of line drawn. Accepts keywords like
 * `outset`
 * `none`
 * `hidden`  
+* `inherit`
 `None` and `hidden` work the same way; removing the border completely.
+![Border Styles](img/css-border-style.png)
 
 The `border-radius` property lets you curve the radius of the element. Applied similarly to padding and margin. Other applications include:
 ```css
@@ -991,14 +993,34 @@ border-radius: 40px/20px 10px/30px 20px/40px 10px;
 * `border-bottom-left-radius`
 * `border-bottom-right-radius`
 
+The `border-color` property sets the color for the border. 
+`border-top-color` `border-right-color` `border-bottom-color` `border-left-color`
+```css
+border-color: top right bottom left;
+```
+
+THe `border-image` property lets you set an image as the border.
+```css
+border-image: image-source image-slice image-width image-outset image-repeat;
+
+border-image: url(img.png) 33 33 33 33 stretch;
+```
+`border-image-slice` provides measurements to the four slice lines that divide the image into nine sections. The 33 numbers.  
+`border-image-outset` specifies the distance for the image to hang out over the border.  
+`border-image-repeat` specifies how the image should fill in the sides - stretch, round or repeat.
+
+
 # The `float` property
 Moves an element to the left or right. Content below the floated element wraps around it.
+
+The element is removed from normal flow.
 `left`  
 `right`
 `none`
 
-## Clearing Floats
-To prevent content from wrapping.
+## Clearing Floats `clear`
+To prevent content from wrapping. The `clear` property is applied to the element after the floated element.
+
 `left`  
 `right` 
 `both`  
