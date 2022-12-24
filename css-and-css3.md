@@ -87,6 +87,8 @@
     - [Repeating Linear Gradients](#repeating-linear-gradients)
     - [Radial Gradients](#radial-gradients)
     - [Repeating Radial Gradients](#repeating-radial-gradients)
+- [Styling Links](#styling-links)
+  - [Link States and Pseudo-classes](#link-states-and-pseudo-classes)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -1155,3 +1157,15 @@ For gradient size, keywords are used and they include;
 ```css
 background-image: radial-gradient(circle, yellow 20px,black 30px, white 40px);
 ```
+
+# Styling Links
+
+## Link States and Pseudo-classes
+* `:link ` - unvisited link
+* `:visited` 
+* `:hover`
+* `:active` - link being clicked
+* `:focus`  
+See *[pseudo-classes](#pseudo-classes)* and *[attribute selectors](#attribute-selectors)* for more information
+
+To design all the different states, it must be in this order - **L-V-H-A**
