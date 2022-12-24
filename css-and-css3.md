@@ -77,6 +77,16 @@
   - [Borders](#borders)
 - [The `float` property](#the-float-property)
   - [Clearing Floats `clear`](#clearing-floats-clear)
+- [Backgrounds](#backgrounds)
+  - [Background Colours](#background-colours)
+  - [Background Images](#background-images)
+    - [Background Shorthand](#background-shorthand)
+    - [Using Multiple Background Images](#using-multiple-background-images)
+  - [Gradient Backgrounds](#gradient-backgrounds)
+    - [Linear Gradients](#linear-gradients)
+    - [Repeating Linear Gradients](#repeating-linear-gradients)
+    - [Radial Gradients](#radial-gradients)
+    - [Repeating Radial Gradients](#repeating-radial-gradients)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -1025,3 +1035,123 @@ To prevent content from wrapping. The `clear` property is applied to the element
 `right` 
 `both`  
 `none`
+
+# Backgrounds
+## Background Colours
+Uses the `background-color` property. Accepts color values, `transparent` and `inherit`.
+
+The `opacity` property is used to make kelements transparent. Accepts numbers from `0-1`. Works like the alpha channel on RGBa colours.
+
+## Background Images
+Uses the `background-image` property
+```css
+background-image: url(img/image.png);
+```
+
+The `background-repeat` property controls how or if an image tiles. It accepts four values:
+* `repeat`
+* `no-repeat`
+* `repeat-x`
+* `repeat-y`
+
+The `background-position` property is used to control the placement of the image. You can specify using *keywords, exact values, and percentages*.  
+**Using keywords**
+1. Horizontal positions - `left` `center` `right`
+2. Vertical positions - `top` `center` `bottom`
+
+```css
+background-position: horizontal vertical;
+background-position: right bottom;
+background-position: 5px 8px;
+background-position: 50% 50%;
+```
+
+The `background-attachment` property decides if a background image moves with the text or stays in place. Accepts the following values
+1. `fixed`
+2. `scroll`(default)
+3. `local`
+
+The `background-origin` property determines the starting-point of the image. Background images typically start from the upper-left corner of whatever area is decided. It accepts
+* `border-box`
+* `padding-box` (default)
+* `content-box`
+
+The `background-clip` property limits a background to a certain region. It accepts the same values as `background-origin`.
+
+The `background-size ` resizes background images. It accepts [measurement values](#measurement-values).
+`background-size: width height;`  
+It also accepts keywords
+* `auto` - browsers resizes to maintain aspect ratio
+* `contain` - forces image eo fit while maintaining aspect ratio
+* `cover` - forces element to fill width and height of containing element.
+
+### Background Shorthand
+```css
+background: image position repeat attachment color;
+
+background: url(icon.png) center center no-repeat fixed #fff;
+background: #fff; /*Just white*/
+```
+
+### Using Multiple Background Images
+```css
+background-image: url(image1.jpg), url(image2.jpg), url(image3.jpg);
+background-repeat: no-repeat, no-repeat, repeat-y;
+
+/*Shorthand*/
+background: url(image1.jpg) center top no-repeat,
+            url(image2.jpg) center bottom no-repeat,
+            url(image3.jpg) center top repeat-y;
+```
+
+## Gradient Backgrounds
+For smooth gradients, the starting colour should also be the end colour.  
+Because browsers treat gradients as background images, other background properties can also be applied.  
+You can mix images and gradients.
+
+### Linear Gradients
+```css
+background-image: linear-gradient(starting-position start-colour, (middle-colour), end-colour);
+
+background-image: linear-gradient(top left yellow,black, white);
+background-image: linear-gradient(45deg yellow,black, white);
+
+/*Applying Color Stops*/
+/*Start black at 10%, begin white at 90%*/
+background-image: linear-gradient(top left yellow ,black 10%, white 90%, yellow);
+background-image: linear-gradient(top left yellow ,black 10px, white 90px, yellow);
+
+```
+
+The starting-position accepts values like `background-position`. It also accepts values in degrees.
+
+### Repeating Linear Gradients
+```css
+background-image: repeating-linear-gradient(top left yellow ,black 10px, white 90px, yellow);
+```
+
+### Radial Gradients
+Gradients that radiate outward in a circular or elliptical pattern
+```css
+background-image: radial-gradient(yellow,black, white);
+background-image: radial-gradient(circle, yellow,black, white);
+
+/*Positioning is for the center of the gradient*/
+background-image: radial-gradient(20% 40%, circle, yellow,black, white);
+
+/*Dictating gradient size*/
+background-image: radial-gradient(20% 40%, circle (sizing), yellow,black, white);
+background-image: radial-gradient(20% 40%, circle closest-side, yellow,black, white);
+```
+
+For gradient size, keywords are used and they include;
+1. `closest-side` - Gradient extends from center as far as the side closest to the center.
+2. `closest-corner` - Measures width of gradient from center to closest corner of element.
+3. `farthest-side`
+4. `farthest-corner`
+![Radial Gradients](img/css-radial-gradient.png)
+
+### Repeating Radial Gradients
+```css
+background-image: radial-gradient(circle, yellow 20px,black 30px, white 40px);
+```
