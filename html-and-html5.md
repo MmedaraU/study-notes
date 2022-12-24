@@ -124,7 +124,8 @@
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe* 
 >  
 > **Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, 4th Edition** by *Jennifer Niederst Robbins*
-> 
+>
+>
 >> **All screenshots of the exercises tried out are from the Google Chrome browser, version 104.0.5112.102**
 
 # Introduction
@@ -180,7 +181,7 @@ By the same token, new features may be added to HTML at any time.
 ## Naming Conventions for files
 1. Use proper suffixes: HTML and XHTML files must end with `.html`. Web graphics must be labelled according to their format, `.gif`, `.png`, `.jpg`, `.jpeg`, etc.
 
-2. Never use character spaces within filenames: An underline or hyphen is often used to visually seperate words within filenames.
+2. Never use character spaces within filenames: An underline or hyphen is often used to visually separate words within filenames.
 
 3. Avoid special characters: Filenames should be limited to letters, numbers, underscores, hyphens, and periods.
 
@@ -1340,7 +1341,8 @@ Offers transparency and the ability to include animations.
 Appropriate for images with flat colours and hard edges or when transparency or animation is required. Best for logos, line art, icons,etc.  
 Works nicely for images with a combination of small amounts of photographic imagery, and large, flat areas of colour.  
 Adopted for versatility, small file sizes, cross-platform compatibility.  
-Excels at compressing 
+Excels at compressing  
+Has a maximum of 256 shades.
 
 1. 8-bit indexed colour
     Can contain up to 256 colors (2<sup>8</sup>). Indexed colour means set of colours in image are stores in a colour table or colour map.  
@@ -1379,7 +1381,7 @@ Works best with images with smooth color blends, and photographic images. Images
 #### The `png` format  
 **Portable Network Graphic**
 Can contain any image type, but especially efficient for storing images with flat colours.  
-It is the only format that allows multiple levels of transparency.
+It is the only format that allows multiple levels of transparency, up to 256.
 
 1. Multiple image formats
   * 8-bit indexed colour images
