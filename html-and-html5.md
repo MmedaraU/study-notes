@@ -71,6 +71,7 @@
 - [Creating Hyperlinks](#creating-hyperlinks)
   - [The anchor `<a>` element](#the-anchor-a-element)
   - [Linking between files (Relative and Absolute Paths)](#linking-between-files-relative-and-absolute-paths)
+    - [URL Types](#url-types)
   - [Linking within a page](#linking-within-a-page)
   - [Linking Email Addresses](#linking-email-addresses)
   - [Linking Telephone Numbers](#linking-telephone-numbers)
@@ -125,6 +126,7 @@
 >  
 > **Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, 4th Edition** by *Jennifer Niederst Robbins*
 >
+> **CSS3: The Missing Manual** by *David Sawyer McFarland*
 >
 >> **All screenshots of the exercises tried out are from the Google Chrome browser, version 104.0.5112.102**
 
@@ -938,6 +940,18 @@ Links pointing to other websites require an absolute path. The `href` attribute 
 <!-- These links don't work on your computer 'cause your root folder will be your hard drive -->
 
 ```
+### URL Types
+1. Absolute path
+Contains all the information needed for a web browser located anywhere in the world tp find the file.  
+`http://www.cosmofarmer.com/images/bluegrass.jpg`
+
+2. Root-relative path
+Indicates where a file is located relative to a site's top-level folder. The first slash(/) indicates the root folder.
+`/images/bluegrass.jpg`
+
+3. Document-relative path
+Specifies path from current document to the file
+
 
 ## Linking within a page
 To do this, the `id` attribute is used. Place an `id` at the point you want to link to.
