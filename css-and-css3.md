@@ -94,6 +94,8 @@
   - [CSS Transforms](#css-transforms)
   - [CSS Transitions](#css-transitions)
     - [The transition shorthand](#the-transition-shorthand)
+  - [CSS Animations](#css-animations)
+    - [The animation shorthand](#the-animation-shorthand)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -1235,8 +1237,9 @@ When applying multiple transformations, the browser applies the effect in the or
 The `transform-origin` property lets you change the transformation point. The default position is the center of the element. It works like the *[background-position](#background-images)* property.  
 It has no effect on elements moved using only the `translate` function.
 
+***Note: There are also 3-d transforms in CSS***
 ## CSS Transitions
-Transitions are simply animations from one set of CSS properties to another set over a specific amount of time.
+Transitions are simply animations from one set of CSS properties to another set over a specific amount of time. There are basically animations that iterate once.
 
 ```css
 .button {
@@ -1270,10 +1273,13 @@ The `transition-timing-function` property controls the speed during the animatio
 The keywords used are
 * `linear` - steady change along the entire length of the animation.
 * `ease` (default) - Begins slowly, speeds up in the middle and slows down in the end.
-* `ease-in`
-* `ease-out`
-* `ease-in-out`
-* `cubic-bezier()` - plots the progress of the animation over time.
+* `ease-in` - starts slowly, then speeds up
+* `ease-out` - starts fast, then slows down
+* `ease-in-out` - similar to `ease`, but with less pronounced acceleration in the middle
+* `step-start` 
+* `step-end`
+* `steps`
+* `cubic-bezier(#,#,#,#)` - plots the progress of the animation over time.
 
 The `transition-delay` property prevents a transition from animating immediately its triggered. Accepts values in seconds and milliseconds.
 
@@ -1283,4 +1289,84 @@ transition: property duration (timing-function) (delay);
 transition: all 1s ease-in .3s;
 
 transition: color 1s, background-color 2s;
+```
+
+## CSS Animations
+Lets you animate from one set of properties to another. They do not necessarily need a trigger.
+Animations, have similar functions as transition such as timing-function, duration, etc. Timing function can be controlled between keyframes.
+
+The first step is to create a set of keyframes. A *keyframe* is a single frame of an animation that dictates how a scene looks. THe browser fills in the gaps between frames.
+```css
+@keyframes animationName {
+  from {
+    /*First set of CSS properties*/
+  }
+  to {
+    /*Second set of CSS properties*/
+  }
+}
+
+@keyframes animationName {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes animationName {
+  from/0% {
+    color: white;
+  }
+  50% {
+    color: gray;
+  }
+  to/100% {
+    color: black;
+  }
+}
+
+@keyframes animationName {
+  from {
+    color: yellow;
+    animation-timing-function: linear;
+  }
+  25%, 75% {
+    color: blue;/*Color stays at blue from 25% to 75%*/
+    animation-timing-function: ease-in;
+  }
+  to {
+    color: red;
+    animation-timing-function: ease-out;
+  }
+}
+```
+
+```css
+/*Applying animations to an element*/
+div {
+  animation-name: animationName;
+  animation-duration: 1s;
+}
+
+/*Applying multiple animations to an element*/
+animation-name: animationName-one animationName-two;
+animation-duration: 1s, 2s;
+```
+
+The `animation-iteration-count` property indicates how many times an animation iterates. It accepts number values and one keyword - `infinite`.
+
+The `animation-direction` property accepts the `alternate` keyword which specifies that when the animation is done, it reverses before iterating again. An even number of iterations with an `alternate` direction ends at the beginning.
+
+The `animation-fill-mode` property decides if the element return to its initial conditions before animation or remains at the end state.
+This property accepts keywords
+* `forwards` - remain at end state 
+
+The `animation-play-state` controls an animation's playback. Usually applied with pseudi-classes. Accepts two keywords
+* `running`
+* `paused`
+### The animation shorthand
+```css
+animation: name duration [timing-function iteration-count direction delay fill-mode];
 ```
