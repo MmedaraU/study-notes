@@ -90,6 +90,7 @@
 - [Styling Lists](#styling-lists)
   - [The `list-style-type` property](#the-list-style-type-property)
   - [The `list-style-position` property](#the-list-style-position-property)
+- [Formatting Tables](#formatting-tables)
 - [CSS Transforms, Transitions and Animations](#css-transforms-transitions-and-animations)
   - [CSS Transforms](#css-transforms)
   - [CSS Transitions](#css-transitions)
@@ -1180,6 +1181,15 @@ You can adjust the space between the bullet and text by increasing the `padding-
 
 You could also use an image instead with the `list-style-image` property.
 
+# Formatting Tables
+Padding cannot be used with the `<table>` tag, but with cells.
+
+Text-align controls horizontal positioning. It is inherited.
+
+Vertical-align aligns content vertically. It is not inherited.
+
+The `border-collapse` property is used to eliminate double borders. It accepts two values - `collapse` and `separate`.  
+When set to `collapse`, border-spacing has  o effect.
 
 # CSS Transforms, Transitions and Animations
 
