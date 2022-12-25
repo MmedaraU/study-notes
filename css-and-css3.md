@@ -43,8 +43,15 @@
     - [Percentages](#percentages)
     - [Ems](#ems)
 - [Positioning](#positioning)
+  - [Static Positioning](#static-positioning)
+  - [Absolute positioning](#absolute-positioning)
+  - [Relative Positioning](#relative-positioning)
+  - [Fixed Positioning](#fixed-positioning)
+  - [The `z-index` property](#the-z-index-property)
   - [The `float` property](#the-float-property)
     - [Clearing Floats `clear`](#clearing-floats-clear)
+    - [Containing floats](#containing-floats)
+  - [The `visibility` property](#the-visibility-property)
 - [Margins, Paddings and Borders](#margins-paddings-and-borders)
   - [The Box Model](#the-box-model)
     - [The `display` property](#the-display-property)
@@ -97,6 +104,9 @@
     - [The transition shorthand](#the-transition-shorthand)
   - [CSS Animations](#css-animations)
     - [The animation shorthand](#the-animation-shorthand)
+- [CSS Layout](#css-layout)
+- [Media Queries](#media-queries)
+- [Good Practices](#good-practices)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -635,10 +645,37 @@ For consistency, set body `width` to 100% when using ems. Mind the nesting.
 **Note**: You can also use negative values.
 
 # Positioning
+The `position` property lets you control how and where a browser displays elements. The default value is `static`.
 
+## Static Positioning
+Default value of `position` property. Content follows HTML flow.
+
+## Absolute positioning
+`position: absolute;`
+
+Works in hand with `left`, `right`, `top` and `bottom` properties, which accept values in *[measurement values](#measurement-values)*.
+
+Absolutely positioned elements are completely detached from the page flow. The space where it should be isn't kept. They can be placed relative to the browser window or the containing element if it is made `relative`.
+
+## Relative Positioning
+`position: relative;`
+
+Placed relative to current position in page flow. Also works in hand with `left`, `right`, `top` and `bottom` properties.
+
+It leaves the space where the element should have been. 
+
+## Fixed Positioning
+Locked into place on the screen. Doesn't scroll.
+
+## The `z-index` property
+Determines the order in which positioned elements are stacked on each other. 
+
+The larger the value, the closer to the top the element appears.
+
+Can accept negative values. Can use really large numbers, but some browsers have a limit of 2147483647.
 
 ## The `float` property
-Moves an element to the left or right. Content below the floated element wraps around it.
+Moves an element to the left or right. Content below the floated element wraps around it.  Depends on the element being a block element, and may alter the display value if it's not.
 
 The element is removed from normal flow.
 `left`  
@@ -648,11 +685,36 @@ The element is removed from normal flow.
 ### Clearing Floats `clear`
 To prevent content from wrapping. The `clear` property is applied to the element after the floated element.
 
+### Containing floats
+Similar results to clearing floats, but ensures that styles render properly.
+
+To contain floats, the floated elements must reside in a parent element.
+
+```css
+/*Clearfix*/
+.parent:before,
+.parent:after {
+content: "";
+display: table;
+}
+
+.parent:after {
+clear: both;
+}
+
+.parent {
+clear: both;
+*zoom: 1;
+} 
+```
+
 `left`  
 `right` 
 `both`  
 `none`
 
+## The `visibility` property
+Lets you hide part of a page. Accepts two values - `visible` and `hidden`. The `hidden` value is similar to `display:none;` but leaves the space.
 
 # Margins, Paddings and Borders
 
@@ -668,6 +730,11 @@ To prevent content from wrapping. The `clear` property is applied to the element
 ### The `display` property
 Determines how an element will be displayed
 `inline` `inline-block` `block` `none`
+
+
+**Accepted values:** inline|block|list-item|inline-block|table|inline-table|
+table-row-group|table-header-group|table-footer-group|table-row|
+table-column-group|table-column|table-cell|table-caption|none
 
 ### The `box-sizing` property
 1. `content-box`
@@ -1377,7 +1444,14 @@ This property accepts keywords
 The `animation-play-state` controls an animation's playback. Usually applied with pseudi-classes. Accepts two keywords
 * `running`
 * `paused`
+
 ### The animation shorthand
 ```css
 animation: name duration [timing-function iteration-count direction delay fill-mode];
 ```
+
+# CSS Layout
+
+# Media Queries
+
+# Good Practices
