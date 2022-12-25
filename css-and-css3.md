@@ -45,6 +45,17 @@
 - [Positioning](#positioning)
   - [The `float` property](#the-float-property)
     - [Clearing Floats `clear`](#clearing-floats-clear)
+- [Margins, Paddings and Borders](#margins-paddings-and-borders)
+  - [The Box Model](#the-box-model)
+    - [The `display` property](#the-display-property)
+    - [The `box-sizing` property](#the-box-sizing-property)
+    - [The `width` and `height` property](#the-width-and-height-property)
+    - [The `overflow` property](#the-overflow-property)
+    - [The `box-shadow` property](#the-box-shadow-property)
+  - [Margins](#margins)
+    - [Collapsing Margins](#collapsing-margins)
+  - [Padding](#padding)
+  - [Borders](#borders)
 - [Formatting Text](#formatting-text)
   - [Font Types/Formats](#font-typesformats)
   - [Properties](#properties)
@@ -64,20 +75,8 @@
     - [The `text-align` property](#the-text-align-property)
     - [The `text-indent` property](#the-text-indent-property)
   - [The `font` shorthand](#the-font-shorthand)
-- [Styling Lists](#styling-lists)
-  - [The `list-style-type` property](#the-list-style-type-property)
-  - [The `list-style-position` property](#the-list-style-position-property)
-- [Margins, Paddings and Borders](#margins-paddings-and-borders)
-  - [The Box Model](#the-box-model)
-    - [The `display` property](#the-display-property)
-    - [The `box-sizing` property](#the-box-sizing-property)
-    - [The `width` and `height` property](#the-width-and-height-property)
-    - [The `overflow` property](#the-overflow-property)
-    - [The `box-shadow` property](#the-box-shadow-property)
-  - [Margins](#margins)
-    - [Collapsing Margins](#collapsing-margins)
-  - [Padding](#padding)
-  - [Borders](#borders)
+- [Styling Links](#styling-links)
+  - [Link States and Pseudo-classes](#link-states-and-pseudo-classes)
 - [Backgrounds](#backgrounds)
   - [Background Colours](#background-colours)
   - [Background Images](#background-images)
@@ -88,8 +87,9 @@
     - [Repeating Linear Gradients](#repeating-linear-gradients)
     - [Radial Gradients](#radial-gradients)
     - [Repeating Radial Gradients](#repeating-radial-gradients)
-- [Styling Links](#styling-links)
-  - [Link States and Pseudo-classes](#link-states-and-pseudo-classes)
+- [Styling Lists](#styling-lists)
+  - [The `list-style-type` property](#the-list-style-type-property)
+  - [The `list-style-position` property](#the-list-style-position-property)
 - [CSS Transforms, Transitions and Animations](#css-transforms-transitions-and-animations)
   - [CSS Transforms](#css-transforms)
   - [CSS Transitions](#css-transitions)
@@ -652,6 +652,156 @@ To prevent content from wrapping. The `clear` property is applied to the element
 `both`  
 `none`
 
+
+# Margins, Paddings and Borders
+
+## The Box Model
+![The Box Model](img/css-box-model.png)
+
+**Padding**: The space between the content and the content's border.
+
+**Border**: Line drawn around each edge of the box. Sits between the padding and margin.
+
+**Margin**: Space that separates one element from another. This space is called a *gutter*.
+
+### The `display` property
+Determines how an element will be displayed
+`inline` `inline-block` `block` `none`
+
+### The `box-sizing` property
+1. `content-box`
+2. `border-box`
+
+When set to `content-box`, the width and height values are applied to the content box. The padding, margin and borders are added on after that. This is the default value.
+
+When set to `border-box`, the width and height values include the padding, margin and borders.
+
+### The `width` and `height` property
+Can only be specified for block-level elements and non-text inline elements.
+
+*  `height`
+*  `width`
+*  `max-height`
+*  `min-height`
+*  `max-width`
+*  `min-width`
+
+### The `overflow` property
+Specifies what to do when content doesn't fit
+1. `visible`
+2. `hidden`
+3. `scroll`
+4. `auto`
+5. `inherit`
+
+When set to `auto`, the browser decides. Usually scroll.
+
+Accepts [measurement values](#measurement-values)
+
+### The `box-shadow` property
+Applied similarly to [`text-shadow`](#the-text-shadow-property) property. Optional values include:
+```css
+box-shadow: (inset) vertical-offset horizontal-offset shadow-radius (spread) shadow-color;
+
+box-shadow: inset 4px 3px 2px 1px black;
+```
+The `inset` keyword tells a browser to draw the shadow inside the box.
+
+The `spread` expands the shadow by the specified amount.
+
+## Margins
+Uses *[measurement](#measurement-values)* values.
+```css
+margin-right: 0px; /*Applies to all sides*/
+margin-left: 0px;
+margin-top: 0px;
+margin-bottom: 0px;/*Don't need to add the px*/
+
+/*Shorthand*/
+margin: top right bottom left;
+margin: top|bottom left|right;
+margin: top left|right bottom;
+```
+
+### Collapsing Margins
+When two margins collide, the browser applies the larger margin.  
+To prevent this, use top or bottom padding instead or add a border.  
+Left and right margins don't collapse.
+
+## Padding
+Uses *[measurement](#measurement-values)* values.
+```css
+padding-right: 0px; /*Applies to all sides*/
+padding-left: 0px;
+padding-top: 0px;
+padding-bottom: 0px;/*Don't need to add the px*/
+
+/*Shorthand*/
+padding: top right bottom left;
+padding: top|bottom left|right;
+padding: top left|right bottom;
+```
+
+## Borders
+Has three main properties; `border-color`, `border-width` and `border-style`.
+```css
+border: width style color;
+border: 1px solid black;
+
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+border-left: 1px solid black;
+border-right: 1px solid black;
+```
+The `border-width` property accepts
+* Measurement values, except percentages.
+* Keywords - `thin`, `medium` and `thick`.
+
+The `border-style` controls the type of line drawn. Accepts keywords like
+* `solid`
+* `dotted`
+* `dashed`
+* `double`
+* `groove`
+* `ridge`
+* `inset`
+* `outset`
+* `none`
+* `hidden`  
+* `inherit`
+`None` and `hidden` work the same way; removing the border completely.
+![Border Styles](img/css-border-style.png)
+
+The `border-radius` property lets you curve the radius of the element. Applied similarly to padding and margin. Other applications include:
+```css
+border-radius: horizontal-radius/vertical-radius;
+border-radius: top-left top-right bottom-right bottom-left;
+
+border-radius: 40px/20px;
+border-radius: 40px/20px 10px/30px 20px/40px 10px;
+```
+* `border-top-left-radius`
+* `border-top-right-radius`
+* `border-bottom-left-radius`
+* `border-bottom-right-radius`
+
+The `border-color` property sets the color for the border. 
+`border-top-color` `border-right-color` `border-bottom-color` `border-left-color`
+```css
+border-color: top right bottom left;
+```
+
+THe `border-image` property lets you set an image as the border.
+```css
+border-image: image-source image-slice image-width image-outset image-repeat;
+
+border-image: url(img.png) 33 33 33 33 stretch;
+```
+`border-image-slice` provides measurements to the four slice lines that divide the image into nine sections. The 33 numbers.  
+`border-image-outset` specifies the distance for the image to hang out over the border.  
+`border-image-repeat` specifies how the image should fill in the sides - stretch, round or repeat.
+
+
 # Formatting Text
 A *typeface* is what we see; the artistic impression of how text looks, feels and reads.
 
@@ -867,186 +1017,17 @@ font: bold small-caps italic 14px Arial;
 font: 1.5em Arial; /*The other properties are set to normal and won't be inherited*/
 ```
 
-# Styling Lists
+# Styling Links
 
-## The `list-style-type` property
-Decides the type of bullets for unordered lists, and the numbering scheme for ordered lists
-**Bullets**
-1. `disc`
-2. `circle`
-3. `square`
+## Link States and Pseudo-classes
+* `:link ` - unvisited link
+* `:visited` 
+* `:hover`
+* `:active` - link being clicked
+* `:focus`  
+See *[pseudo-classes](#pseudo-classes)* and *[attribute selectors](#attribute-selectors)* for more information
 
-**Numbering Schemes**
-1. `decimal`
-2. `decimal-leading-zero`
-3. `upper-alpha`
-4. `lower-alpha`
-5. `upper-roman`
-6. `lower-roman`
-7. `lower-greek`, etc.
-
-![List Style Type](img/css-list-style-type.png)
-
-## The `list-style-position` property
-1. `inside`
-2. `outside`
-
-![List Style Position](img/css-list-style-position.png)
-
-**Tip:**  
-You can adjust the space between the bullet and text by increasing the `padding-left` property. Works only if `list-style-position` is set to `outside` or don't use it at all.
-
-You could also use an image instead with the `list-style-image` property.
-
-
-# Margins, Paddings and Borders
-
-## The Box Model
-![The Box Model](img/css-box-model.png)
-
-**Padding**: The space between the content and the content's border.
-
-**Border**: Line drawn around each edge of the box. Sits between the padding and margin.
-
-**Margin**: Space that separates one element from another. This space is called a *gutter*.
-
-### The `display` property
-Determines how an element will be displayed
-`inline` `inline-block` `block` `none`
-
-### The `box-sizing` property
-1. `content-box`
-2. `border-box`
-
-When set to `content-box`, the width and height values are applied to the content box. The padding, margin and borders are added on after that. This is the default value.
-
-When set to `border-box`, the width and height values include the padding, margin and borders.
-
-### The `width` and `height` property
-Can only be specified for block-level elements and non-text inline elements.
-
-*  `height`
-*  `width`
-*  `max-height`
-*  `min-height`
-*  `max-width`
-*  `min-width`
-
-### The `overflow` property
-Specifies what to do when content doesn't fit
-1. `visible`
-2. `hidden`
-3. `scroll`
-4. `auto`
-5. `inherit`
-
-When set to `auto`, the browser decides. Usually scroll.
-
-Accepts [measurement values](#measurement-values)
-
-### The `box-shadow` property
-Applied similarly to [`text-shadow`](#the-text-shadow-property) property. Optional values include:
-```css
-box-shadow: (inset) vertical-offset horizontal-offset shadow-radius (spread) shadow-color;
-
-box-shadow: inset 4px 3px 2px 1px black;
-```
-The `inset` keyword tells a browser to draw the shadow inside the box.
-
-The `spread` expands the shadow by the specified amount.
-
-## Margins
-Uses *[measurement](#measurement-values)* values.
-```css
-margin-right: 0px; /*Applies to all sides*/
-margin-left: 0px;
-margin-top: 0px;
-margin-bottom: 0px;/*Don't need to add the px*/
-
-/*Shorthand*/
-margin: top right bottom left;
-margin: top|bottom left|right;
-margin: top left|right bottom;
-```
-
-### Collapsing Margins
-When two margins collide, the browser applies the larger margin.  
-To prevent this, use top or bottom padding instead or add a border.  
-Left and right margins don't collapse.
-
-## Padding
-Uses *[measurement](#measurement-values)* values.
-```css
-padding-right: 0px; /*Applies to all sides*/
-padding-left: 0px;
-padding-top: 0px;
-padding-bottom: 0px;/*Don't need to add the px*/
-
-/*Shorthand*/
-padding: top right bottom left;
-padding: top|bottom left|right;
-padding: top left|right bottom;
-```
-
-## Borders
-Has three main properties; `border-color`, `border-width` and `border-style`.
-```css
-border: width style color;
-border: 1px solid black;
-
-border-top: 1px solid black;
-border-bottom: 1px solid black;
-border-left: 1px solid black;
-border-right: 1px solid black;
-```
-The `border-width` property accepts
-* Measurement values, except percentages.
-* Keywords - `thin`, `medium` and `thick`.
-
-The `border-style` controls the type of line drawn. Accepts keywords like
-* `solid`
-* `dotted`
-* `dashed`
-* `double`
-* `groove`
-* `ridge`
-* `inset`
-* `outset`
-* `none`
-* `hidden`  
-* `inherit`
-`None` and `hidden` work the same way; removing the border completely.
-![Border Styles](img/css-border-style.png)
-
-The `border-radius` property lets you curve the radius of the element. Applied similarly to padding and margin. Other applications include:
-```css
-border-radius: horizontal-radius/vertical-radius;
-border-radius: top-left top-right bottom-right bottom-left;
-
-border-radius: 40px/20px;
-border-radius: 40px/20px 10px/30px 20px/40px 10px;
-```
-* `border-top-left-radius`
-* `border-top-right-radius`
-* `border-bottom-left-radius`
-* `border-bottom-right-radius`
-
-The `border-color` property sets the color for the border. 
-`border-top-color` `border-right-color` `border-bottom-color` `border-left-color`
-```css
-border-color: top right bottom left;
-```
-
-THe `border-image` property lets you set an image as the border.
-```css
-border-image: image-source image-slice image-width image-outset image-repeat;
-
-border-image: url(img.png) 33 33 33 33 stretch;
-```
-`border-image-slice` provides measurements to the four slice lines that divide the image into nine sections. The 33 numbers.  
-`border-image-outset` specifies the distance for the image to hang out over the border.  
-`border-image-repeat` specifies how the image should fill in the sides - stretch, round or repeat.
-
+To design all the different states, it must be in this order - **L-V-H-A**
 
 # Backgrounds
 ## Background Colours
@@ -1168,17 +1149,37 @@ For gradient size, keywords are used and they include;
 background-image: radial-gradient(circle, yellow 20px,black 30px, white 40px);
 ```
 
-# Styling Links
+# Styling Lists
 
-## Link States and Pseudo-classes
-* `:link ` - unvisited link
-* `:visited` 
-* `:hover`
-* `:active` - link being clicked
-* `:focus`  
-See *[pseudo-classes](#pseudo-classes)* and *[attribute selectors](#attribute-selectors)* for more information
+## The `list-style-type` property
+Decides the type of bullets for unordered lists, and the numbering scheme for ordered lists
+**Bullets**
+1. `disc`
+2. `circle`
+3. `square`
 
-To design all the different states, it must be in this order - **L-V-H-A**
+**Numbering Schemes**
+1. `decimal`
+2. `decimal-leading-zero`
+3. `upper-alpha`
+4. `lower-alpha`
+5. `upper-roman`
+6. `lower-roman`
+7. `lower-greek`, etc.
+
+![List Style Type](img/css-list-style-type.png)
+
+## The `list-style-position` property
+1. `inside`
+2. `outside`
+
+![List Style Position](img/css-list-style-position.png)
+
+**Tip:**  
+You can adjust the space between the bullet and text by increasing the `padding-left` property. Works only if `list-style-position` is set to `outside` or don't use it at all.
+
+You could also use an image instead with the `list-style-image` property.
+
 
 # CSS Transforms, Transitions and Animations
 
