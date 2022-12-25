@@ -91,7 +91,9 @@
 - [Styling Links](#styling-links)
   - [Link States and Pseudo-classes](#link-states-and-pseudo-classes)
 - [CSS Transforms, Transitions and Animations](#css-transforms-transitions-and-animations)
-  - [Transforms](#transforms)
+  - [CSS Transforms](#css-transforms)
+  - [CSS Transitions](#css-transitions)
+    - [The transition shorthand](#the-transition-shorthand)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -1178,7 +1180,7 @@ To design all the different states, it must be in this order - **L-V-H-A**
 
 # CSS Transforms, Transitions and Animations
 
-## Transforms
+## CSS Transforms
 Used for rotating, scaling, moving, skewing. Transformations can be combined.
 ```css
 /*Rotation*/
@@ -1232,3 +1234,53 @@ When applying multiple transformations, the browser applies the effect in the or
 
 The `transform-origin` property lets you change the transformation point. The default position is the center of the element. It works like the *[background-position](#background-images)* property.  
 It has no effect on elements moved using only the `translate` function.
+
+## CSS Transitions
+Transitions are simply animations from one set of CSS properties to another set over a specific amount of time.
+
+```css
+.button {
+  background-color: red;
+  transition-property: background-color;
+  transition-duration: 1s;
+}
+
+.button:hover {
+  background-color: blue;
+}
+```
+
+The `transition-property` specifies which properties to animate. The keyword `all` can be used to animate all CSS properties that can change.
+```css
+transition-property: color, background-color, border-colour;
+transition-property: all;
+```
+
+The `transition-duration` property specifies how long the animation takes to complete. It takes values in seconds or milliseconds.
+```css
+transition-duration: 1s;
+transition-duration: 1000ms;
+
+/*Setting durations for several properties at a time*/
+transition-property: color, background-color, border-colour;
+transition-duration: 1s, 2s, 3s;
+```
+
+The `transition-timing-function` property controls the speed during the animation. For example, the animation can begin slowly then quickly get completed but still within the specified duration.  
+The keywords used are
+* `linear` - steady change along the entire length of the animation.
+* `ease` (default) - Begins slowly, speeds up in the middle and slows down in the end.
+* `ease-in`
+* `ease-out`
+* `ease-in-out`
+* `cubic-bezier()` - plots the progress of the animation over time.
+
+The `transition-delay` property prevents a transition from animating immediately its triggered. Accepts values in seconds and milliseconds.
+
+### The transition shorthand
+```css
+transition: property duration (timing-function) (delay);
+transition: all 1s ease-in .3s;
+
+transition: color 1s, background-color 2s;
+```
