@@ -42,6 +42,9 @@
     - [Keywords](#keywords)
     - [Percentages](#percentages)
     - [Ems](#ems)
+- [Positioning](#positioning)
+  - [The `float` property](#the-float-property)
+    - [Clearing Floats `clear`](#clearing-floats-clear)
 - [Formatting Text](#formatting-text)
   - [Font Types/Formats](#font-typesformats)
   - [Properties](#properties)
@@ -75,8 +78,6 @@
     - [Collapsing Margins](#collapsing-margins)
   - [Padding](#padding)
   - [Borders](#borders)
-- [The `float` property](#the-float-property)
-  - [Clearing Floats `clear`](#clearing-floats-clear)
 - [Backgrounds](#backgrounds)
   - [Background Colours](#background-colours)
   - [Background Images](#background-images)
@@ -89,6 +90,8 @@
     - [Repeating Radial Gradients](#repeating-radial-gradients)
 - [Styling Links](#styling-links)
   - [Link States and Pseudo-classes](#link-states-and-pseudo-classes)
+- [CSS Transforms, Transitions and Animations](#css-transforms-transitions-and-animations)
+  - [Transforms](#transforms)
 
 # References
 > **Learn to Code HTML and CSS: Develop and Style Websites** by *Shay Howe*  
@@ -626,6 +629,25 @@ For consistency, set body `width` to 100% when using ems. Mind the nesting.
 
 **Note**: You can also use negative values.
 
+# Positioning
+
+
+## The `float` property
+Moves an element to the left or right. Content below the floated element wraps around it.
+
+The element is removed from normal flow.
+`left`  
+`right`
+`none`
+
+### Clearing Floats `clear`
+To prevent content from wrapping. The `clear` property is applied to the element after the floated element.
+
+`left`  
+`right` 
+`both`  
+`none`
+
 # Formatting Text
 A *typeface* is what we see; the artistic impression of how text looks, feels and reads.
 
@@ -1022,22 +1044,6 @@ border-image: url(img.png) 33 33 33 33 stretch;
 `border-image-repeat` specifies how the image should fill in the sides - stretch, round or repeat.
 
 
-# The `float` property
-Moves an element to the left or right. Content below the floated element wraps around it.
-
-The element is removed from normal flow.
-`left`  
-`right`
-`none`
-
-## Clearing Floats `clear`
-To prevent content from wrapping. The `clear` property is applied to the element after the floated element.
-
-`left`  
-`right` 
-`both`  
-`none`
-
 # Backgrounds
 ## Background Colours
 Uses the `background-color` property. Accepts color values, `transparent` and `inherit`.
@@ -1169,3 +1175,60 @@ background-image: radial-gradient(circle, yellow 20px,black 30px, white 40px);
 See *[pseudo-classes](#pseudo-classes)* and *[attribute selectors](#attribute-selectors)* for more information
 
 To design all the different states, it must be in this order - **L-V-H-A**
+
+# CSS Transforms, Transitions and Animations
+
+## Transforms
+Used for rotating, scaling, moving, skewing. Transformations can be combined.
+```css
+/*Rotation*/
+transform: rotate(10deg);
+
+/*Scaling*/
+transform: scale(X, Y);
+transform: scale(2); /*x2*/
+transform: scale(0.5); /*x0.5*/
+transform: scaleX(3);
+transform: scaleY(0.35);
+
+/*Translate*/
+transform: translate(X, Y);
+transform: translateX(10em);
+transform: translateY(-5px);
+
+/*Skew*/
+transform: skew(X, Y);
+transform: skewX(10deg);
+transform: skewY(-5deg);
+
+/*Applying Multiple Transformations*/
+transform: skew(45deg, 0deg) scale(.5) translate(40px, 50em) rotate(90deg);
+
+/*Transform Origin*/
+transform-origin: X Y;
+```
+CSS Transforms don't affect other elements around so there might be an overlap.
+
+The `rotate` function accepts values in degrees - 0 to 360. A positive number of degrees is applied clockwise, and a negative number is applied anti-clockwise.
+![CSS Transforms - Rotate](img/css-transform-rotate.png)
+
+The `scale` function resizes an element, making it bigger or smaller. It accepts number values which is the *scaling factor*.  
+A value of 0 renders the element invisible. Everything in the scaled element is enlarged or reduced.  
+A negative value flips the element. It can only be flipped on one axis, and produces a mirror effect.
+![CSS Transforms - Scale 1](img/css-transform-scale-1.png)
+![CSS Transforms - Scale 2](img/css-transform-scale-2.png)
+![CSS Transforms - Scale 3](img/css-transform-scale-3.png)
+
+
+The `translate` function moves an element from its current position a set amount left or right and up or down. It leaves an empty space where the element should be.  
+Negative values move to the left or up, positive values to the right or down.
+![CSS Transforms - Translate](img/css-transform-translate.png)
+
+The `skew` function lets you slant an element on its horizontal and vertical axes. It accepts values in degrees.  
+Negative values are applied anti-clockwise.
+![CSS Transforms - Skew](img/css-transform-skew.png)
+
+When applying multiple transformations, the browser applies the effect in the order they are specified. 
+
+The `transform-origin` property lets you change the transformation point. The default position is the center of the element. It works like the *[background-position](#background-images)* property.  
+It has no effect on elements moved using only the `translate` function.
