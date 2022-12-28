@@ -105,7 +105,14 @@
   - [CSS Animations](#css-animations)
     - [The animation shorthand](#the-animation-shorthand)
 - [CSS Layout](#css-layout)
+  - [Fixed Width Layout](#fixed-width-layout)
+  - [Fluid/Liquid Layout](#fluidliquid-layout)
+  - [Responsive Web Design](#responsive-web-design)
 - [Media Queries](#media-queries)
+  - [Tips for Using Media Queries](#tips-for-using-media-queries)
+- [CSS for Print](#css-for-print)
+  - [Media Style Sheets](#media-style-sheets)
+  - [Tips for Print Style sheets](#tips-for-print-style-sheets)
 - [Good Practices](#good-practices)
 
 # References
@@ -1451,7 +1458,111 @@ animation: name duration [timing-function iteration-count direction delay fill-m
 ```
 
 # CSS Layout
+## Fixed Width Layout
+Regardless of browser width, the page content's width remains the same. 
+
+FOr a fixed width layout, you have to decide
+1. The width, based on common monitor resolutions. - Usually 960px or 1024x768.
+2. Where the layout should be positioned; left, right or center.
+  
+## Fluid/Liquid Layout
+Adjusts to fit the browser's width. Use percentage values instead of absolute values.
+
+
+## Responsive Web Design
+Championed by *Ethan Marcotte*. Operate like liquid layouts, but use media queries to send different designs to different-width browsers.
 
 # Media Queries
+Media Queries let you assign styles to a page based on the destination browser's width and height.
+
+Used to create custom styles for different devices.
+
+Common breakpoints for media queries are for smartphones, tablets and desktop monitors.
+
+See [media style sheets](#media-style-sheets)
+```css
+@media (min-width: ...) and (max-width: ...) {
+  body {
+    width: 100%;
+  }
+}
+```
+## Tips for Using Media Queries
+1. **Adjust columns**: Either reduce or remove for smaller screens. Avoid floats.
+2. **Use flexible widths** for smaller screens. Can stick to fixed-width for desktop.
+3. Tighten up white space
+4. Adjust font sizes
+5. Change navigation menus
+6. Hide content on hand-held devices, if necessary.
+7. Use background images
+
+
+# CSS for Print
+
+## Media Style Sheets
+Style sheets that let you create styles for a particular media type.
+1. **all** - applies to every type of device
+2. braille
+3. embossed
+4. handheld
+5. **print** styles apply only when page is printed/
+6. projection
+7. **screen** refers to styles displayed only on a monitor.
+8. speech
+9. tty
+10. tv
+
+```html
+<!--How to attach media style sheets from external style sheets in HTML-->
+<link rel="stylesheet" href="print.css" media="print">
+
+OR
+@import url(print.css) print; <!--Doesn't worl for IE8 and earlier>
+```
+
+```css
+/*==Specify print style in style sheet==*/
+@ media print {
+...
+}
+```
+
+## Tips for Print Style sheets
+1. Remove background elements
+2. Hide unwanted page areas
+3. Show actual links instead of linked text
+
 
 # Good Practices
+1. Adding Comments
+Helpful as reminders, and for others using your code. *See [comments](#comments)*
+
+2. Name Styles Clearly
+Name styles by purpose, not appearance. E.g `.error` or `alert` not `.redhighlight`. The name should make sense even if the style changes.
+
+3. Don't use names based on position. E.g `secondaryContent` instead of `leftSidebar`.
+
+4. Avoid cryptic names e.g `s1`, `s2`
+
+5. Use multiple classes to save time
+
+6. Organize styles by grouping
+Group styles related to parts of a page. For example, all rules that apply to text, graphics, links placed in one place.  
+Group styles with a related purpose e.g typography, links, etc.
+
+7. Use comments to separate style groups
+
+8. Consider using multiple style sheets.
+
+9. Consider Resets - removing paddings and margins, consistent font sizes, displaying HTML5 elements as block elements, etc.
+
+10. Use descendant selectors where you can, to prevent specificity issues with IDs and classes
+
+11. Compartmentalize your pages
+
+12. Identify the body; add a class or ID. Useful for sites with multiple pages.
+
+13. Remove the units from any zero value, e.g 0 instead of 0px.
+
+
+
