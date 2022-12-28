@@ -118,6 +118,7 @@
     - [For space between borders](#for-space-between-borders)
     - [Adding Borders to Rows](#adding-borders-to-rows)
     - [Table Striping](#table-striping)
+- [Good Practices](#good-practices)
 
 # References
 > **HTML5: The Missing Manual, 2nd Edition** by *Matthew MacDonald*  
@@ -1897,3 +1898,12 @@ Applying alternating colors to rows
 ![Table Striping](img/html-table-striping.png)
 
 **To align text in a table, use the `vertical-align` property. It works only with inline or table-cell elements.**Can also use text-align.
+
+# Good Practices
+1. Write standards-compliant markup
+2. Make use of semantic elements
+3. Use proper document structure
+4. Use alternative text on images
+5. Separate CSS from HTML
+6. Be careful with divs
+7. Continually refactor code
