@@ -1540,7 +1540,7 @@ Helpful as reminders, and for others using your code. *See [comments](#comments)
 2. Name Styles Clearly
 Name styles by purpose, not appearance. E.g `.error` or `alert` not `.redhighlight`. The name should make sense even if the style changes.
 
-3. Don't use names based on position. E.g `secondaryContent` instead of `leftSidebar`.
+3. Don't use names based on position. E.g `.secondaryContent` instead of `.leftSidebar`.
 
 4. Avoid cryptic names e.g `s1`, `s2`
 
