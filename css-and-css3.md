@@ -843,7 +843,7 @@ The `border-style` controls the type of line drawn. Accepts keywords like
 * `outset`
 * `none`
 * `hidden`  
-* `inherit`
+* `inherit`  
 `None` and `hidden` work the same way; removing the border completely.
 ![Border Styles](img/css-border-style.png)
 
@@ -1108,7 +1108,7 @@ To design all the different states, it must be in this order - **L-V-H-A**
 ## Background Colours
 Uses the `background-color` property. Accepts color values, `transparent` and `inherit`.
 
-The `opacity` property is used to make kelements transparent. Accepts numbers from `0-1`. Works like the alpha channel on RGBa colours.
+The `opacity` property is used to make elements transparent. Accepts numbers from `0-1`. Works like the alpha channel on RGBa colours.
 
 ## Background Images
 Uses the `background-image` property
@@ -1448,7 +1448,7 @@ The `animation-fill-mode` property decides if the element return to its initial 
 This property accepts keywords
 * `forwards` - remain at end state 
 
-The `animation-play-state` controls an animation's playback. Usually applied with pseudi-classes. Accepts two keywords
+The `animation-play-state` controls an animation's playback. Usually applied with pseudo-classes. Accepts two keywords
 * `running`
 * `paused`
 
@@ -1517,7 +1517,7 @@ Style sheets that let you create styles for a particular media type.
 <link rel="stylesheet" href="print.css" media="print">
 
 OR
-@import url(print.css) print; <!--Doesn't worl for IE8 and earlier>
+@import url(print.css) print; <!--Doesn't work for IE8 and earlier>
 ```
 
 ```css
