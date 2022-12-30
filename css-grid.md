@@ -116,8 +116,8 @@ Specifies the number of columns or rows a particular element will span.
 ```
 
 ## Using Named Lines
-![Named Lines 1](img/grid-using-named-lines-1)
-![Named Lines 2](img/grid-using-named-lines-2)
+![Named Lines 1](img/grid-using-named-lines-1.png)
+![Named Lines 2](img/grid-using-named-lines-2.png)
 
 # Ordering and Aligning Items
 
@@ -197,3 +197,51 @@ Possible values:
 5. `space-around`
 6. `space-between`
 7. `space-evenly`
+
+# The Autoplacement Algorithm
+Steps autoplacement algorithm follows when positioning elements. Controlled by `grid-auto-flow` property.
+
+## Fundamental Concepts
+1. **Anonymous grid items**  
+Content, like text, placed inside a grid container without being wrapped in a tag.  
+They can't be styled, but inherit style rules from parent.
+
+2. **Value of grid spans**  
+If not set, the value is 1.
+
+3. **Explicit grid**  
+Grid built on the basis of properties like `grid-template-rows`, `grid-template-columns`, and `grid-template-areas`.
+
+4. **Implicit grid**  
+If the position of a grid item is specified outside the explicit grid, the browser generates additional grid lines.  
+This plus the explicit grid make the *implicit grid*. 
+
+5. **Autoplacement Cursor**
+Defines the current insertion point in the grid, specified as a pair of row and column grid lines. At start, it is placed at the start-most row and column in the implicit grid.
+
+## Steps in the Algorithm
+The default value of the grid-auto-flow property is `row`. It is assumed to be the value used here.
+
+1. Generation of Anonymous Grid Items  
+
+
+2. Placement of Elements with an Explicitly Specified Position
+
+
+3. Placement of elements with a set row but no column position  
+To determine the column position, the algorithm behaves in one of two ways, according to the packing mode.
+
+* Sparse packing (default)
+  The column-start line of our item will be set to the smallest possible line index which ensures that there won't be any overlap between the item's own grid area and the cells already occupied by other items.  
+  The column-start line also need to be placed past any other item already placed in this row *by* this step.
+
+* Dense packing
+To initiate dense packing, the `grid-auto-flow` is set to `row dense`.  
+IN this case. the column-start line is also placed at the smallest index.  
+Te difference is that if there is an empty space in a row where the element can fit without any overlap, it will be placed in that position without consideration for the previous item in the sam row with the same position rules.
+
+4. Determining the number of columns in the implicit grid
+
+5. Placement of remaining items
+* Sparse packing (default)
+* Dense packing
