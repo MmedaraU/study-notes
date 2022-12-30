@@ -1,3 +1,21 @@
+- [References](#references)
+- [Introduction](#introduction)
+- [Creating a Grid](#creating-a-grid)
+- [Grid Layout Module Concepts](#grid-layout-module-concepts)
+- [Positioning Grid Items](#positioning-grid-items)
+  - [Using a Line Number](#using-a-line-number)
+  - [Using Named Areas](#using-named-areas)
+  - [Using the `span` keyword](#using-the-span-keyword)
+  - [Using Named Lines](#using-named-lines)
+- [Ordering and Aligning Items](#ordering-and-aligning-items)
+  - [The `order` property](#the-order-property)
+  - [Aligning Content Along the Row](#aligning-content-along-the-row)
+  - [Aligning content along the Column](#aligning-content-along-the-column)
+  - [Aligning the Whole Grid](#aligning-the-whole-grid)
+- [The Autoplacement Algorithm](#the-autoplacement-algorithm)
+  - [Fundamental Concepts](#fundamental-concepts)
+  - [Steps in the Algorithm](#steps-in-the-algorithm)
+
 # References
 > **Designing with CSS Grid Layout** by *Ahmad Ajmi, Nitish Kumar and Adrian Roworth*
 > 
