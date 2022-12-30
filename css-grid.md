@@ -2,6 +2,8 @@
 - [Introduction](#introduction)
 - [Terminology](#terminology)
 - [Creating a Grid](#creating-a-grid)
+  - [Nested grids and sub-grids](#nested-grids-and-sub-grids)
+  - [The `repeat` keyword](#the-repeat-keyword)
 - [Positioning Grid Items](#positioning-grid-items)
   - [Using a Line Number](#using-a-line-number)
   - [Using Named Areas](#using-named-areas)
@@ -73,6 +75,24 @@ Applying `display:grid;` to the element makes it a grid container.
 The `grid-template-columns` property specifies the width of each grid column in the grid.
 
 The `grid-template-rows` specifies the height of each grid row.
+
+## Nested grids and sub-grids
+```css
+.content {
+  grid: subgrid;
+}
+```
+## The `repeat` keyword
+Used to let a pattern repeat as often as it needs to.
+```css
+.container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat (5, [one-eighty] 180px [one-eighty] 180px;)
+}
+```
+
+This means that this pattern repeats 5 times or for 5 columns.
 
 # Positioning Grid Items
 ![Grid Example](img/grid-creating-grids.png)

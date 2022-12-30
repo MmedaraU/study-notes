@@ -1380,7 +1380,7 @@ transition: color 1s, background-color 2s;
 Lets you animate from one set of properties to another. They do not necessarily need a trigger.
 Animations, have similar functions as transition such as timing-function, duration, etc. Timing function can be controlled between keyframes.
 
-The first step is to create a set of keyframes. A *keyframe* is a single frame of an animation that dictates how a scene looks. THe browser fills in the gaps between frames.
+The first step is to create a set of keyframes. A *keyframe* is a single frame of an animation that dictates how a scene looks. The browser fills in the gaps between frames.
 ```css
 @keyframes animationName {
   from {
