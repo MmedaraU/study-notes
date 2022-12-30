@@ -1,7 +1,7 @@
 - [References](#references)
 - [Introduction](#introduction)
+- [Terminology](#terminology)
 - [Creating a Grid](#creating-a-grid)
-- [Grid Layout Module Concepts](#grid-layout-module-concepts)
 - [Positioning Grid Items](#positioning-grid-items)
   - [Using a Line Number](#using-a-line-number)
   - [Using Named Areas](#using-named-areas)
@@ -24,6 +24,29 @@
 
 # Introduction
 A layout system that allows us to design pages using a 2-d grid.
+
+# Terminology
+1. Grid Lines  
+  Make up the grid and can be horizontal or vertical.
+
+2. Grid track  
+   Space between two grid lines. Can be horizontal or vertical.
+   Can represent cells or gutters.
+
+3. Grid cell  
+   Space between four grid lines. It is the smallest possible unit on a grid.
+   Similar to a table cell.
+
+4. Grid area  
+   Any area of the grid bound by four grid lines. Can include any number of grid cells.
+
+5. Grid gutter  
+   Space between cells
+
+6. **Grid Item**: Children elements of the grid container. E.g `.tweets` and `.replies`
+
+7. **Grid Lines**: Line that exists on either side of a column or row.
+![Grid Lines](img/grid-lines.png)
 
 # Creating a Grid
 ![Grid Example](img/grid-creating-grids.png)
@@ -50,13 +73,6 @@ Applying `display:grid;` to the element makes it a grid container.
 The `grid-template-columns` property specifies the width of each grid column in the grid.
 
 The `grid-template-rows` specifies the height of each grid row.
-
-# Grid Layout Module Concepts
-
-1. **Grid Item**: Children elements of the grid container. E.g `.tweets` and `.replies`
-
-2. **Grid Lines**: Line that exists on either side of a column or row.
-![Grid Lines](img/grid-lines.png)
 
 # Positioning Grid Items
 ![Grid Example](img/grid-creating-grids.png)
@@ -115,6 +131,9 @@ grid-area: tweets;
 "footer footer footer";
 }
 ```
+
+The `grid-gap` property is used to create grid gutter. It is shorthand for the `grid-column-gap` and `grid-row-gap`.
+
 
 ## Using the `span` keyword
 ![Using span](img/grid-using-span.png)
@@ -249,17 +268,18 @@ The default value of the grid-auto-flow property is `row`. It is assumed to be t
 3. Placement of elements with a set row but no column position  
 To determine the column position, the algorithm behaves in one of two ways, according to the packing mode.
 
-* Sparse packing (default)
+* Sparse packing (default)  
   The column-start line of our item will be set to the smallest possible line index which ensures that there won't be any overlap between the item's own grid area and the cells already occupied by other items.  
   The column-start line also need to be placed past any other item already placed in this row *by* this step.
 
-* Dense packing
+* Dense packing  
+`grid-auto-flow: row dense;`  
 To initiate dense packing, the `grid-auto-flow` is set to `row dense`.  
 IN this case. the column-start line is also placed at the smallest index.  
 Te difference is that if there is an empty space in a row where the element can fit without any overlap, it will be placed in that position without consideration for the previous item in the sam row with the same position rules.
 
-4. Determining the number of columns in the implicit grid
+1. Determining the number of columns in the implicit grid
 
-5. Placement of remaining items
+2. Placement of remaining items
 * Sparse packing (default)
 * Dense packing
