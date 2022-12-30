@@ -119,4 +119,81 @@ Specifies the number of columns or rows a particular element will span.
 ![Named Lines 1](img/grid-using-named-lines-1)
 ![Named Lines 2](img/grid-using-named-lines-2)
 
-## 
+# Ordering and Aligning Items
+
+## The `order` property
+Used to specify the order in which different should be placed inside a grid.
+
+Very useful when items are added dynamically.
+
+Items with the lowest order value are placed first in the grid. Items with higher values are placed later.
+
+Items with the same order value will appear as they do in the source document.
+
+![The Order Property](img/grid-order.png)
+```html
+<div class="item a"></div>
+<div class="item b"></div>
+<div class="item c"></div>
+<div class="item d"></div>
+<div class="item e"></div>
+<div class="item f"></div>
+<div class="item g"></div>
+<div class="item h"></div>
+<div class="item i"></div>
+<div class="item j"></div>
+```
+
+```css
+.c {
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.e {
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.b, .j {
+  order: 2;
+}
+
+.a. .i {
+  order: 3;
+}
+```
+
+## Aligning Content Along the Row
+Use the `justify-self` and `justify-items`.
+
+`justify-self` aligns the content of a single grid item, while `justify-items` aligns all the items in the grid.
+
+Possible values:
+1. `end` - aligns to right
+2. `start` - aligns to left
+3. `center` - aligns to center
+4. `stretch`(default) - fills whole width of grid area
+
+## Aligning content along the Column
+Use the `align-self` and `align-items`.
+
+Possible values:
+1. `end` - aligns to top
+2. `start` - aligns to bottom
+3. `center` - aligns to center
+4. `justify` - fills whole width of grid area
+
+## Aligning the Whole Grid
+
+`justify-content` - row
+`align-content` - column
+
+Possible values:
+1. `end`
+2. `start`
+3. `center`
+4. `justify`
+5. `space-around`
+6. `space-between`
+7. `space-evenly`
