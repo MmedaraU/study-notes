@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    section {
+      display: flex;
+      max-width: 740px;
+      margin: 0 auto;
+      background: brown;
+      text-align: left;
+    }
+
+    .column,
+    .row .row {
+      flex-direction: column;
+    }
+
+    .column,
+    .row,
+    .row .row {
+      display: flex;
+    }
+
+    .column,
+    .phi-column,
+    .row,
+    .phi-row {
+      background: white;
+      opacity: 0.5;
+      margin: 5px;
+      color: brown;
+      padding: 5px;
+    }
+
+    .column,
+    .phi-column {
+      height: 346px;
+      width: 560px;
+    }
+
+    .column,
+    .row {
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: 0px;
+    }
+
+    .phi-column,
+    .phi-row {
+      flex-grow: 1.61803;
+      flex-shrink: 1.61803;
+      flex-basis: 0px;
+    }
+
+    .phi-row,
+    .row,
+    .row .row {
+      background: #757575;
+    }
+
+    .row {
+      background: #313131;
+    }
+
+    .row .row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .smaller-column,
+    .smaller-phi-column {
+      height: 50%;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <div class="phi-column"></div>
+    <div class="column">
+      <div class="phi-row"></div>
+      <div class="row">
+        <div class="row">
+          <div class="smaller-column"></div>
+          <div class="smaller-phi-column"></div>
+        </div>
+        <div class="phi-row"></div>
+      </div>
+    </div>
+  </section>
+
+  <img src="./img/flex-golden-ratio-rectangle.png" alt="Sample Golden Ratio Rectangle">
+</body>
+
+
+</html>
