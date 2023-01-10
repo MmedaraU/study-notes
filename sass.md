@@ -41,7 +41,6 @@
 > **[Sass Documentation for Dart Sass 1.53.0 and LibSass 3.6.5](https://sass-lang.com/documentation)**
 
 # Introduction
-Sass stands for *Syntactically Awesome Stylesheets*
 
 ## Preprocessors
 A preprocessor takes one form of data and converts it to another. Sass is a preprocessor language.
@@ -49,7 +48,28 @@ A preprocessor takes one form of data and converts it to another. Sass is a prep
 CSS uses a declarative form of programming - styles are used directly by browser without compiling.
 
 ## About Sass
-Designed and developed by Hampton Caitlin and Natalie Weizenbaum.
+Sass stands for *Syntactically Awesome Stylesheets*. It was designed and developed by Hampton Caitlin and Natalie Weizenbaum.
+
+Sass is a preprocessor language that is an extension of CSS.
+
+The Sass preprocessor allows two syntaxes
+1. Sass (indented syntax)
+2. SCSS or Sassy CSS; a CSS-like syntax
+
+The *Sass/indented syntax* uses a Ruby-like syntax with no braces or semicolons, and a strict indentation. This syntax is white-space sensitive.
+```sass
+.media
+  margin: 10px
+  overflow: hidden
+```
+
+The *.scss format* adheres closely to the CSS syntax. If it's valid CSS, it's valid SCSS.
+```scss
+.media {
+  margin: 10px;
+  overflow: hidden;
+}
+```
 
 ## Output Styles
 How Sass outputs CSS - *nested, expanded, compact, compressed*. The amount of space they consume reduces with each style.
@@ -85,10 +105,12 @@ How Sass outputs CSS - *nested, expanded, compact, compressed*. The amount of sp
     ```
 
 4. **compressed**  
-    Takes less space than all the output styles. Ii eliminates all white space
+    Takes less space than all the output styles. It eliminates all white space.
     ```scss
     .container {color: #000;}.container p{padding: 10px;}
     ```
+
+    
 # Basic Syntax Rules
 Hyphens and underscores are used interchangeably.
 
