@@ -2,6 +2,7 @@
 - [Introduction](#introduction)
   - [Preprocessors](#preprocessors)
   - [About Sass](#about-sass)
+  - [Output Styles](#output-styles)
 - [Basic Syntax Rules](#basic-syntax-rules)
   - [Comments](#comments)
   - [Placeholder Selectors](#placeholder-selectors)
@@ -27,13 +28,17 @@
 - [The `@at-root` directive](#the-at-root-directive)
 - [Mixins](#mixins)
 - [Sass Functions](#sass-functions)
+  - [Numeric Functions](#numeric-functions)
+  - [Color Functions](#color-functions)
+  - [List Functions](#list-functions)
+  - [User-Defined Functions](#user-defined-functions)
 
 # References
-> **Beginning CSS Preprocessors** with Sass, Compass, and Less by *Anirudh Prabhu*.
+> **Beginning CSS Preprocessors** with Sass, Compass, and Less by *Anirudh Prabhu*. (Sass v3.3.5)
 > 
 > **Jump Start Sass** by *Hugo Giraudel and Miriam Suzanne*
 > 
-> **[Sass Documentation for Dart Sass 1.53.0(at the time)](https://sass-lang.com/documentation)**
+> **[Sass Documentation for Dart Sass 1.53.0 and LibSass 3.6.5](https://sass-lang.com/documentation)**
 
 # Introduction
 Sass stands for *Syntactically Awesome Stylesheets*
@@ -46,6 +51,44 @@ CSS uses a declarative form of programming - styles are used directly by browser
 ## About Sass
 Designed and developed by Hampton Caitlin and Natalie Weizenbaum.
 
+## Output Styles
+How Sass outputs CSS - *nested, expanded, compact, compressed*. The amount of space they consume reduces with each style.
+
+1. **nested**  
+    Default output style - shows CSS in normal format. Indentation is per nesting in original Sass document.
+    ```scss
+    .container {
+      color: #000; }
+
+    .container p {
+      padding: 10px; }
+    ```
+
+2. **expanded**  
+    The output is derived as if CSS were handwritten. 
+    ```scss
+    .container {
+      color: #000;
+    }
+
+    .container p {
+      padding: 10px;
+    }
+    ```
+
+3. **compact**  
+    Consumes less space than the previous styles. Puts all properties on a single line, with one rule per line.
+    ```scss
+    .container {color: #000;}
+
+    .container p {padding: 10px;}
+    ```
+
+4. **compressed**  
+    Takes less space than all the output styles. Ii eliminates all white space
+    ```scss
+    .container {color: #000;}.container p{padding: 10px;}
+    ```
 # Basic Syntax Rules
 Hyphens and underscores are used interchangeably.
 
@@ -507,3 +550,103 @@ border-style: dashed;
 ```
 
 # Sass Functions
+
+## Numeric Functions
+1. **abs(number)**  
+    Returns an absolute value of the number.
+    ```scss
+    abs(1.1em) //1.1em`
+    ```
+
+2. **ceil(number)**  
+    Provides a rounded-up value of a number
+    ```scss
+    ceil(1.1em) //2em
+    ```
+
+3. **floor(number)**  
+    Returns a rounded-down value of a number.
+    ```scss
+    floor(1.1em) //1em
+    ```
+
+4. **percentage(number)**  
+    Converts the provided number into a percentage
+    ```scss
+    percentage(1.1) //110%
+    ```
+
+5. **round(number)**  
+    Return the nearest round value of the number provided
+    ```scss
+    round(1.1em) //1em
+    ```
+
+## Color Functions
+Functions for transforming colors
+
+1. **adjust_color(color, number)**  
+    Assigns individual properties of colours. The number values can be negative or positive.  
+    The properties that can be transformed are
+    * red
+    * green
+    * blue
+    * hue
+    * lightness
+    * alpha
+  
+    ```scss
+    adjust_color(#000, $red:-5);
+    ```
+
+2. **complement(color)**  
+    Returns the complement of the color
+    ```scss
+    complement(#ff0000); //cyan
+    ```
+
+3. **grayscale(color)**  
+    Returns the grayscale version of a color
+
+## List Functions
+Sass lists start counting from 1.
+
+1. **nth(list, index-number)**  
+    Used to fetch a single item from a list.
+    ```scss
+    nth(10px 20px 30px, 1)//10px
+    ```
+
+2. **join(list1, list2, [separator])**  
+    Used to generate a new list by combining two lists.  
+    Each value in the list counts as a single item.  
+    This function can also be used to make list out of individual items.  
+    The `separator` is optional, and can be a space or a comma. The default is the separator used in list 1.
+
+3. **length(list)**  
+    Returns the number of items in a list.
+    ```scss
+    length(10 22 33) //3
+    ```
+
+## User-Defined Functions
+Uses the `@function` directive. It returns a result. Similar to JS functions.
+
+The `@return` directive similar to `return` in JS. Accepts Sass expressions, processes them and returns the result.
+
+The function stops after `@return` is triggered.
+
+```scss
+@function generateGrid($columns) {
+  @return percentage(1/$columns);
+}
+
+.two-column {
+  width:generateGrid(2);
+}
+
+//Output
+.two-column {
+  width: 50%;
+}
+```
