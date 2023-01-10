@@ -94,6 +94,7 @@
     - [Repeating Linear Gradients](#repeating-linear-gradients)
     - [Radial Gradients](#radial-gradients)
     - [Repeating Radial Gradients](#repeating-radial-gradients)
+    - [Conic Gradient and Repeating Conic Gradient](#conic-gradient-and-repeating-conic-gradient)
 - [Styling Lists](#styling-lists)
   - [The `list-style-type` property](#the-list-style-type-property)
   - [The `list-style-position` property](#the-list-style-position-property)
@@ -113,6 +114,7 @@
 - [CSS for Print](#css-for-print)
   - [Media Style Sheets](#media-style-sheets)
   - [Tips for Print Style sheets](#tips-for-print-style-sheets)
+- [CSS Functions](#css-functions)
 - [Good Practices](#good-practices)
 
 # References
@@ -121,6 +123,8 @@
 > **CSS3: The Missing Manual** by *David Sawyer McFarland*
 > 
 <!-- > **Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, 4th Edition** by *Jennifer Niederst Robbins* -->
+>
+> W3Schools
 
 
 # Introduction
@@ -1224,6 +1228,8 @@ For gradient size, keywords are used and they include;
 background-image: radial-gradient(circle, yellow 20px,black 30px, white 40px);
 ```
 
+### Conic Gradient and Repeating Conic Gradient
+
 # Styling Lists
 
 ## The `list-style-type` property
@@ -1532,37 +1538,55 @@ OR
 2. Hide unwanted page areas
 3. Show actual links instead of linked text
 
+# CSS Functions
+1. `attr()`
+    Returns the value of an attribute of the selected element
 
+2. `calc()`
+    Allows you perform calculations to determine property values in CSS
+
+3. `counter()`
+    Returns the current value of the named counter
+
+4. `max()`
+    Uses the largest value, from a comma-separated list of values, as the property value
+
+5. `min()`
+    Uses the smallest value, from a comma-separated list of values, as the property value
+
+6. `var()`
+    Inserts the  value of a custom property.
+    
 # Good Practices
 1. Adding Comments
 Helpful as reminders, and for others using your code. *See [comments](#comments)*
 
-2. Name Styles Clearly
+1. Name Styles Clearly
 Name styles by purpose, not appearance. E.g `.error` or `alert` not `.redhighlight`. The name should make sense even if the style changes.
 
-3. Don't use names based on position. E.g `.secondaryContent` instead of `.leftSidebar`.
+1. Don't use names based on position. E.g `.secondaryContent` instead of `.leftSidebar`.
 
-4. Avoid cryptic names e.g `s1`, `s2`
+2. Avoid cryptic names e.g `s1`, `s2`
 
-5. Use multiple classes to save time
+3. Use multiple classes to save time
 
-6. Organize styles by grouping
+4. Organize styles by grouping
 Group styles related to parts of a page. For example, all rules that apply to text, graphics, links placed in one place.  
 Group styles with a related purpose e.g typography, links, etc.
 
-7. Use comments to separate style groups
+1. Use comments to separate style groups
 
-8. Consider using multiple style sheets.
+2. Consider using multiple style sheets.
 
-9. Consider Resets - removing paddings and margins, consistent font sizes, displaying HTML5 elements as block elements, etc.
+3. Consider Resets - removing paddings and margins, consistent font sizes, displaying HTML5 elements as block elements, etc.
 
-10. Use descendant selectors where you can, to prevent specificity issues with IDs and classes
+4.  Use descendant selectors where you can, to prevent specificity issues with IDs and classes
 
-11. Compartmentalize your pages
+5.  Compartmentalize your pages
 
-12. Identify the body; add a class or ID. Useful for sites with multiple pages.
+6.  Identify the body; add a class or ID. Useful for sites with multiple pages.
 
-13. Remove the units from any zero value, e.g 0 instead of 0px.
+7.  Remove the units from any zero value, e.g 0 instead of 0px.
 
 
 
