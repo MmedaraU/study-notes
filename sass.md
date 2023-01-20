@@ -7,31 +7,44 @@
   - [Comments](#comments)
   - [Placeholder Selectors](#placeholder-selectors)
 - [Data Types](#data-types)
+  - [Strings](#strings)
+  - [Numbers](#numbers)
+    - [How Units are handled in Sass](#how-units-are-handled-in-sass)
+  - [Colors](#colors)
+  - [Booleans](#booleans)
+  - [Null](#null)
+  - [Lists](#lists)
+  - [Maps](#maps)
 - [Nesting](#nesting)
-  - [Nesting Styles](#nesting-styles)
-  - [Nesting Properties](#nesting-properties)
+  - [Selector Nesting](#selector-nesting)
+  - [Property Nesting](#property-nesting)
+  - [Context Nesting](#context-nesting)
   - [Referencing a Parent Selector](#referencing-a-parent-selector)
+  - [The `@at-root` directive](#the-at-root-directive)
 - [Variables](#variables)
+  - [Scope](#scope)
+    - [The `!global` flag](#the-global-flag)
+    - [The `!default` flag](#the-default-flag)
 - [Interpolation](#interpolation)
-- [Logical Capabilities](#logical-capabilities)
-  - [Mathematical Operations](#mathematical-operations)
-  - [Control Directives](#control-directives)
-    - [The `@if` directive](#the-if-directive)
-    - [The `@for` directive](#the-for-directive)
-    - [The `@each` directive](#the-each-directive)
-    - [The `@while` directive](#the-while-directive)
+- [Loops and Conditions](#loops-and-conditions)
+  - [The `@if` directive](#the-if-directive)
+  - [The `@for` loop](#the-for-loop)
+  - [The `@each` loop](#the-each-loop)
+  - [The `@while` loop](#the-while-loop)
 - [The `@import` directive](#the-import-directive)
   - [Partials](#partials)
   - [Nested `@import`](#nested-import)
   - [Plain CSS Imports](#plain-css-imports)
 - [The `@extend` directive](#the-extend-directive)
-- [The `@at-root` directive](#the-at-root-directive)
 - [Mixins](#mixins)
+  - [The `@content` directive](#the-content-directive)
+- [Mathematical Operations](#mathematical-operations)
 - [Sass Functions](#sass-functions)
-  - [Numeric Functions](#numeric-functions)
-  - [Color Functions](#color-functions)
-  - [List Functions](#list-functions)
   - [User-Defined Functions](#user-defined-functions)
+  - [Native Functions](#native-functions)
+    - [Numeric Functions](#numeric-functions)
+    - [Color Functions](#color-functions)
+    - [List Functions](#list-functions)
 
 # References
 > **Beginning CSS Preprocessors** with Sass, Compass, and Less by *Anirudh Prabhu*. (Sass v3.3.5)
@@ -110,7 +123,7 @@ How Sass outputs CSS - *nested, expanded, compact, compressed*. The amount of sp
     .container {color: #000;}.container p{padding: 10px;}
     ```
 
-    
+
 # Basic Syntax Rules
 Hyphens and underscores are used interchangeably.
 
@@ -145,19 +158,127 @@ Selectors that are not rendered in the final `.css` file. Used to extend certain
 ```
 
 # Data Types
-1. Numbers
+1. Numbers - *e.g 42, 130px*
 
-2. Strings
+2. Strings - *e.g "Hello world", kittens*
 
-3. Colors
+3. Colors - *e.g red, #bada55*
 
-4. Boolean
+4. Boolean - *true or false*
 
-5. Comma- or space-separated values
+5. List - *e.g (a, b, c), a b c*
+
+6. map - *e.g (a:1, b:2)*
+
+7. null
+
+Math functions can be performed on numbers and colors, but not strings. Some functions can be performed on lists and maps, but not on booleans and null values.
+
+## Strings
+A string is a series of characters. They do not  need to be quoted in Sass, as long as non-identifier characters are escaped.
+
+A quoted string is strictly equivalent to its quoted counterpart. Quoting strings is however a good practice.
+
+```scss
+//Concatenating Strings
+$base-path: '/images/';
+$file-name: '/kittens';
+$extension: 'png';
+
+$file-path: $base-path + $file-name + '.' + $extension; //'images/kittens.png'
+```
+
+## Numbers
+A number in Sass can have a unit.
+
+You can perform operations on numerical values - add(+), subtract(-), multiply(\*), divide(/), modulo(%). Check *[Mathematical Operations](#mathematical-operations)*.
+
+The slash symbol (/) apart from division, has other uses e.g in the font shorthand property. There are three scenarios in which Sass does perform division instead of leaving the slash;
+
+1. If the value, or any part of it, is stored in a variable or returned by a function.
+2. If the value is surrounded by parentheses. `e.g (16px/2)`
+3. If the value is used as part of another arithmetic expression. `e.g width: 300px + 16px / 2;`
+
+
+### How Units are handled in Sass
+Units are not just strings attached to a number, they are part of the number.
+```scss
+$value: 42;
+$good: $value * 1px; //42px --> number
+$bad: $value + px; //'42px' --> string
+```
+
+## Colors
+Ways of expressing a color are consistent with CSS - hsl, hsla, rgb, keywords, etc.
+
+
+## Booleans
+Coupled with conditional statements.
+*Instead of a `!` symbol, Sass has a `not` keyword.*
+
+## Null
+Null is both the value and the data type. It is commonly used to describe an empty value that will be filled later on, or an empty state that's neither true or false. Sass omits a declaration with a null data type altogether.
+
+Especially useful for building mixins.
+```scss
+@mixin absolute($top: null, $right: null, $bottom:null, $left:null) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+//Example
+.foo {
+  @include absolute($top: 13px, $left: 37px);
+}
+```
+
+## Lists
+Acts mostly as a container. BAsically arrays; used to store a collection of related values, usually to iterate over them in order to perform a repeated action.
+
+A Sass list is a collection of zero or more values separated by either spaces or commas. Lists can be nested.
+
+```scss
+$myList: (42, hotpink, 'kittens');
+```
+It's the delimiter (spaces or commas) that make the list, not the parentheses. The parentheses are optional unless the list is empty.
+
+## Maps
+Similar to lists.
+
+A map is a series of pairs of associated keys and values where keys are unique to each map. 
+
+Lists are tied to a specific order, while maps are located by their key.
+
+Keys of a map can be of any type.
+
+```scss
+$message-themes: (
+  'info': deepskyblue,
+  'danger': tomato,
+  'warning': gold,
+  'confirm': lightgreen,
+);
+
+.message-info {
+  color: map-get($message-themes, 'info');
+}
+.message-danger {
+  color: map-get($message-danger, 'danger');
+}
+.message-warning {
+  color: map-get($message-warning, 'warning');
+}
+.message-confirm {
+  color: map-get($message-confirm, 'confirm');
+}
+```
 
 # Nesting
 
-## Nesting Styles
+## Selector Nesting
 ```scss
 .article {
 h1 {
@@ -174,7 +295,7 @@ img {
 }
 ```
 
-## Nesting Properties
+## Property Nesting
 ```scss
 .content {
   font: {
@@ -195,6 +316,32 @@ Media queries can be nested in style rules
   }
 }
 ```
+
+## Context Nesting
+* Nesting media queries in style rules
+```scss
+div {
+  display: block;
+
+  @media screen and (min-width: 42em) {
+    display: inline-block;
+  }
+}
+```
+
+* Nesting media queries
+```scss 
+@media screen {
+  div {
+    display: block;
+
+    @media (min-width: 42em) {
+      display: inline-block;
+    }
+  }
+}
+```
+
 ## Referencing a Parent Selector
 When nesting styles, the ampersand `&` sign can be used to reference the parent selector regardless of the level of nesting.
 ```css
@@ -207,11 +354,46 @@ a {
 }
 ```
 
+## The `@at-root` directive
+Causes the rules inside it to be rendered at the document root level regardless of where they are nested.
+
+It is used within selectors.
+
+```scss
+.notification {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.errorLooks {
+  @extend .notification;
+
+  @at-root {
+    .icon {
+      border-radius: 50%;
+    }
+  }
+}
+
+//Output
+.notification, .errorLooks {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.icon {
+  border-radius: 50%;
+}
+```
+The content of the `@at-root` directive will appear after the rules within which it was nested.
 
 # Variables
-Used to associate values to a name that is available to reuse across the code.
+It is a storage location paired with an associated identifier(variable name). Made up of a key and a value.
+
+Used to store values to a name that is available to reuse across the code. Can be reused throughout the stylesheet.
+
 ```scss
-$fontColor: #666;
+$fontColor: #666; //Variable
 
 body {
   color: $fontColor;
@@ -233,9 +415,46 @@ $borderDeclaration: 2px $borderColor solid;
 Variables can be given default values that will come into action if they are not assigned any specific value (within a selector).
 `$borderRadius: 5px !default;`
 
+**Note: To know what data type a variable is, we use the `type-of() function.**
+
+## Scope
+Variables can be defined anywhere in a stylesheet.
+However, the access of a variable may be restricted based on where it is assigned.
+
+Variables defined in a mixin, function or rule set are *local* by default. Global variables are defined outside rule sets or at the root element.
+
+Global and local variables can share the same name - this is known as *variable shadowing*. The local variable is said to shadow the global one with the same name.
+
+### The `!global` flag
+To make a local variable a global one, the `!global` flag is used.
+```scss
+$padding: 10px;
+
+.module {
+  $padding: 20px !global;
+  padding: $padding; //20px
+}
+
+.foo {
+  padding: $padding; //10px
+}
+```
+
+### The `!default` flag
+Used to assign a value as the default for a variable if a value is not assigned.
+```scss
+$padding: 10px;
+$padding: 20px !default;
+
+.foo {
+  padding: $padding; //10px
+}
+```
 
 # Interpolation
-For building selectors or properties dynamically; comes handy when you want to use loops to generate styles.
+The process of evaluating an expression or a string containing one or more variables, yielding a result in which the variables are replaced with their corresponding values in memory.
+
+For building selectors or properties dynamically; comes handy when you want to use loops to generate styles. 
 ```scss
 $innerContainerClass: container;
 
@@ -251,49 +470,29 @@ $innerContainerClass: container;
 }
 ```
 
-# Logical Capabilities
-
-## Mathematical Operations
-1. Addition
-    ```scss
-    .container {
-      width: 20%+80%;
-    }
-    ```
-
-2. Subtraction
-    ```scss
-    .container {
-      width: 80%-20%;
-    }
-    ```
-
-3. Multiplication
-    ```scss
-    .container {
-      width: 20%*4;
-    }
-    ```
-
-4. Division
-    ```scss
-    .container {
-      width: 80%/4;
-    }
-    ```
-
-5. Parentheses
-Used to manipulate the order of execution
+Can also be used for concatenating strings or in calculations and in other ways
 ```scss
-.leftSide {
-  font-size: 1em + (.2em*2); //1.4em
+//Instead of this
+$name: 'Hugo';
+
+.foo {
+  content: 'Hello' + $name + '!'; //Hello Hugo!
+}
+
+//Interpolation does this
+$name: 'Hugo';
+
+.foo {
+  content: 'Hello #{$name}!'; //Hello Hugo!
 }
 ```
 
-## Control Directives
+
+
+# Loops and Conditions
 Used to include styles or bringing some variation in styles based on some condition. Commonly used in mixins.
 
-### The `@if` directive
+## The `@if` directive
 Takes an expression and applies the associated style if the expression evaluates to something other than false or null.
 ```scss
 // Just @if directive
@@ -323,7 +522,17 @@ $blockColor: green;
 }
 ```
 
-### The `@for` directive
+Using the `and` and `or` keywords
+```scss
+@if true and false {
+  //Write statement
+}
+@if true or false {
+  //Write statement
+}
+```
+
+## The `@for` loop
 Used to output styles by means of looping. You can adjust styles based on the value of the counter.
 ```scss
 //Variation 1
@@ -341,7 +550,7 @@ Used to output styles by means of looping. You can adjust styles based on the va
 }
 ```
 
-### The `@each` directive
+## The `@each` loop
 A looping directive that uses a list instead of counters.
 ```scss
 $socials: twitter linkedin pinterest;
@@ -375,7 +584,7 @@ $socials: twitter linkedin pinterest;
 }
 ```
 
-### The `@while` directive
+## The `@while` loop
 Iterates until the condition is not met and outputs the styles nested inside the loop.
 
 ```scss
@@ -472,40 +681,11 @@ The `@extend` directive cannot be used in media queries. It cannot accept argume
 
 You could also extend [placeholder selectors](#placeholder-selectors).
 
-# The `@at-root` directive
-Causes the rules inside it to be rendered at the document root level regardless of where they are nested.
-
-It is used within selectors.
-
-```scss
-.notification {
-  border-radius: 5px;
-  padding: 5px;
-}
-
-.errorLooks {
-  @extend .notification;
-
-  @at-root {
-    .icon {
-      border-radius: 50%;
-    }
-  }
-}
-
-//Output
-.notification, .errorLooks {
-  border-radius: 5px;
-  padding: 5px;
-}
-
-.icon {
-  border-radius: 50%;
-}
-```
-The content of the `@at-root` directive will appear after the rules within which it was nested.
+**Note: `@extend` does not work across media queries.**
 
 # Mixins
+Mixins are functions that can output code rather than return a result.
+
 Used to create reusable style code that can be used across the entire stylesheet. They can contain full CSS rules and can take arguments.
 
 ```scss
@@ -571,9 +751,92 @@ border-style: dashed;
 }
 ```
 
-# Sass Functions
+## The `@content` directive
+This directive is specific to mixins. Lets the style rule pass code to the mixin instead of the mixin having default styles.
 
-## Numeric Functions
+```scss
+@mixin on-event {
+  &:hover, &:active. &:focus {
+    @content;
+  }
+}
+
+.foo {
+  color: blue;
+
+  @include on-event {
+    color: red;
+  }
+}
+```
+
+# Mathematical Operations
+1. Addition
+    ```scss
+    .container {
+      width: 20%+80%;
+    }
+    ```
+
+2. Subtraction
+    ```scss
+    .container {
+      width: 80%-20%;
+    }
+    ```
+
+3. Multiplication
+    ```scss
+    .container {
+      width: 20%*4;
+    }
+    ```
+
+4. Division
+    ```scss
+    .container {
+      width: 80%/4;
+    }
+    ```
+
+5. Parentheses
+Used to manipulate the order of execution
+```scss
+.leftSide {
+  font-size: 1em + (.2em*2); //1.4em
+}
+```
+
+# Sass Functions
+Math functions can be performed on numbers and colors, but not strings. Some functions can be performed on lists and maps, but not on booleans and null values.
+
+## User-Defined Functions
+Functions are chunks of code that return a result, possibly accepting arguments.
+
+Uses the `@function` directive. It returns a result. Similar to JS functions.
+
+The `@return` directive similar to `return` in JS. Accepts Sass expressions, processes them and returns the result.
+
+The function stops after `@return` is triggered.
+
+```scss
+@function generateGrid($columns) {
+  @return percentage(1/$columns);
+}
+
+.two-column {
+  width:generateGrid(2);
+}
+
+//Output
+.two-column {
+  width: 50%;
+}
+```
+
+## Native Functions
+
+### Numeric Functions
 1. **abs(number)**  
     Returns an absolute value of the number.
     ```scss
@@ -604,7 +867,7 @@ border-style: dashed;
     round(1.1em) //1em
     ```
 
-## Color Functions
+### Color Functions
 Functions for transforming colors
 
 1. **adjust_color(color, number)**  
@@ -630,7 +893,7 @@ Functions for transforming colors
 3. **grayscale(color)**  
     Returns the grayscale version of a color
 
-## List Functions
+### List Functions
 Sass lists start counting from 1.
 
 1. **nth(list, index-number)**  
@@ -650,25 +913,3 @@ Sass lists start counting from 1.
     ```scss
     length(10 22 33) //3
     ```
-
-## User-Defined Functions
-Uses the `@function` directive. It returns a result. Similar to JS functions.
-
-The `@return` directive similar to `return` in JS. Accepts Sass expressions, processes them and returns the result.
-
-The function stops after `@return` is triggered.
-
-```scss
-@function generateGrid($columns) {
-  @return percentage(1/$columns);
-}
-
-.two-column {
-  width:generateGrid(2);
-}
-
-//Output
-.two-column {
-  width: 50%;
-}
-```
