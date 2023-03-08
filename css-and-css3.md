@@ -115,6 +115,8 @@
   - [Media Style Sheets](#media-style-sheets)
   - [Tips for Print Style sheets](#tips-for-print-style-sheets)
 - [CSS Functions](#css-functions)
+  - [Filter Functions](#filter-functions)
+- [CSS Custom Properties (CSS Variables)](#css-custom-properties-css-variables)
 - [Good Practices](#good-practices)
 
 # References
@@ -124,7 +126,9 @@
 > 
 <!-- > **Learning Web Design: A Beginner's Guide to HTML, CSS, JavaScript and Web Graphics, 4th Edition** by *Jennifer Niederst Robbins* -->
 >
-> W3Schools
+> CSS Functions - [W3Schools](w3schools.com), [CSS Tricks](css-tricks.com)
+>
+> 
 
 
 # Introduction
@@ -1285,11 +1289,16 @@ transform: scale(2); /*x2*/
 transform: scale(0.5); /*x0.5*/
 transform: scaleX(3);
 transform: scaleY(0.35);
+transform: scaleZ(0.35);
+transform: scale3d(); /*Not yet sure how it works*/
 
 /*Translate*/
 transform: translate(X, Y);
 transform: translateX(10em);
 transform: translateY(-5px);
+transform: translateZ(5px);
+transform: translate3d(); /*Not yet sure how it works*/
+
 
 /*Skew*/
 transform: skew(X, Y);
@@ -1541,6 +1550,14 @@ OR
 # CSS Functions
 1. `attr()`
     Returns the value of an attribute of the selected element
+    ```html
+    <div data-example="foo">
+    ```
+    ```css
+    div {
+      content: attr(data-example);
+    }
+    ```
 
 2. `calc()`
     Allows you perform calculations to determine property values in CSS
@@ -1554,9 +1571,39 @@ OR
 5. `min()`
     Uses the smallest value, from a comma-separated list of values, as the property value
 
-6. `var()`
-    Inserts the  value of a custom property.
-    
+## Filter Functions
+> Check [CSSGram](https://una.im/CSSgram/) for examples
+They only work with the `filter` property. 
+
+Filters are special effects applied to an element, mimicking capabilities of graphic editing programs.
+
+The `brightness()` function adjusts how bright an object appears. At low levels, appears like a shadow has been cast over the object. At high levels, looks like an over-exposed photo.
+```css
+.avatar:hover {
+  filter: brightness(150%);
+}
+```
+
+The `blur()` function applies a blur on the objects.
+
+The `contrast()` function adjusts the degree of difference between the lightest and darkest parts of the object it is applied to.
+
+The `grayscale()` function removes color information from the object; makes it black and white. A partial grayscale can be applied however to make an object look weathered or washed out.
+
+The `invert()` function makes something look like a photo negative.
+
+# CSS Custom Properties (CSS Variables)
+Uses the `var()` function. USually declared at the root element.
+
+```css
+html {
+  --color: orange;
+}
+
+p {
+  color: var(--color);
+}
+```
 # Good Practices
 1. Adding Comments
 Helpful as reminders, and for others using your code. *See [comments](#comments)*
