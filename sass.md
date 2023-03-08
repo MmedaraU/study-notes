@@ -3,9 +3,10 @@
   - [Preprocessors](#preprocessors)
   - [About Sass](#about-sass)
   - [Output Styles](#output-styles)
-- [Basic Syntax Rules](#basic-syntax-rules)
+- [Syntax](#syntax)
   - [Comments](#comments)
   - [Placeholder Selectors](#placeholder-selectors)
+  - [Hidden Declarations](#hidden-declarations)
 - [Data Types](#data-types)
   - [Strings](#strings)
   - [Numbers](#numbers)
@@ -31,20 +32,40 @@
   - [The `@for` loop](#the-for-loop)
   - [The `@each` loop](#the-each-loop)
   - [The `@while` loop](#the-while-loop)
-- [The `@import` directive](#the-import-directive)
-  - [Partials](#partials)
-  - [Nested `@import`](#nested-import)
-  - [Plain CSS Imports](#plain-css-imports)
+- [Imports](#imports)
+  - [The `@import` directive](#the-import-directive)
+    - [Import-only files](#import-only-files)
+    - [Partials](#partials)
+    - [Nested `@import`](#nested-import)
+    - [Plain CSS Imports](#plain-css-imports)
+  - [The `@use` directive](#the-use-directive)
+  - [Choosing a Namespace](#choosing-a-namespace)
 - [The `@extend` directive](#the-extend-directive)
 - [Mixins](#mixins)
   - [The `@content` directive](#the-content-directive)
 - [Mathematical Operations](#mathematical-operations)
 - [Sass Functions](#sass-functions)
   - [User-Defined Functions](#user-defined-functions)
-  - [Native Functions](#native-functions)
-    - [Numeric Functions](#numeric-functions)
-    - [Color Functions](#color-functions)
-    - [List Functions](#list-functions)
+- [Built-in Modules](#built-in-modules)
+  - [The `sass:math` module](#the-sassmath-module)
+    - [Unit Functions](#unit-functions)
+  - [The `sass:color` module](#the-sasscolor-module)
+  - [The `sass:list` module](#the-sasslist-module)
+  - [The `sass:map` module](#the-sassmap-module)
+  - [The `sass:string` module](#the-sassstring-module)
+- [Other Sass At-Rules](#other-sass-at-rules)
+  - [The `@use` rule](#the-use-rule)
+    - [Loading Members](#loading-members)
+    - [Choosing a Namespace](#choosing-a-namespace-1)
+    - [Private Members](#private-members)
+  - [The `@forward` rule](#the-forward-rule)
+    - [Adding a Prefix](#adding-a-prefix)
+    - [Member Visibility](#member-visibility)
+  - [The `@error` rule](#the-error-rule)
+  - [The `@warn` rule](#the-warn-rule)
+  - [The `@debug` rule](#the-debug-rule)
+- [Changes to Note](#changes-to-note)
+  - [Changes to CSS Variable Syntax](#changes-to-css-variable-syntax)
 
 # References
 > **Beginning CSS Preprocessors** with Sass, Compass, and Less by *Anirudh Prabhu*. (Sass v3.3.5)
@@ -124,8 +145,8 @@ How Sass outputs CSS - *nested, expanded, compact, compressed*. The amount of sp
     ```
 
 
-# Basic Syntax Rules
-Hyphens and underscores are used interchangeably.
+# Syntax
+* Hyphens and underscores are used interchangeably.
 
 ## Comments
 ```scss
@@ -154,6 +175,17 @@ Selectors that are not rendered in the final `.css` file. Used to extend certain
 .notice {
   color: red;
   font-weight: bold;
+}
+```
+
+## Hidden Declarations
+Declarations that only show up some of the time. If a value is set to `null`, the declaration won't be compiled to CSS.
+```scss
+$rounded-corners: false;
+
+.button {
+  border: 1px solid black;
+  border-radius: if($rounded-corners, 5px, null);
 }
 ```
 
@@ -208,12 +240,31 @@ $good: $value * 1px; //42px --> number
 $bad: $value + px; //'42px' --> string
 ```
 
+Units are also multipled when numbers are multiplied
+```scss
+4px * 2px //8px*px(square pixels)
+5px / 2 //2.5px/s (pixels per second)
+```
+
+Operations can be carried out on similar units
+```scss
+1in + 6px //102px or 1.0625in
+1in + 1s //Incompatible units
+```
+
+Percentages are treated differently from decimals e.g 0.5 and 50%.
+
+Only the first ten digits of a number after the decimal point are included in the generated CSS.
+
+Equality is considered up to the tenth digit after the decimal point.
+
+
 ## Colors
 Ways of expressing a color are consistent with CSS - hsl, hsla, rgb, keywords, etc.
 
 
 ## Booleans
-Coupled with conditional statements.
+Coupled with conditional statements. `true` and `false`.  
 *Instead of a `!` symbol, Sass has a `not` keyword.*
 
 ## Null
@@ -236,14 +287,19 @@ Especially useful for building mixins.
 ```
 
 ## Lists
-Acts mostly as a container. BAsically arrays; used to store a collection of related values, usually to iterate over them in order to perform a repeated action.
+Acts mostly as a container. Basically arrays; used to store a collection of related values, usually to iterate over them in order to perform a repeated action.
 
-A Sass list is a collection of zero or more values separated by either spaces or commas. Lists can be nested.
+A Sass list is a collection of zero or more values separated by either spaces, commas or slashes(e.g font shorthand). Lists can be nested.
+
+A list can contain zero elements. Indexing starts from 1.
 
 ```scss
 $myList: (42, hotpink, 'kittens');
+$myList: [10px 15px 0];
 ```
 It's the delimiter (spaces or commas) that make the list, not the parentheses. The parentheses are optional unless the list is empty.
+
+Lists are immutable - their content does not change. 
 
 ## Maps
 Similar to lists.
@@ -439,9 +495,10 @@ $padding: 10px;
   padding: $padding; //10px
 }
 ```
+**Note: The `!global` flag can only be used to set a variable that has already been declared at the top level of the file.**
 
 ### The `!default` flag
-Used to assign a value as the default for a variable if a value is not assigned.
+Used to assign a value as the default for a variable if a value is not assigned. Particularly useful when creating libraries.
 ```scss
 $padding: 10px;
 $padding: 20px !default;
@@ -611,21 +668,31 @@ $col: 4;
 }
 ```
 
-# The `@import` directive
+# Imports
+
+## The `@import` directive
 Sass and SCSS files imported using the SASS `@import` rules will be merged and output as a single file after compilation.
 
 ```scss
 @import "main", "mobile"
 ```
 
-## Partials
+The Sass `@import` rule has the ability to import Sass and CSS stylesheets, providing access to mixins, functions and variables.
+
+Sass imports can't use interpolation but plain CSS imports can.
+
+### Import-only files
+Files that can be `imported` not `used`. 
+`name.import.scss`
+
+### Partials
 Reusable chunks of code that you want to import but don't want to see in the final output. Handy for segregating the style code in various files for better organization.
 
 The files are saved with an underscore `_` as the first character (e.g `_typography.scss`).
 
 Partials are imported without the underscore `@import typography`.
 
-## Nested `@import`
+### Nested `@import`
 Importing code snippets within style rules
 ```scss
 //_parent.scss
@@ -645,12 +712,57 @@ Importing code snippets within style rules
 }
 ```
 
-## Plain CSS Imports
+### Plain CSS Imports
 Plain CSS imports (the files are downloaded) are triggered in Sass when
 1. The file path of the imported files ends with a `.css` extension
 2. The file path begins with `http(s)://`
 
 You cannot import CSS directly into Sass except you change the file extension from `.css` to `.scss`
+
+## The `@use` directive
+Loads mixins, functions, and variables from other Sass stylesheets, and combines CSS from multiple stylesheets together. Stylesheets loaded by `@use` are called *modules*.
+
+```scss
+@use <url>
+
+@use 'foundation/code'//code.scss file in the foundation folder
+```
+Any styles loaded with the `@use` rule will be included exactly once in the compiled CSS output, no matter how many times the styles are loaded.
+
+The `@use` rules must come before any rules except `@forward`. Variables can be declared before the `@use` rule.
+
+Modules loaded with `@use` are only visible in the stylesheet that loads them.
+```scss
+//src/_corners.scss
+$radius: 3px;
+
+@mixin rounded {
+  border-radius: $radius;
+}
+
+
+//style.scss
+@use "src/corners";
+
+.button {
+  @include corners.rounded;
+  padding: 5px + corners.$radius;
+}
+```
+
+## Choosing a Namespace
+The default namespace for a module is the name without the extension.
+
+**Choosing a different namespace for a module**
+```scss
+//style.scss
+@use "src/corners" as c;
+
+.button {
+  @include c.rounded;
+  padding: 5px + corners.$radius;
+}
+```
 
 # The `@extend` directive
 This is known as selector inheritance - inheriting the styles defined in another selector.
@@ -771,6 +883,7 @@ This directive is specific to mixins. Lets the style rule pass code to the mixin
 ```
 
 # Mathematical Operations
+
 1. Addition
     ```scss
     .container {
@@ -834,82 +947,501 @@ The function stops after `@return` is triggered.
 }
 ```
 
-## Native Functions
+# Built-in Modules
+These modules are loaded with the `@use` rule, and the functions are called like any other module member.
 
-### Numeric Functions
-1. **abs(number)**  
-    Returns an absolute value of the number.
-    ```scss
-    abs(1.1em) //1.1em`
-    ```
+Built-in module URLs begin with `sass:` to indicate they're part of Sass itself.
 
-2. **ceil(number)**  
-    Provides a rounded-up value of a number
-    ```scss
-    ceil(1.1em) //2em
-    ```
+```scss
+@use "sass:color";
 
-3. **floor(number)**  
-    Returns a rounded-down value of a number.
-    ```scss
-    floor(1.1em) //1em
-    ```
+.button {
+  $primary-color: #6b717f;
+  color: $primary-color;
+  border: 1px solid color.scale($primary-color, $lightness: 20%);
+}
+```
 
-4. **percentage(number)**  
-    Converts the provided number into a percentage
-    ```scss
-    percentage(1.1) //110%
-    ```
+## The `sass:math` module
+`math.$e` returns the value of the mathematical constant *e*;
 
-5. **round(number)**  
-    Return the nearest round value of the number provided
-    ```scss
-    round(1.1em) //1em
-    ```
+`math.$pi` returns the value of the mathematical constant *pi*;
 
-### Color Functions
-Functions for transforming colors
+`math.ceil($number)` rounds the $number up to the next highest whole number
+```scss
+math.ceil(4); //4
+math.ceil(4.2); //5
+math.ceil(4.9); //5
+```
 
-1. **adjust_color(color, number)**  
-    Assigns individual properties of colours. The number values can be negative or positive.  
-    The properties that can be transformed are
-    * red
-    * green
-    * blue
-    * hue
-    * lightness
-    * alpha
-  
-    ```scss
-    adjust_color(#000, $red:-5);
-    ```
+`math.clamp($min, $number, $max)` restricts $number to the range between $min and $max. If $number is less than $min it returns $min, and if it's greater than $max it returns $max.
 
-2. **complement(color)**  
-    Returns the complement of the color
-    ```scss
-    complement(#ff0000); //cyan
-    ```
+The units must be compatible or the numbers should be unitless.
+```scss
+math.clamp(-1, 0, 1); //0
+math.clamp(1px -1px, 10px); //1px
+math.clamp(-1in, 1cm, 10mm); //10mm
+```
 
-3. **grayscale(color)**  
-    Returns the grayscale version of a color
+`math.floor($number)` rounds down to the nearest whole number.
+```scss
+math.floor(4); //4
+math.floor(4.2); //4
+math.floor(4.9); //4
+```
 
-### List Functions
-Sass lists start counting from 1.
+`math.max($number)` returns the highest of one or more numbers.
+```scss
+math.max(1px, 4px); //4px
 
-1. **nth(list, index-number)**  
-    Used to fetch a single item from a list.
-    ```scss
-    nth(10px 20px 30px, 1)//10px
-    ```
+$widths: 50px, 30px, 100px;
+math.max($widths...); //100px
+```
 
-2. **join(list1, list2, [separator])**  
-    Used to generate a new list by combining two lists.  
-    Each value in the list counts as a single item.  
-    This function can also be used to make list out of individual items.  
-    The `separator` is optional, and can be a space or a comma. The default is the separator used in list 1.
+`math.min($number)` returns the lowest of one or more numbers.
+```scss
+math.min(1px, 4px); //1px
 
-3. **length(list)**  
-    Returns the number of items in a list.
-    ```scss
-    length(10 22 33) //3
-    ```
+$widths: 50px, 30px, 100px;
+math.min($widths...); //30px
+```
+
+`math.round($number)` rounds $number to the nearest whole number.
+```scss
+math.round(4); //4
+math.round(4.2); //4
+math.round(4.9); //5
+```
+
+`math.abs($number)` returns the absolute value of the $number.
+
+If the `$number` is negative, it returns `$number`, and if `$number` is +ve, it returns `$number`.
+```scss
+math.abs(10px); //10px
+math.abs(-10px); //10px
+```
+
+`math.hypot($number)` returns the length of the n-dimensional vector that has components equal to each $number. For example, for three numbers a, b, and c, this returns the square root of a² + b² + c².  
+The units must be compatible or the numbers should be unitless.
+```scss
+math.hypot(3, 4); //5
+
+$lengths: 1in, 10cm, 50px;
+math.hypot($lengths...); //4.0952775683in
+```
+
+`math.log($number, $base:null)` returns the logarithm of $number with respect to $base. If $base is null, the natural log is calculated.  
+The $number and $base must be unitless.
+
+```scss
+math.log(10); //2.302585093
+math.log(10, 10); //1
+```
+
+`math.pow($base, $exponent)` raises $base to the power of $exponent.  
+The $base and $exponent must be unitless.
+
+Trig functions include `math.sin` `math.cos` `math.tan` `math.acos` `math.asin` `math.atan` `math.atan2`
+
+`math.div($number1, $number2)` returns the result of dividing number 1 by number 2.
+
+`math.percentage()` converts a nuiless number to a percentage.
+
+`math.random($limit: null)` returns a random number. If the limit is null, it returns a random number between 0 and 1. If limit is greater than or equal to 1, it returns a number between 1 and the limit.
+
+
+### Unit Functions
+`math.compatible($number1, $number2)` returns whether the numbers have compatible units.
+
+`math.is-unitless` retuns whether number has no units.
+
+`math.unit` returns unit of number.
+
+
+## The `sass:color` module
+`color.adjust()` is used to increase or decrease one or more properties of `$color` by fixed amounts.  
+The red, blue and green arguments must be unitless, and range from -255 to 255.  
+The hue argument must be in `deg` or unitless.  
+The lightness, whiteness and blackness arguments must be between -100% and 100%, not unitless.  
+The alpha argument must be between -1 and 1. 
+```scss
+color.adjust($color, $red: null, $green: null, $blue: null, $hue: null, $saturation: null, $lightness: null, whiteness: null, $blackness: null, $alpha: null)
+
+@use "sass:color"
+color.adjust(#6b717f, $red: 15); //#7a717f
+```
+
+`color.scale()` is used to fluidly scale a color's properties. Between -100% and 100%.
+```scss
+color.scale($color, $red: null, $green: null, $blue: null, $hue: null, $saturation: null, $lightness: null, whiteness: null, $blackness: null, $alpha: null)
+```
+
+`color.adjust()` is used to adjust a color's properties by fixed amounts.
+
+`color.complement($color)` returns the RGB complement of $color.
+
+`color.change()` is used to set a color's properties.
+```scss
+color.change($color, $red: null, $green: null, $blue: null, $hue: null, $saturation: null, $lightness: null, whiteness: null, $blackness: null, $alpha: null)
+```
+
+`color.blackness($color)` returns the HWB blackness of $color as a number between 0% and 100%. The RGB go from 0 to 255.
+
+`color.complement($color)` returns the RGB complement of $color.
+
+`darken($color, $amount)` makes $color darken by decreasing HSL lightness by set $amount; a number between 0 to 100%. Advisable to use `color.scale` instead.
+
+`desaturate($color, $amount)` decreases HSL saturation of $color by a fixed $amount. Must be a number between 0 and 100%. Advisable to use `color.scale` instead.
+
+`color.grayscale($color)` returns a gray color with the same lightness as `$color`. Identical to `color.change($color, $saturation: 0%)`
+
+`color.hue($color)` returns hue of $color as a number between 0deg and 360deg.
+
+`color.hwb($hue $whiteness $blackness / $alpha)` returns colors with given hue, whiteness, blackness and alpha.
+```scss
+color.hwb(210%, 0%, 60%); //#036
+color.hwb(210% 0% 60% / 0.5); //rgba(0, 51, 102, 0.5)
+```
+
+`color.invert($color, $weight)` - Weight must be between 0 to 100%.
+
+`lighten($color, $amount)` increases lightness by a fixed amount.
+
+`color.mix($color1, $color2, $weight)` returns a mixture of both colors. A larger weight indicates more of color 1 should be used and vice versa.
+
+## The `sass:list` module
+***These functions can also be used with maps***
+
+`list.append()` returns a list with a new item added to it.  
+The separator can be a comma, space or slash. If set to `auto`, the separator used will be the one in the initial list.  
+If the new value is a list, it is nested instead of all the items being added.  
+Generally use to add single values to a list.
+```scss
+list.append($list, $val, $separator)
+```
+
+`list.index()` returns the idex of a value in a list. If the value isn't in the list, it returns `null`.  If the value occurs several times, it returns the index of its first appearance.
+```scss
+list.index($list, $value)
+```
+
+`list.is-bracketed($list)` returns whether a list has square brackets.
+
+`list.join()` is used to the elements of two lists and returns a new list containing all items.  
+If `$bracketed` is set to auto, the returned list will be bracketed if the first list is. Otherwise, it will be bracketed if truthy and not bracketed if falsey.
+```scss
+list.join($list, $separator, $bracketed);
+```
+
+`list.length($list)` returns the length of a list, or the number of pairs in a map.
+
+`list.separator($list)` returns the name of the separator used by the list.
+
+`list.nth($list, $n)` returns the element at the specified index. if `$n` is negative, it counts from the end of the list.
+
+`list.set-nth($list, $n, $value)` replaces item at specified index with a new value.
+
+`list.slash($elements)` returns a slash-separated lists that contains the elements.
+
+`list.zip($lists)` combines every list in $lists into a single list of sub-lists.  
+Each element in the returned list contains all the elements at that position in $lists.  
+The returned list is as long as the shortest list in $lists.  
+The returned list is always comma-separated and the sub-lists are always space-
+separated.  
+```scss
+list.zip(10px 50px 100px, short mid long); // 10px short, 50px
+mid, 100px long
+list.zip(10px 50px 100px, short mid); // 10px short, 50px mid
+```
+
+## The `sass:map` module
+
+## The `sass:string` module
+`string.quote` returns a string as a quoted string.
+
+`string.index($string, $substring)` returns index of substring in string, or null if it isn't there.
+```scss
+string.index("Helevetica Neue", "Helvetica"); /1
+string.index("Helevetica Neue", "Neue"); /11
+```
+
+`string.insert($string, $insert, $index)` inserts new value at specified index in string. If the index is higher than the length of the string, it is added at the end. If its smaller than the negative length, the value is added to the beginning.
+```scss
+string.insert("Roboto Bold", " Mono", 7); //Roboto Mono Bold
+string.insert("Roboto Bold", " Mono", -6); //Roboto Mono Bold
+```
+
+`string.length` returns the number of characters in a string, including the spaces.
+
+`string.slice($string, $start-at, $end-at: -1)` returns the slice of string starting at the specified index.
+
+`string.to-upper-case` and `string.to-lower-case` return string in uppercase and lowercase respectively.
+
+`string.unique-id` returns a unique id guaranteed to be a valid CSS identifier and valid within the current Sass configuratiion.
+
+`string.unquote` returns unquoted strings. The produced strings are not valid CSS.
+
+# Other Sass At-Rules
+
+## The `@use` rule
+The `@use` rule loads mixins, functions and variables from other Sass stylesheets, and combines CSS from multiple stylesheets together.
+
+Stylesheets loaded with `@use` are called modules. Any styles loaded this way are used exactly once in the compiled CSS no matter how many times they are loaded.
+```scss
+// foundation/_code.scss
+// foundation/_lists.scss
+
+
+@use 'foundation/code';
+@use 'foundation/lists';
+```
+
+The `@use` rule only makes members available within the scope of the current file. It never adds them to the global scope.
+
+The `@use` rule loads each file once. It must appear at the beginning of the file and cannot be nested in style rules.
+
+Each `@use` rule can only have only one URL and requires quotes around its URL even when using the indented syntax.
+
+### Loading Members
+You can access variables, functions, and mixins from imported modules.  
+
+Members loaded with `@use` are only visible in the stylesheet that loads them.
+
+If you want to load members from many files at once, you can use the `@forward` rule to forward them all from one shared file.
+
+`@use` adds namespaces to member names.
+```scss
+<namespace>.<variable>
+<namespace>.<function>
+@include <namespace>.<mixin>
+
+// src/_corners.scss
+$radius: 3px;
+@mixin rounded {
+  border-radius: $radius;
+}
+
+
+//style.scss
+@use "src/corners";
+.button {
+  @include corners.rounded;
+  padding: 5px + corners.$radius;
+}
+```
+
+### Choosing a Namespace
+By default, a namespace is the last component of a module's URL without a file extension. It can be changed though.
+```scss
+<namespace>.<variable>
+<namespace>.<function>
+@include <namespace>.<mixin>
+
+// src/_corners.scss
+$radius: 3px;
+@mixin rounded {
+  border-radius: $radius;
+}
+
+
+//style.scss
+@use "src/corners" as c;
+.button {
+  @include c.rounded;
+  padding: 5px + c.$radius;
+}
+```
+
+A module can be loaded without a namespace by writing `@use "<url>" as *`.
+```scss
+// src/_corners.scss
+$radius: 3px;
+@mixin rounded {
+  border-radius: $radius;
+}
+
+
+//style.scss
+@use "src/corners" as *;
+.button {
+  @include rounded;
+  padding: 5px + $radius;
+}
+```
+
+### Private Members
+Members (variables, mixins, etc) of a stylesheet that are made to not be available outside that stylesheet.
+```scss
+$-radius: 3px; //Throws an error when used in another stylesheet
+```
+
+To make a member private to an entire package rather than a single module, don't forward the module or the member can be hidden.
+
+## The `@forward` rule
+The `@forward` rule loads a stylesheet and makes its members available when the stylesheet is loaded with the `@use` rule.
+
+The `@forward` rule makes the public members of the loaded module available to
+users of your module as though they were defined directly in your module. Those members
+arenʼt available in your module. If you want that, youʼll need to write a `@use` rule
+as well.
+
+If you do write both a `@forward` and a `@use` for the same module in the same file, itʼs
+always a good idea to write the `@forward` first.
+
+```scss
+// src/_list.scss
+@mixin list-reset {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+// bootstrap.scss
+@forward "src/list";
+
+//styles.scss
+@use "bootstrap";
+
+li {
+  @include bootstrap.list-reset;
+}
+```
+
+### Adding a Prefix
+```scss
+// src/_list.scss
+@mixin reset {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+// bootstrap.scss
+@forward "src/list" as list-*;
+
+//styles.scss
+@use "bootstrap";
+li {
+  @include bootstrap
+}
+```
+
+### Member Visibility
+```scss
+// src/_list.scss
+$horizontal-list-gap: 2em;
+
+@mixin list-reset {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+@mixin list-horizontal {
+  @include list-reset;
+
+  li {
+    display: inline-block;
+    margin: {
+      left: -2px;
+      right: $horizontal-list-gap;
+    }
+  }
+}
+
+// bootstrap.scss
+@forward "src/list" hide list-reset, $horizontal-list-gap;
+//OR
+@forward "src/list" show list-reset, $horizontal-list-gap;
+```
+
+## The `@error` rule
+Lets compilation fail with an error message
+```scss
+@mixin reflexive-position($property, $value) {
+@if $property != left and $property != right {
+@error "Property #{$property} must be either left or right.";
+}
+
+
+$left-value: if($property == right, initial, $value);
+$right-value: if($property == right, $value, initial);
+
+
+left: $left-value;
+right: $right-value;
+[dir=rtl] & {
+left: $right-value;
+right: $left-value;
+}
+}
+
+
+.sidebar {
+@include reflexive-position(top, 12px);
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// Error: Property top must be either left or right.
+}
+```
+
+## The `@warn` rule
+Prints a warning without stopping compilation entirely.
+```scss
+$known-prefixes: webkit, moz, ms, o;
+
+@mixin prefix($property, $value, $prefixes) {
+@each $prefix in $prefixes {
+@if not index($known-prefixes, $prefix) {
+@warn "Unknown prefix #{$prefix}.";
+}
+
+-#{$prefix}-#{$property}: $value;
+}
+#{$property}: $value;
+}
+
+
+.tilt {
+// Oops, we typo'd "webkit" as "wekbit"!
+@include prefix(transform, rotate(15deg), wekbit ms);
+}
+```
+
+## The `@debug` rule
+Prints a message for debugging purposes
+```scss
+@mixin inset-divider-offset($offset, $padding) {
+$divider-offset: (2 * $padding) + $offset;
+@debug "divider offset: #{$divider-offset}";
+
+margin-left: $divider-offset;
+width: calc(100% - #{$divider-offset});
+}
+```
+
+# Changes to Note
+* Can't extend compound selectors
+
+## Changes to CSS Variable Syntax
+```scss
+$accent-color: #fbbc04;
+
+:root {
+// WRONG, will not work in recent Sass versions.
+
+--accent-color-wrong: $accent-color;
+// RIGHT, will work in all Sass versions.
+--accent-color-right: #{$accent-color};
+}
+```
+Because interpolation removes quotation marks from quoted strings, it may be
+necessary to wrap them in the meta.inspect() function to preserve their quotes.
+```scss
+@use "sass:meta";
+
+$font-family-monospace: Menlo, Consolas, "Courier New", monospace;
+
+:root {
+--font-family-monospace: #{meta.inspect($font-family-monospace)};
+}
+```
