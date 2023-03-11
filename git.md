@@ -21,9 +21,9 @@
     - [Labels](#labels)
 
 # References
-> **Getting Good with Git** by *Andrew Burgess*  
+> **Beginning Git and Github** by *Mariot Tsitoara*  
 > 
-> **Beginning Git and Github** by *Mariot Tsitoara*
+> **Getting Good with Git** by *Andrew Burgess*    
 
 # Introduction
 Git is a source code manager OR a distributed version control system.
