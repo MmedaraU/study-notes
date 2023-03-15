@@ -1494,6 +1494,8 @@ Used to create custom styles for different devices.
 
 Common breakpoints for media queries are for smartphones, tablets and desktop monitors.
 
+Breakpoints are arranged from biggest to smallest so that they are not overridden.
+
 See [media style sheets](#media-style-sheets)
 ```css
 @media (min-width: ...) and (max-width: ...) {
