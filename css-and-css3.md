@@ -1496,7 +1496,7 @@ Common breakpoints for media queries are for smartphones, tablets and desktop mo
 
 Breakpoints are arranged from biggest to smallest so that they are not overridden.
 
-See [media style sheets](#media-style-sheets)
+See [media style sheets](#media-style-sheets) and [responsive-web-design.md](responsive-web-design.md)
 ```css
 @media (min-width: ...) and (max-width: ...) {
   body {

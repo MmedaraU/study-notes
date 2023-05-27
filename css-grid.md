@@ -29,21 +29,21 @@ A layout system that allows us to design pages using a 2-d grid.
 
 # Terminology
 1. Grid Lines  
-  Make up the grid and can be horizontal or vertical.
+    Make up the grid and can be horizontal or vertical.
 
 2. Grid track  
-   Space between two grid lines. Can be horizontal or vertical.
-   Can represent cells or gutters.
+    Space between two grid lines. Can be horizontal or vertical.
+    Can represent cells or gutters.
 
 3. Grid cell  
-   Space between four grid lines. It is the smallest possible unit on a grid.
-   Similar to a table cell.
+    Space between four grid lines. It is the smallest possible unit on a grid.
+    Similar to a table cell.
 
 4. Grid area  
-   Any area of the grid bound by four grid lines. Can include any number of grid cells.
+    Any area of the grid bound by four grid lines. Can include any number of grid cells.
 
 5. Grid gutter  
-   Space between cells
+    Space between cells
 
 6. **Grid Item**: Children elements of the grid container. E.g `.tweets` and `.replies`
 

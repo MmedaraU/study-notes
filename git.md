@@ -171,7 +171,7 @@ git log --oneline
 `git revert` removes files from the staging area and returns them to the working directory.  
 `git revert <commit-name>`
 Make sure the working directory is clean before reverting a commit -- check using `git status`.  
-`git revert` creates a ew commit undoing the one indicated. 
+`git revert` creates a new commit undoing the one indicated. 
 
 `git diff` shows what has changed between two files, commits or branches. Checked changes to files in the working directory.  
 Compared current modified files to files in the last commit.

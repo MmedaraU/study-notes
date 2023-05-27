@@ -4,10 +4,9 @@
 > **Jump Start Bootstrap** by *Syed Fazle Rahman*
 > 
 > **The Joy of Bootstrap** by *Alan Forbes*
->
-> **Bootstrap 5 Foundations** by *Daniel Charles Foreman*
 
-# Introduction
+
+# Introduction v.3
 Bootstrap is a front-end framework that helps develops to jump start the web development process.
 
 It was developed in 2011 by Mark Otto and Jack Thornton.
