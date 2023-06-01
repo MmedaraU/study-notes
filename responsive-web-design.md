@@ -2,15 +2,23 @@
 - [Table of Contents](#table-of-contents)
 - [References](#references)
 - [Introduction](#introduction)
+- [What to Consider](#what-to-consider)
+- [Responsive Layout](#responsive-layout)
+  - [Layout Options](#layout-options)
+  - [Flexible Grids](#flexible-grids)
 - [Responsive Content](#responsive-content)
   - [Content Strategy](#content-strategy)
+  - [Responsive Typography](#responsive-typography)
+    - [Sizing Fonts](#sizing-fonts)
+  - [Responsive Images](#responsive-images)
 - [HTML for Responsiveness](#html-for-responsiveness)
 - [Media Queries](#media-queries)
   - [Other Ways to Use Media Queries](#other-ways-to-use-media-queries)
   - [What Can Be Queried](#what-can-be-queried)
   - [Breakpoints and Design Ranges](#breakpoints-and-design-ranges)
 - [Progressive Enhancement](#progressive-enhancement)
-- [Responsive Images](#responsive-images)
+- [Responsive Workflow](#responsive-workflow)
+  - [Content](#content)
 
 # References
 > **Learning Responsive Web Design** by *Clarissa Peterson*
@@ -36,6 +44,10 @@ Responsive web design is a way to make websites that can be easily viewed and us
     Site width is constrained to a specific pixel measurement, usually 960px.
 2. Fluid Layout
     Dimensions are determined by percentages.
+3. Elastic layout
+    Constraints are determined by type size, typically using the `em` measurement.
+4. Hybrid layout
+    Combines two or more layouts.
 ## Flexible Grids
 
 # Responsive Content
@@ -47,6 +59,8 @@ Use the inverted pyramid, putting the most important information first.
 Make use of headings for particularly long content to split them into sections.
 
 ## Responsive Typography
+### Sizing Fonts
+
 
 ## Responsive Images
 ```css
