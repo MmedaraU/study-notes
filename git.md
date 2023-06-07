@@ -18,7 +18,8 @@
   - [Making Good Commits](#making-good-commits)
 - [Working with Remote Repositories (on Github)](#working-with-remote-repositories-on-github)
   - [Issues](#issues)
-    - [Labels](#labels)
+  - [Labels](#labels)
+  - [Working with Forks](#working-with-forks)
 
 # References
 > **Beginning Git and Github** by *Mariot Tsitoara*  
@@ -424,9 +425,18 @@ The team can discuss the idea in the comments section.
 
 Issues can be referenced in commits, most likely the commits that attempt to solve them. The easiest way to do that is to mention the issue number in the commit message. It will appear in the details section of the issue.
 
-### Labels
+## Labels
 Texts to help you quickly filter through issues.
 ![Git Labels](img/git-labels.png)
 
 You can assign issues to a developer or developers.
 
+## Working with Forks
+To keep it in sync with the original  
+`git remote add upstream [ssh]`
+
+To fetch changes  
+`git fetch upstream`
+
+To add changes on existing work  
+`git rebase upstream/main`
