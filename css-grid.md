@@ -14,6 +14,7 @@
   - [Aligning Content Along the Row](#aligning-content-along-the-row)
   - [Aligning content along the Column](#aligning-content-along-the-column)
   - [Aligning the Whole Grid](#aligning-the-whole-grid)
+  - [Shorthand Properties](#shorthand-properties)
 - [The Autoplacement Algorithm](#the-autoplacement-algorithm)
   - [Fundamental Concepts](#fundamental-concepts)
   - [Steps in the Algorithm](#steps-in-the-algorithm)
@@ -216,7 +217,7 @@ Items with the same order value will appear as they do in the source document.
   order: 2;
 }
 
-.a. .i {
+.a, .i {
   order: 3;
 }
 ```
@@ -255,6 +256,24 @@ Possible values:
 6. `space-between`
 7. `space-evenly`
 
+## Shorthand Properties
+The `place-self` property is a shorthand for the `justify-self` and `align-self` properties
+```css
+place-self: justify-self align-self;
+place-self: horizontal vertical;
+```
+
+The `place-items` property is a shorthand for the `justify-items` and `align-items` property.
+```css
+place-items: justify-items align-items;
+place-items: horizontal vertical;
+```
+
+The `place-content` property is a shorthand for the `justify-content` and `align-content` property.
+```css
+place-content: justify-content align-content;
+place-content: horizontal vertical;
+```
 # The Autoplacement Algorithm
 Steps autoplacement algorithm follows when positioning elements. Controlled by `grid-auto-flow` property.
 
