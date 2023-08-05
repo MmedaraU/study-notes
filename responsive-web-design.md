@@ -40,7 +40,12 @@
 > **Adaptive Web Design** by *Aaron Gustafson*
 > 
 > **Head First Mobile Web** by *Lyza Danger Gardner and Jason Grigsby* (minor details)
-
+> 
+> **Brave NUI World: Designing Natural User Interfaces for Touch and Gesture** by *Daniel Wigdor and Dennis Wixon* [Designing for Touch](#designing-for-touch)
+> 
+> **Designing for Touch** by *Josh Clark* [YouTube: Xamarin Developers](https://m.youtube.com/watch?v=1Vt-C-ylykc&pp=ygUTZGVzaWduaW5nIGZvciB0b3VjaA%3D%3D)
+> 
+> **Designing for Touch by Josh Clark** [Book]
 # Introduction
 Responsive web design is a way to make websites that can be easily viewed and used on any type of device and size of screen.
 
