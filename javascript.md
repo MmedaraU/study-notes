@@ -2,43 +2,82 @@
 - [Table of Contents](#table-of-contents)
 - [References](#references)
 - [Introduction](#introduction)
-- [Comments](#comments)
+  - [Syntax](#syntax)
+    - [Comments](#comments)
+    - [Escaping Characters](#escaping-characters)
+  - [Memory Leaks](#memory-leaks)
+- [Variables](#variables)
+  - [Rules for naming a variable](#rules-for-naming-a-variable)
+  - [Scope of a Variable](#scope-of-a-variable)
+  - [Global scope](#global-scope)
+  - [Local Scope](#local-scope)
 - [Data Types](#data-types)
   - [String](#string)
+    - [Template Literals](#template-literals)
     - [String Operations](#string-operations)
       - [Concatenation](#concatenation)
     - [String Property](#string-property)
     - [String Methods](#string-methods)
       - [The `charAt()` method](#the-charat-method)
+      - [The `concat()` method](#the-concat-method)
       - [The `indexOf()` method](#the-indexof-method)
       - [The `lastIndexOf()` method](#the-lastindexof-method)
+      - [The `repeat()` method](#the-repeat-method)
       - [The `split()` method](#the-split-method)
-    - [The `substring()` method](#the-substring-method)
+      - [The `substring()` method](#the-substring-method)
+      - [The `startsWith()` method](#the-startswith-method)
+      - [The `endsWith()` method](#the-endswith-method)
+      - [The `trim()` method](#the-trim-method)
       - [The `toLowerCase()` and `toUpperCase` methods](#the-tolowercase-and-touppercase-methods)
-- [Scope](#scope)
-  - [Global scope](#global-scope)
-  - [Local Scope](#local-scope)
-- [Variables](#variables)
-  - [Rules for naming a variable](#rules-for-naming-a-variable)
+  - [Symbols](#symbols)
+  - [Numbers](#numbers)
+    - [Arithmetic Operations](#arithmetic-operations)
+  - [Undefined](#undefined)
+  - [Null](#null)
+  - [Booleans](#booleans)
+- [Operators](#operators)
+  - [Logical Operators](#logical-operators)
+    - [Logical NOT (!)](#logical-not-)
+    - [Logical AND (\&\&)](#logical-and-)
+    - [Logical OR (||)](#logical-or-)
+  - [Bitwise Operators](#bitwise-operators)
+    - [Bitwise NOT (~)](#bitwise-not-)
+    - [Bitwise AND](#bitwise-and)
+    - [Bitwise OR](#bitwise-or)
+    - [Bitwise XOR](#bitwise-xor)
+  - [Assignment Operators](#assignment-operators)
+  - [Comparison Operators](#comparison-operators)
+    - [(Soft) Equal `==`](#soft-equal-)
+    - [Strict equal `===`](#strict-equal-)
+  - [Mathematical Operators](#mathematical-operators)
+- [Type Coercion](#type-coercion)
+  - [Converting Between Strings and Numbers](#converting-between-strings-and-numbers)
+    - [Strings to Numbers](#strings-to-numbers)
 - [Arrays](#arrays)
   - [Working with Arrays](#working-with-arrays)
     - [Adding to an array](#adding-to-an-array)
+    - [Removing values from arrays](#removing-values-from-arrays)
+    - [Merging Arrays](#merging-arrays)
+    - [Destructuring Arrays](#destructuring-arrays)
+  - [Array Properties](#array-properties)
   - [Array methods](#array-methods)
+- [Sets](#sets)
+  - [Methods of Sets](#methods-of-sets)
+  - [Converting Sets to Arrays](#converting-sets-to-arrays)
+  - [Weak Sets](#weak-sets)
+- [Maps](#maps)
+  - [Map Methods and Properties](#map-methods-and-properties)
+  - [Converting Maps to Arrays](#converting-maps-to-arrays)
+  - [Weak Maps](#weak-maps)
 - [Objects](#objects)
   - [Adding to an Object](#adding-to-an-object)
   - [Reading from an object](#reading-from-an-object)
   - [Nested Objects](#nested-objects)
     - [Reading from a nested object](#reading-from-a-nested-object)
     - [Assigning object items](#assigning-object-items)
-- [Type Conversion](#type-conversion)
-- [Operations](#operations)
-  - [Assignment Operators](#assignment-operators)
-  - [Mathematical Operators](#mathematical-operators)
-  - [Comparison Operators](#comparison-operators)
-  - [Logical Operators](#logical-operators)
-  - [Ternary Operator](#ternary-operator)
 - [Flow of Control Statements](#flow-of-control-statements)
   - [The `if` and `if...else` statements](#the-if-and-ifelse-statements)
+    - [Ternary Operator](#ternary-operator)
   - [The `switch` statement](#the-switch-statement)
 - [Loops](#loops)
   - [The `while` loop](#the-while-loop)
@@ -85,37 +124,109 @@
     - [Methods of the history object](#methods-of-the-history-object)
 
 # References
-> **Jump Start JavaScript** by *Ara Pehlivanian and Don Nyugen*
+> **JavaScript Weekend Crash Course** by *Steven Disbrow*
 > 
-> **JavaScript Weekend Crash Course** by *Steven Disbrow*  
+> **JavaScript: Novice to Ninja** by Darren Jones  
 
 
 # Introduction
+JS is an object-oriented scripting language. An object-oriented language...
 
-Properties are variables that hold information about the data in the object. They give you details about the data in an object. Example
-```js
-string.length() //length is the property`
-```
+*Server-side* JS is JS that runs on a web server. HEre, server-side extensions help apps interact with databases, conduct file changes and provide a continuous flow of information.  
+*Client-side* JS runs in the browser and its DOM. Helps apps save elements into HTML and react to user actions.
 
-Methods are functions that belong to an object. They allow you perform tasks using the data in the object.
+## Syntax
+JS is case-sensitive and utilizes unicode characters. It supports whitespace characters.
 
-# Comments
+The JS compiler scans source code from left to right
+### Comments
 ```js
 // This is a single-line comment
 /* This is a multi-line comment */
 ```
+JS doesn't support nested comments
+
+### Escaping Characters
+The **backslash(/)** is used to escape special characters in strings such as quote marks(\', \"), end of line (\n), carriage return(\r), tab(\t) and also a backslash(`\\`).
+
+*Properties* are information about the object or value. Example
+```js
+string.length //length is the property`
+```
+*Methods* perform an action on the object or value.
+
+## Memory Leaks
+A memory leak occurs when a program retains references to values that can no longer be accessed in its memory. Memory is used to store values that are no longer required by the program.
+
+Memory leaks case problems by gradually reducing the overall memory available, causing the program to lag.
+
+
+# Variables
+Variables are the most basic form of data storage in JavaScript. They are symbolic identifiers for values needed by your programs.  
+```js
+//Single declaration
+var task = "Write the first chapter.";
+
+// Multiple declarations
+var task = "Write the first chapter.",
+    complete = true;
+
+```
+JavaScript is case-sensitive so `task` and `Task` will be treated as different variables.  
+The semi-colon `;` indicates the end of a line of code.  
+It is best to keep variable declarations and initializations separate so errors encountered when debugging can be easily sorted out.
+```js
+var task, complete;
+task = "Write the first chapter.";
+complete = true;
+```
+
+`var` is not really used anymore in ES6.
+`let` is used to create a local variable that may be be reassigned. During the declaration, you may assign a value to the variable.  
+`const` is used to create a constant. Their values can't be changed after declaration.
+
+`let` and `const` are block-scoped; their value only exists in the block they are declared in.
+
+If you assign a value to a variable that hasn't been declared yet, you get a global variable.
+
+
+## Rules for naming a variable
+1. Variable names are case sensitive.
+2. Variable names must start with an alphabet *(A-Z)*, a dollar sign *($)* or an underscore *(_)* and can contain numbers, letters, a dollar sign or an underscore.
+3. Spaces and other special characters are not allowed.
+4. Variable names can be as long you want, but it is advisable to keep them under 50 characters long.
+
+## Scope of a Variable
+A concept that determines if a variable or function defined in one part of the program is accessible in another part.
+
+## Global scope
+Functions or variables with a global scope are accessible form anywhere in the file. They are declared outside functions.
+
+## Local Scope
+Local variables are defined in a function and can only be accessed from the function in which they are defined.
 
 # Data Types
-1. number 
-2. string
-3. Boolean
-4. null  
-    Used when you want to declare a variable and intentionally express the absence of a value.
-5. undefined  
-    Represents the state of a variable that has been declared without a value assigned to it.
-6. object 
+* *null* is used when you want to declare a variable and intentionally express the absence of a value. It is case-sensitive.
+* *number* Involves numbers
+* *string* involves letters
+* *Boolean*
+* *undefined* represents the state of a variable that has been declared without a value assigned to it.
+* *object*
+* *symbol*
 
 ## String
+### Template Literals
+Special types of string that use the backtick character(`) to delimit the string.
+```js
+`String!`;
+
+// Able to use both types of quotation marks within the string
+`She said, "It's Me!"`
+
+// Allows interpolation
+const name = 'One';
+`string ${ name }!`; //'string One'
+```
 ### String Operations
 #### Concatenation
 Joining two or more strings together. Uses the plus `+` sign
@@ -136,6 +247,14 @@ Strings are implemented as objects. Methods are functions that belong to an obje
 Allows you extract a single character from a specified position in a String object.
 `string.charAt([index])`
 
+#### The `concat()` method
+Used to concatenate two or more strings.
+```js
+'string'.concat(' ', 'One'); //string One
+'string'.concat('One'); //stringOne
+
+```
+
 #### The `indexOf()` method
 Searches a String for the first instance of a substring. Returns `-1` if substring is not found. Spaces are also counted. The `indexOf()` method is case-sensitive.
 
@@ -147,10 +266,16 @@ item.indexOf("Sun"); // Returns 14
 #### The `lastIndexOf()` method
 Searches a String for the last instance of a substring. Searches from the end of the string. You can specify what index the search should start from.
 
+#### The `repeat()` method
+Repeats a string the stated number of times
+```js
+'string'.repeat(2); // 'stringstring'
+```
+
 #### The `split()` method
 Splits a string into an array
 
-### The `substring()` method
+#### The `substring()` method
 Extracts a new String from an existing String.
 ```js
 string.substring(indexOne, indexTwo);
@@ -159,50 +284,200 @@ string.substring(indexOne, indexTwo);
 `indexOne` is the starting position of the string you want to extract.  
 `indexTwo` is the position after the last character to be included in the string, else it won't be included. It is optional.
 
+#### The `startsWith()` method
+Checks if a string starts with a certain character. It is case-sensitive.
+
+#### The `endsWith()` method
+Checks if a string ends with a certain character. It is case-sensitive.
+
+#### The `trim()` method
+Removes any whitespace from the beginning and end of a string.
+```js
+'       String One        '.trim(); //String One
+```
 #### The `toLowerCase()` and `toUpperCase` methods
 Change string to lowercase and uppercase characters respectively.
+<!-- ## Type Conversion
+JS is dynamically-typed; variables can be declared without specifying the data type. -->
 
-# Scope
-A concept that determines if a variable or function defined in one part of the program is accessible in another part.
 
-## Global scope
-Functions or variables with a global scope are accessible form anywhere in the file.
+## Symbols
+Used to create unique values, which helps to avoid naming collisions.  
+Only primitive without a literal form.
 
-## Local Scope
-Local variables are defined in a function and can only be accessed from the function in which they are defined.
-
-# Variables
-Variables are the most basic form of data storage in JavaScript.  
 ```js
-//Single declaration
-var task = "Write the first chapter.";
+const ID = Symbol(description);
 
-// Multiple declarations
-var task = "Write the first chapter.",
-    complete = true;
+const uniqueID = Symbol('this is a unique ID');
 
+// Manually access the description
+String(uniqueID) //'String(this is a unique ID)'
 ```
-JavaScript is case-sensitive so `task` and `Task` will be treated as different variables.  
-The semi-colon `;` indicates the end of a line of code.  
-It is best to keep variable declarations and initializations separate so errors encountered when debugging can be easily sorted out.
+The description acts as a string representation of the symbol, and is used to log the symbol in the console.
 ```js
-var task, complete;
-
-task = "Write the first chapter.";
-complete = true;
+console.log(uniqueID); //Symbol(this is a unique ID)
 ```
 
-## Rules for naming a variable
-1. Variable names are case sensitive.
-2. Variable names must start with an alphabet, a dollar sign or an underscore and can contain numbers, letters, a dollar sign or an underscore.
-3. Spaces and other special characters are not allowed.
-4. Variable names can be as long you want, but it is advisable to keep them under 50 characters long.
+Two variables can point to the same symbol using the `for()` method
+```js
+const A = Symbol.for('shared symbol');
+const B = Symbol.for('shared symbol');
 
+```
+
+## Numbers
+Can be integers (whole numbers) or floating point numbers (decimals).
+
+```js
+Number.isInteger(number); //CHeck if number is an integer
+```
+
+### Arithmetic Operations
+Addition  
+5 + 4 = 9;
+
+Subtraction  
+6 - 5 = 1
+
+Multiplication  
+3 * 8 = 24
+
+Division  
+2/1 = 2
+
+Exponentiation
+2**5 = 32
+
+Modulus  
+28%3 =  1; The result always has the same sign as the first number
+
+## Undefined
+Value given to variables that have not been assigned a value. It can also occur if an object's property doesn't exist or a function has a missing parameter.  
+It is how JS says it can't find a value.
+
+## Null
+Means 'no value'. Can be used as a placeholder that JS uses to say "there should be a value here, but isn't here right now."
+
+`null` is coerced to be 0. In general, values tend to be set to `undefined` by JS, whereas are usually set to `null` manually by the programmer.
+
+## Booleans
+Only two values - `true` and `false`. 
+
+# Operators
+
+## Logical Operators
+Can be used with any primitive value or object. Results are based on whether the values are considered to be *truthy* or *falsy*.
+
+Every value in JS has a Boolean value.
+*Falsy values* are always false, and they include `""`, `''`, `0`, \`\`, `0`, `-0`, `NaN`, `false`, `null`, `undefined`.
+
+*Truthy values* are always true. They include most values in JS.
+
+### Logical NOT (!)
+Placing it in front of a value will convert it to a Boolean and return the opposite value.
+
+Truthy values return `false`, and falsy values return `true`. This is known as negation.
+```js
+!true; //false
+!0; //true
+```
+
+### Logical AND (&&)
+Works on two or more values (operands) and only evaluates to `true` if all operands are truthy.
+
+### Logical OR (||)
+Works on two or more operands and evaluates to true if any of the operands are true.
+
+## Bitwise Operators
+Work with operands that are 32-bit integers. These are numbers written in binary that have 32 digits.
+
+Any values used with bitwise operators are converted into a 32-bit integer before the operation takes place. It is then changed into a base 10 integer to display the result.
+
+Bitwise operators tend to be used for low-level programming tasks or apps that require a number of on-off states.
+
+### Bitwise NOT (~)
+Converts a number to a 32-bit integer, then changes all the 1s to 0s. It returns the new value as a negative integer which adds up to the initial operand to make `-1`.
+
+### Bitwise AND
+
+### Bitwise OR
+### Bitwise XOR
+`XOR` stands for *eXclusive OR*.
+
+
+## Assignment Operators
+```js
+var content = "Hi";
+
+// Second Way
+// x += y : x = x + y
+x = 10; y = 5;
+x += y; // x = 15
+```
+
+## Comparison Operators
+Used to compare values and return `true` or `false` based on how they compare.
+
+### (Soft) Equal `==`
+When used, JS doesn't take into account the data type. It will attempt to coerce the two values to the same type when comparing.  
+Examples
+```js
+" " == 0; //true
+" " == "0"; //false
+```
+
+### Strict equal `===`
+Tests for equality, but only returns true if the values are of the same data type.  
+Examples:
+```js
+answer === 5; //true
+answer === '5'; //false
+NaN === NaN; //false
+```
+
+2. Not equal `!=`
+4. Strict not equal `!==`
+5. Greater than `<`
+6. Greater than or equal to `>=`
+7. Less than `<`
+8. Less than or equal to `<=`
+
+## Mathematical Operators
+1. Increment by 1 `++`
+2. Decrement by 1 `--`
+3. Addition `+`
+4. Subtraction `-`
+5. Multiplication `*`
+6. Division `/`
+7. Modulus `%`
+
+
+
+# Type Coercion
+Happens when the operands of an operator are of different types. In this case, JS will attempt to convert one operand to an equivalent value of the other operand's type.
+
+Example: Multiplying a string and a number together. Js will attempt to coerce the string into a number.  
+```js
+'2' * 8; //16
+'2' + 8; //28
+```
+
+## Converting Between Strings and Numbers
+### Strings to Numbers
+```js
+// Using the Number method
+Number('23'); //23
+
+Number('hello'); //NaN
+
+// Multiplying string by 1
+'5' * 1; //5
+```
 # Arrays
-Arrays are used to store a collection of data.
+Arrays are used to store a collection of data. It is an ordered list of values.
 ```js
 // Creating an array
-var myArray = new Array();
+var myArray = new Array(); /*Array constructor function*/
 /*OR*/
 var myArray = [] /*This is an array literal*/
 ```
@@ -245,79 +520,213 @@ myArray.push("hello");
 ```
 The `push()` method adds a new item at the end of the existing array.
 
+### Removing values from arrays
+```js
+const fruits = ['orange', 'apple', 'cherry', 'mango'];
+delete fruits[2];
+//['orange', 'apple', undefined, 'mango'];
+```
+
+The value has been deleted but the space remains and holds the value of `undefined`.  
+THe array still has the same number of elements, and the position can still be referenced as an index.
+
+### Merging Arrays
+```js
+//Using the concat() method
+var fruits = ['orange', 'apple', 'cherry', 'mango'];
+fruits = fruits.concat('papaya', 'squash', 'banana');
+// ['orange', 'apple', 'cherry', 'mango', 'papaya', 'squash', 'banana'];
+
+// Using the spread operator
+fruits = [...fruits, ...['papaya', 'squash', 'banana']];
+```
+
+### Destructuring Arrays
+Taking values out of an array snd presenting them as individual values. It allows us to assign multiple values at the same time, using arrays.
+
+```js
+const [x, y] = ['one', 'two'];
+console.log (x, y); //one two
+```
+
+Destructuring gives a neat way of swapping values of two variables over
+```js
+var [x, y] = ['one', 'two'];
+//Changed from const to var 'cause a constant can't be reassigned
+[x, y] = [y, x]; // two one
+```
+
+## Array Properties
+The `length` property  
+Used to find the length of an array.
+```js
+const fruits = ['orange', 'apple', 'cherry', 'mango'];
+fruits.length; //4
+```
+
+The length property is mutable, can be changed manually.
+```js
+const fruits = ['orange', 'apple', 'cherry', 'mango'];
+fruits.length = 6;
+// ['orange', 'apple', 'cherry', 'mango', undefined, undefined];
+
+const fruits = ['orange', 'apple', 'cherry', 'mango'];
+fruits.length = 2;
+// ['orange', 'apple'];
+```
 ## Array methods
-1. The `Array()` constructor method  
-    ```js
-    //With no parameters - creates an empty array
-    new Array()
+The `Array()` constructor method  
+```js
+//With no parameters - creates an empty array
+new Array()
 
-    // With a length parameter - creates the specified number of empty slots
-    new Array(length)
+// With a length parameter - creates the specified number of empty slots
+new Array(length)
 
-    // With multiple parameters
-    // The array slots are filled with the items passed as parameters
-    new Array(item1, item2, etc.)
-    ```
-2. The `pop()` method  
-    Removes the last element and returns the rest of the array.
-3. The `push()` method  
-    Adds an element to the end of the array and returns the new array.
-4. The `reverse()` method  
-    Reverses the order of items in the array.
-5. The `shift()` method  
-    Removes the first item and returns the array.
-6. The `sort()` method  
-    Sorts array items in ascending order or in the order that you specify within a `sort()` function. Every item is converted to strings and arranged.  
-    The sorting function is called again and again until all elements are sorted.
-    ```js
-    function simpleSort(item1, item2) {
-        var result = 0;
-        if (item1 > item2)
-        result = 1;
+// With multiple parameters
+// The array slots are filled with the items passed as parameters
+new Array(item1, item2, etc.)
+```
 
-        if (item1 < item2)
-            result = -1;
+The `pop()` method  
+Removes the last element and returns the rest of the array.
 
-        if (item1 == item2) 
-            result = 0;
+The `push()` method  
+Adds an element to the end of the array and returns the new array.
 
-        return result;
-        }
+The `reverse()` method  
+Reverses the order of items in the array.
 
-        items = new Array("Diapers", "Baby Wipes", "Rattle", "Car Seat", "Stroller");
-        items.sort(simpleSort);
-    ```
-7. The `splice()` method  
-    Lets you remove an item or items and/or add a new item or items in its place.  
-    ```js
-    array.splice(indexToStartFrom, howManyItemsToRemove, [newItem(s)]);
-    ```
-8. The `unshift()` method  
-    Adds one or more items to the beginning of the array.
+The `shift()` method  
+Removes the first item and returns the array.
 
-9.  The `concat()` method  
-    Combines multiple arrays into one.  
-    ```js
-    //arrayN = array1 + array2 + array3
-    arrayN = array1.concat(array2, array3)
-    ```
+The `sort()` method  
+Sorts array items in ascending order or in the order that you specify within a `sort()` function. Every item is converted to strings and arranged.  
+The sorting function is called again and again until all elements are sorted.
+```js
+function simpleSort(item1, item2) {
+var result = 0;
+if (item1 > item2)
+  result = 1;
 
-10. The `join()` method  
-    Takes the values in an array and joins them into a string. You can specify what the separator, but the default is a comma.  
-    `array.join(",")`
+if (item1 < item2)
+  result = -1;
 
-11. The `slice()` method  
-    Copies a part of an array and returns it.
-    `arr.slice(startingIndex)`
+if (item1 == item2) 
+  result = 0;
 
-12. The `toString()` method  
-    Returns a string with the items in the array. Exactly the same as using the `join()` method without specifying a delimiter.
+return result;
+}
+items = new Array("Diapers", "Baby Wipes", "Rattle", "Car Seat", "Stroller");
+items.sort(simpleSort);
+```
 
-13. The `indexOf()` method
-    *Check [The `indexOf()` method](#the-indexof-method)* 
+The `splice()` method  
+Lets you remove an item or items and/or add a new item or items in its place.  
+```js
+array.splice(indexToStartFrom, howManyItemsToRemove, [newItem(s)]);
+```
 
-14. The `lastIndexOf()` method
-    *Check [The `lastIndexOf()` method](#the-lastindexof-method)*
+The `unshift()` method  
+Adds one or more items to the beginning of the array.
+
+The `concat()` method  
+Combines multiple arrays into one.  
+```js
+//arrayN = array1 + array2 + array3
+arrayN = array1.concat(array2, array3)
+```
+
+The `join()` method  
+Takes the values in an array and joins them into a string. You can specify what the separator, but the default is a comma.  
+`array.join(",")`
+
+The `slice()` method  
+Copies a part of an array and returns it   `arr.slice(startingIndex)`
+
+The `toString()` method  
+Returns a string with the items in the array. Exactly the same as using the `join()` method without specifying a delimiter.
+
+The `indexOf()` method
+*Check [The `indexOf()` method](#the-indexof-method)* 
+
+The `lastIndexOf()` method
+*Check [The `lastIndexOf()` method](#the-lastindexof-method)*
+
+
+# Sets
+A data structure that represents a collection of unique values, so it cannot include any duplicate values. Sets offer a useful way to keep track of data without having to check if a particular value is in a set.  
+Sets do not have index notation.
+
+If you try to add a value that already exists, the operation is ignored.
+```js
+// Creating sets
+const list = new Set();
+
+// Adding to sets
+list.add("one");
+list.add('one').add('two').add('three').add('four');
+
+const list = new Set([1, 2, 3, 4, 4, 4, 4,]);
+// Set(1, 2, 3, 4)
+
+const letters = new Set('hello');
+// Set('h', 'e', 'l', 'o')
+```
+All non-primitive values, such as arrays and objects, are considered unique values even if they contain the same values.
+```js
+const arrays = new Set().add([1]).add([1]);
+//Set{ [1], [1]}
+```
+
+Type coercion isn't used so string `'2'` can be added if `2` is already an element of the set.
+
+## Methods of Sets
+The `size()` method finds the number of values in a set.
+
+The `has()` method checks if a value is in a set. Returns a boolean value of `true` or `false`. Sets do not have index notation.
+
+The `delete()` method can be used to remove a value from a set. Returns `true` if the value was removed and `false` if the value wasn't in the set and couldn't be removed.
+
+The `clear()` method can be used to remove all values from a set.
+
+## Converting Sets to Arrays
+```js
+//Using the spread operator
+const shoppingArray = [...shoppingSet]
+
+//Using the Array.from() method
+shoppingArray = Array.from(shoppingSet);
+```
+
+## Weak Sets
+
+# Maps
+A convenient way of keeping a list of key and value pairs.  
+Maps, unlike objects, can use any data type as a key.
+
+```js
+//Creating a Map
+const newMap = new Map();
+
+// Adding to map
+newMap.set('One', 1).set('Two', 2).set('Three', 3);
+```
+
+## Map Methods and Properties
+The `get()` method is used to retrieve value using a key.
+
+The `has()` method is used to check if a particular key is in a map. Returns `true` or `false`.
+
+The `size` property returns the number of key and value pairs.
+
+The `delete` method can be used to remove a key and value pair. Returns `true` or `false`.
+
+The `clear` method removes all key-value pairs from a map.
+
+## Converting Maps to Arrays
+Same as [Converting Sets to Arrays](#converting-sets-to-arrays)
+## Weak Maps
 
 
 # Objects
@@ -386,60 +795,6 @@ person.name.first = "Mmedara";
 person.name.first = "Umana";
 ```
 
-# Type Conversion
-
-# Operations
-## Assignment Operators
-```js
-var content = "Hi";
-
-// Second Way
-// x += y : x = x + y
-x = 10; y = 5;
-x += y; // x = 15
-```
-## Mathematical Operators
-1. Increment by 1 `++`
-2. Decrement by 1 `--`
-3. Addition `+`
-4. Subtraction `-`
-5. Multiplication `*`
-6. Division `/`
-7. Modulus `%`
-
-## Comparison Operators
-Used to compare values and return `true` or `false` based on how they compare.
-
-1. Equal `==`
-2. Not equal `!=`
-3. Strict equal `===`
-4. Strict not equal `!==`
-5. Greater than `<`
-6. Greater than or equal to `>=`
-7. Less than `<`
-8. Less than or equal to `<=`
-
-## Logical Operators
-1. AND operator `&&`
-2. OR operator `||`
-3. NOT operator `!`
-4. 
-
-## Ternary Operator
-Used to shorten the `if..else` statement
-```js
-// If...else statement
-if (hours < 10) {
-  hours = "0" + hours;
-} else {
-  hours = hours.toString();
-}
-
-// Ternary Operator
-result = (conditon) ? (evaluate if true) : (evaluate if false);
-hours = (hours < 10) ? "0" + hours : hours.toString();
-```
-
 
 # Flow of Control Statements
 ## The `if` and `if...else` statements
@@ -464,6 +819,27 @@ if (condition) {
 } else {
     if (..){}else{}
 }
+```
+
+### Ternary Operator
+Used to shorten the `if..else` statement
+```js
+// If...else statement
+if (hours < 10) {
+  hours = "0" + hours;
+} else {
+  hours = hours.toString();
+}
+
+// Ternary Operator
+result = (conditon) ? (evaluate if true) : (evaluate if false);
+hours = (hours < 10) ? "0" + hours : hours.toString();
+```
+
+We could make the example even shorter by placing the ternary operator
+inside a template string:
+```js
+console.log(`n is a ${(n%2 === 0)? 'even' : 'odd'} number`);
 ```
 
 ## The `switch` statement
@@ -509,6 +885,7 @@ switch (strollerPrice) {
 # Loops
 A *loop statement* is used when we want to repeat some programming statements until a specified condition is reached.
 
+When looping over sets, the loop will iterate over each value in the same order in which they were added to the set. Sets are enumerable; they have methods that allow you to loop over each value in the set.
 ## The `while` loop
 ```js
 while (condition) {
@@ -570,6 +947,8 @@ for (var i = 0, j = 0; i < 3; i++, j+=2) {
 for (var i = 0; i < 0.9; i = Math.random()) {
     console.log(i);
 }
+
+// Nested for loops
 ```
 
 ## The `for...in` loop
@@ -720,7 +1099,7 @@ The `resizeTo()` method will resize a browser window to the width and height spe
 The `scrollBy()` method will scroll a document a specified number of pixels from its current position.  
 `scrollBy(horizontal, vertical)`
 
-<span id="setinterval">The `setInterval()` and `clearInterval()` methods</span> are similar to the `setTimeout()` method except the statement is executed over and over again.
+<span id="setinterval"> The `setInterval()` and `clearInterval()` methods</span> are similar to the `setTimeout()` method except the statement is executed over and over again.
 
 <span id="settimeout">The `setTimeout()` and `clearTimeout()` methods</span>
 The `setTimeout()` method takes two parameters:  
