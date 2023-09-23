@@ -3,6 +3,7 @@
 - [References](#references)
 - [Introduction](#introduction)
   - [Syntax](#syntax)
+    - [Terms](#terms)
     - [Comments](#comments)
     - [Escaping Characters](#escaping-characters)
   - [Memory Leaks](#memory-leaks)
@@ -61,20 +62,17 @@
     - [Destructuring Arrays](#destructuring-arrays)
   - [Array Properties](#array-properties)
   - [Array methods](#array-methods)
+  - [Array Iterators](#array-iterators)
 - [Sets](#sets)
   - [Methods of Sets](#methods-of-sets)
   - [Converting Sets to Arrays](#converting-sets-to-arrays)
   - [Weak Sets](#weak-sets)
+  - [Looping over Sets](#looping-over-sets)
 - [Maps](#maps)
   - [Map Methods and Properties](#map-methods-and-properties)
   - [Converting Maps to Arrays](#converting-maps-to-arrays)
   - [Weak Maps](#weak-maps)
-- [Objects](#objects)
-  - [Adding to an Object](#adding-to-an-object)
-  - [Reading from an object](#reading-from-an-object)
-  - [Nested Objects](#nested-objects)
-    - [Reading from a nested object](#reading-from-a-nested-object)
-    - [Assigning object items](#assigning-object-items)
+  - [Looping over Maps](#looping-over-maps)
 - [Flow of Control Statements](#flow-of-control-statements)
   - [The `if` and `if...else` statements](#the-if-and-ifelse-statements)
     - [Ternary Operator](#ternary-operator)
@@ -89,12 +87,45 @@
   - [The `continue` statement](#the-continue-statement)
   - [The `return` statement](#the-return-statement)
 - [Functions](#functions)
+  - [Parameters and arguments](#parameters-and-arguments)
+    - [Default Parameters](#default-parameters)
+  - [Arrow Functions](#arrow-functions)
+  - [Hoisting](#hoisting)
+  - [Callbacks](#callbacks)
+  - [Properties of Functions](#properties-of-functions)
+- [Objects](#objects)
+  - [Adding to an Object](#adding-to-an-object)
+  - [Reading from an object](#reading-from-an-object)
+  - [Nested Objects](#nested-objects)
+    - [Reading from a nested object](#reading-from-a-nested-object)
+    - [Assigning object items](#assigning-object-items)
+  - [Properties and Methods of Objects](#properties-and-methods-of-objects)
+  - [The `this` keyword](#the-this-keyword)
+  - [Built-in Objects](#built-in-objects)
+    - [The `Date` object](#the-date-object)
+      - [The Date object methods](#the-date-object-methods)
+    - [The Math Object](#the-math-object)
+      - [Properties of the Math object](#properties-of-the-math-object)
+      - [Methods of the Math object](#methods-of-the-math-object)
+    - [The location Object](#the-location-object)
+      - [Properties of the location Object](#properties-of-the-location-object)
+    - [Methods of the location object](#methods-of-the-location-object)
+  - [The `history` Object](#the-history-object)
+    - [Methods of the history object](#methods-of-the-history-object)
 - [The Browser Object Model](#the-browser-object-model)
   - [Objects and Properties of the BOM](#objects-and-properties-of-the-bom)
 - [The Window Object](#the-window-object)
   - [Properties of the Window Object](#properties-of-the-window-object)
   - [Methods of the Window Object](#methods-of-the-window-object)
 - [The Document Object Model](#the-document-object-model)
+  - [Node lists](#node-lists)
+  - [Methods of the DOM](#methods-of-the-dom)
+  - [Navigating the DOM tree](#navigating-the-dom-tree)
+    - [Working with Text](#working-with-text)
+    - [Working with Attributes](#working-with-attributes)
+    - [Working with Classes of an Element](#working-with-classes-of-an-element)
+  - [Creating Dynamic Markup](#creating-dynamic-markup)
+  - [Updating CSS](#updating-css)
 - [The Document Object](#the-document-object)
   - [Properties of the `document` Object](#properties-of-the-document-object)
   - [Methods of the  `document` Object](#methods-of-the--document-object)
@@ -110,18 +141,6 @@
 - [Validating Form Data](#validating-form-data)
 - [Cookies](#cookies)
   - [Attributes of a Cookie](#attributes-of-a-cookie)
-- [Objects in JavaScript](#objects-in-javascript)
-  - [The `Date` object](#the-date-object)
-    - [The Date object methods](#the-date-object-methods)
-      - [The UTC Date methods](#the-utc-date-methods)
-  - [The Math Object](#the-math-object)
-    - [Properties of the Math object](#properties-of-the-math-object)
-    - [Methods of the Math object](#methods-of-the-math-object)
-  - [The location Object](#the-location-object)
-    - [Properties of the location Object](#properties-of-the-location-object)
-    - [Methods of the location object](#methods-of-the-location-object)
-  - [The `history` Object](#the-history-object)
-    - [Methods of the history object](#methods-of-the-history-object)
 
 # References
 > **JavaScript Weekend Crash Course** by *Steven Disbrow*
@@ -132,13 +151,18 @@
 # Introduction
 JS is an object-oriented scripting language. An object-oriented language...
 
-*Server-side* JS is JS that runs on a web server. HEre, server-side extensions help apps interact with databases, conduct file changes and provide a continuous flow of information.  
+*Server-side* JS is JS that runs on a web server. Here, server-side extensions help apps interact with databases, conduct file changes and provide a continuous flow of information.  
 *Client-side* JS runs in the browser and its DOM. Helps apps save elements into HTML and react to user actions.
 
 ## Syntax
 JS is case-sensitive and utilizes unicode characters. It supports whitespace characters.
 
 The JS compiler scans source code from left to right
+
+### Terms
+A function literal
+
+
 ### Comments
 ```js
 // This is a single-line comment
@@ -158,7 +182,7 @@ string.length //length is the property`
 ## Memory Leaks
 A memory leak occurs when a program retains references to values that can no longer be accessed in its memory. Memory is used to store values that are no longer required by the program.
 
-Memory leaks case problems by gradually reducing the overall memory available, causing the program to lag.
+Memory leaks cause problems by gradually reducing the overall memory available, causing the program to lag.
 
 
 # Variables
@@ -206,6 +230,10 @@ Functions or variables with a global scope are accessible form anywhere in the f
 Local variables are defined in a function and can only be accessed from the function in which they are defined.
 
 # Data Types
+Primitive data types are not objects and have no methods.
+
+Primitive data types in JS include `strings, booleans, numbers, symbols, undefined and null`.
+
 * *null* is used when you want to declare a variable and intentionally express the absence of a value. It is case-sensitive.
 * *number* Involves numbers
 * *string* involves letters
@@ -654,6 +682,15 @@ The `lastIndexOf()` method
 *Check [The `lastIndexOf()` method](#the-lastindexof-method)*
 
 
+## Array Iterators
+The `forEach()` method loops through the array and invokes a callback function using each value as an argument.
+
+The `map()` method
+
+The `reduce()` method
+
+The `filter()` method
+
 # Sets
 A data structure that represents a collection of unique values, so it cannot include any duplicate values. Sets offer a useful way to keep track of data without having to check if a particular value is in a set.  
 Sets do not have index notation.
@@ -701,6 +738,18 @@ shoppingArray = Array.from(shoppingSet);
 
 ## Weak Sets
 
+## Looping over Sets
+When looping over sets, the loop will iterate over each value in the same order in which they were added to the set. Sets are **enumerable**; they have methods that allow you to loop over each value in the set.
+
+```js
+const letters = new Set('hello');
+
+for (const letter of letters) {
+  console.log(letter);
+}
+```
+
+Weak sets are **non-enumerable**, so they can't be loped pver this way.
 # Maps
 A convenient way of keeping a list of key and value pairs.  
 Maps, unlike objects, can use any data type as a key.
@@ -724,76 +773,41 @@ The `delete` method can be used to remove a key and value pair. Returns `true` o
 
 The `clear` method removes all key-value pairs from a map.
 
+The `keys()` method lets you iterate over each key in a map.
+
+The `values()` method lets you iterate over each value in a map.
+
+The `entries()` method lets you iterate over each key-value pair in a map.
+
 ## Converting Maps to Arrays
 Same as [Converting Sets to Arrays](#converting-sets-to-arrays)
 ## Weak Maps
 
+## Looping over Maps
+Maps are enumerable, and so can be looped over similarly to [sets](#looping-over-sets).
 
-# Objects
-Like arrays, they are containers for collections of data. Though arrays are actually a type of object.
 ```js
-// Initializing an object
-var myObject = new Object();
-var myObject = {}; //Safer and preferable
-```
+const newMap = new Map();
+newMap.set('One', 1).set('Two', 2).set('Three', 3);
 
-Objects use a key/value pair system.
-```js
-profile = {
-    firstName: "Hugo",
-    lastName: "Reyes"
-};
-```
+//For Keys
+for (const key of newMap.keys()) {
+  console.log(key);
+} //One, Two, Three
 
-## Adding to an Object
-```js
-// Bracket Notation
-var obj = {};
-obj["firstName"] = "Hugo";
-obj["lastName"] = "Reyes";
+//For values
+for (const value of newMap.values()) {
+  console.log(value);
+} // 1, 2, 3
 
-// Dot notation
-var obj = {};
-obj.firstName = "Hugo";
-obj.lastName = "Reyes";
-```
-
-## Reading from an object
-Arrays cannot be read using a numeric index, just a named one.
-```js
-// Bracket Notation
-alert("Hello, my name is " + obj[firstName] + " " + [obj.lastName] + ".");
-
-// Dot notation
-alert("Hello, my name is " + obj.firstName + " " + obj.lastName + ".");
-```
-
-## Nested Objects
-```js
-var person;
-
-person = {
-    name: {
-        first: "Mmedara",
-        last: "Umana"
-    }
+//For key-value pairs
+for (const [key, value] of newMap.entries()) {
+  console.log(key, value);
 }
 ```
-### Reading from a nested object
-```js
-person.name.first; //returns "Mmedara"
-person.name.last; //returns "Umana"
-```
 
-### Assigning object items
-```js
-var person;
+Weak maps are also non-enumerable like [weak sets](#looping-over-sets)
 
-person = {};
-person.name = {};
-person.name.first = "Mmedara";
-person.name.first = "Umana";
-```
 
 
 # Flow of Control Statements
@@ -885,7 +899,7 @@ switch (strollerPrice) {
 # Loops
 A *loop statement* is used when we want to repeat some programming statements until a specified condition is reached.
 
-When looping over sets, the loop will iterate over each value in the same order in which they were added to the set. Sets are enumerable; they have methods that allow you to loop over each value in the set.
+
 ## The `while` loop
 ```js
 while (condition) {
@@ -1014,10 +1028,435 @@ Can only be used within a function and is used to delineate the return value of 
 
 
 # Functions
-Functions are only executed when you call them.
+A function is a chunk of code used to contain repetitive tasks within a program. Functions are only executed when you call them.
 ```js
+/*====== Defining a Function ======*/
+// Function Literal
 function fnName(parameters) {do something}
+function hello() {console.log('Hello World!')};
+
+// Create a function expression
+// Anonymous function
+const hello = function () {console.log('Hello World!')};
+// Named function
+const hello = function greeting() {console.log('Hello World!')};
+
+// Function Constructor - Not recommended
+const hello = new Function(console.log("Hello World!"));
+
+
+/*====== Calling a Function ======*/
+hello();
 ```
+## Parameters and arguments
+Parameters are set when the function is defined.  
+When a function is called, it is provided with arguments.
+```js
+// Parameters
+function multiply(x, y) = {return x*y};
+//Arguments
+square(8, 4);
+```
+If more arguments than parameters are provided, the extra arguments are ignored.
+
+### Default Parameters
+Parameter values that will be used if no arguments are specified.
+```js
+function hello(name="World") {
+  console.log(`Hello ${name}!`);
+}
+```
+
+Default parameters should always come after non-default parameters.
+
+## Arrow Functions
+A less verbose way of declaring functions.
+```js
+// Verbose
+function multiply(x, y) = {return x*y};
+
+// Arrow function
+const multiply = (x,y) => x*y;
+const multiply = () => x*y;
+
+```
+
+## Hoisting
+Hoisting is the JS interpreter's action of moving all variable and function declarations to the top of the current scope, regardless of where they are defined.
+
+Functions defined using a function declaration are automatically hoisted; they can be invoked before they have been defined.
+
+Variable declarations using the `var` keyword are hoisted. Variable assignment is not hoisted.
+
+## Callbacks
+A function that is passed as an argument to another function.
+
+## Properties of Functions
+The `name` property returns the name of the function. Anonymous functions return an empty string or `undefined`, depending on the browser.
+
+# Objects
+Objects act as a collection of named properties that map to any JS value. All objects are mutable at any time when a program is running; properties and methods can be changed or removed, and new properties and methods can be added even when if it is declared using `const`.
+```js
+// Initializing an object
+var myObject = new Object();
+var myObject = {}; //Safer and preferable
+```
+
+Objects use a key/value pair system.
+```js
+profile = {
+    firstName: "Hugo",
+    lastName: "Reyes"
+};
+```
+
+
+## Adding to an Object
+```js
+// Bracket Notation
+var obj = {};
+obj["firstName"] = "Hugo";
+obj["lastName"] = "Reyes";
+
+// Dot notation
+var obj = {};
+obj.firstName = "Hugo";
+obj.lastName = "Reyes";
+```
+
+## Reading from an object
+Arrays cannot be read using a numeric index, just a named one.
+```js
+// Bracket Notation
+alert("Hello, my name is " + obj[firstName] + " " + [obj.lastName] + ".");
+
+// Dot notation
+alert("Hello, my name is " + obj.firstName + " " + obj.lastName + ".");
+```
+
+If a property key is the same as a variable name that the property value is assigned to.
+```js
+const name = "Iron Man";
+const realName = "Tony Stark";
+
+//Long way
+const ironMan = {
+  name: name,
+  realName: realName
+};
+
+// ES6 Way
+const ironMan = { name, realName };
+```
+
+## Nested Objects
+```js
+var person;
+
+person = {
+    name: {
+        first: "Mmedara",
+        last: "Umana"
+    }
+}
+```
+### Reading from a nested object
+```js
+person.name.first; //returns "Mmedara"
+person.name.last; //returns "Umana"
+```
+
+### Assigning object items
+```js
+var person;
+
+person = {};
+person.name = {};
+person.name.first = "Mmedara";
+person.name.first = "Umana";
+```
+
+## Properties and Methods of Objects
+The `in` operator is used to check if an object has a particular property.
+```js
+const name = "Iron Man";
+const realName = "Tony Stark";
+const ironMan = { name, realName };
+
+'city' in ironMan; //false
+```
+
+The `hasOwnProperty()` method checks if an object has a certain property that is not inherited.
+```js
+ironMan.hasOwnProperty('name'); //true
+```
+
+The `delete` operator is used to remove a property from an object.
+```js
+delete ironMan.realName;
+```
+
+## The `this` keyword
+Refers to the object that it is within. It can be used inside methods to gain access to the object's properties
+```js
+const dice = {
+  sides: 6,
+  roll() {
+    return Math.floor(this.sides * Math.random()) + 1;
+  }
+}
+```
+
+## Built-in Objects
+
+### The `Date` object
+Contain information about dates and times.
+```js
+//Constructor Function
+const today = new Date();
+
+// Parameters that can be provided
+new Date(year,month,day,hour,minutes,seconds,milliseconds);
+
+
+const christmas = new Date('25 December 2020');
+const christmas = new Date('Friday, 25 December 2020');
+const christmas = new Date('2020 12 25');
+
+// Using a timestamp
+const theDay = new Date(1508367600000); //Thu Oct 19 2017 00:00:00 GMT+0100 (West Africa Standard Time)
+```
+A timestamp is a single integer argument that represents the number of milliseconds since the *Epoch (1 January 1970)*.  
+The Epoch is *1 January 1970*; an arbitrary date used in programming as a reference point in time from which to measure dates.
+
+#### The Date object methods
+There are two versions of most `Date` methods - one that returns information in local time, and the other uses *UTC (Coordinated Universal Time)*.  
+UTC is the primary time standard by which the world regulates clocks. It was
+formalized in 1960 and is much the same as Greenwich Mean Time (GMT).  
+The main difference is that UTC is a standard that is defined by the scientific
+community, unlike GMT.
+
+
+The `getDay()` and `getUTCDay()` methods are used to find the day of the week that the Date object falls on. Returns values from *0(Sunday)*  to *6(Saturday)*
+
+The `getDate()` and `getUTCDate()` methods return the day of the month. Returns values from *1 t0 31*.
+
+The `getFullYear()` and `getUTCFullYear()` return the year.
+
+The `getHours(), getUTCHours(), getMinutes(), getUTCMinutes(), getSeconds(), getUTCSeconds, getMilliseconds(), and getUTCMilliseconds()` methods return the hours, minutes, seconds
+and milliseconds since midnight.
+
+The `getDay()` method gets the day of the week in a Date object. Gets a value between 0(Sunday) and 6(Saturday).
+
+The `getTime()` method returns a timestamp representing the number of milliseconds since the Epoch.
+
+The `getTimeZoneOffset()` method returns the time difference in minutes between the local time on the computer or the specified time and GMT.
+
+There are also the  `setDate(), setMonth(), setFullYear(), setHours(), setUTCHours(), setMinutes(), setUTCMinutes(), setSeconds(), setUTCSeconds, setMilliseconds() and setUTCMilliseconds()` methods that can be used to edit the time portion of a Date object.
+```js
+theDay = January 1, 2002;
+// The date we're changing theDay to  is  Tuesday, November 8 2022
+
+theDay.setDate(8); //Returns timestamp
+theDay.setMonth(10); //Returns timestamp, 10 is November
+theDay.setFullYear(2022); //Returns timestamp
+
+theDay.toString(); //Returns Tuesday, November 8 2022
+
+/*===Alternatively===*/
+theDay.setTime(1447200000000);//1541548800000
+```
+
+The `toGMTString()` method returns the equivalent of a specified time in GMT.
+
+The `toLocaleString()` method returns the time from a Date object as a formatted string.
+
+
+### The Math Object
+#### Properties of the Math object
+
+The `Math.E` property  
+This is the constant value 2.718281828459045.
+
+The `Math.PI` property  
+This is the constant value 3.141592653589793. (that is, π)
+
+The `Math.SQRT2` property  
+This is the constant value 1.4142135623730951. (that is, √2)
+
+The `Math.SQRT1_2` property  
+The reciprocal of √2 - 0.7071067811865476
+
+The `Math.E` property  
+Euler's constant
+
+The `Math.LN2` property  
+The natural log of 2
+
+The `Math.LN10` property  
+The natural log of 10
+
+The `Math.LOG2E` property  
+Log base 2 of Euler's constant
+
+The `Math.LOG10E` property  
+Log base 10 of Euler's constant
+
+#### Methods of the Math object
+The `Math.abs()` method  
+This method will return the absolute value of the number you pass to it.
+
+The `Math.pow()` method  
+You pass this method two numbers. The first number will be raised to the power of
+the second.
+```js
+var result = Math.pow( 2, 3); //same as 2 * 2 * 2.
+```
+
+The `Math.random()` method  
+This method takes no parameters and returns a pseudorandom number between 0
+and 1.
+
+The `Math.round()` method  
+This method rounds the number you pass it to the closest integer value.
+
+The `Math.sqrt()` method  
+This method returns the square root of the number you pass to it.
+
+The `Math.ceil()` method  
+Rounds a number up to the next integer
+
+The `Math.floor()` method  
+Rounds a number down to the next integer
+
+The `Math.trunc()` method  
+Returns the integer part of a number
+
+The `Math.exp()` method  
+Raises a number to the power of Euler's constant.
+
+The `Math.cbrt()` method  
+Returns the cube root of numbers
+
+The `Math.hypot()` method  
+Returns the square root of the sum of the squares of all its arguments.
+
+The `Math.log()` method  
+Returns the natural log of a number
+
+The `Math.max()` method  
+Returns the maximum number from the arguments.
+
+The `Math.min()` method  
+Returns the minimum number from the arguments. 
+
+> NOTE: Angular measurement in JS is measured in radians.
+
+The `Math.sin()` method  
+Returns the sine of an angle.
+
+The `Math.cos()` method  
+Returns the cosine of an angle.
+
+The `Math.tan()` method  
+Returns the tangent of an angle.
+
+The `Math.asin()` method  
+Returns the arcsine of an angle.
+
+The `Math.acos()` method  
+Returns the arccosine of an angle.
+
+The `Math.atan()` method  
+Returns the arctangent of an angle.
+
+Methods for hyperbolic functions  
+`Math.sinh, Math.cosh, Math.tanh`  
+and their inverses  
+`Math.asinh, Math.acosh, Math.atanh`
+### The location Object
+#### Properties of the location Object
+The `hash` property  
+This contains a String object containing the “hash” part of the Web address specified in the `href` property.  
+`http://www.baby-palooza.com/index.htm#top`
+The hash portion is #top.
+
+
+The `host` property   
+This contains a String object containing the host information from the Web address
+specified in the href property.  
+For example, if the href property contains
+`http://www.baby-palooza.com`
+the host portion is `“www.baby-palooza.com:80”`.
+
+The `hostname` property  
+This contains a String object containing just the host name information from the
+Web address in the href property.  
+For example, if the href property contains in
+this link:
+`http://www.baby-palooza.com`
+The hostname portion is `“www.baby-palooza.com”`.
+
+The `href` property
+This contains the complete Web address of the current location. Assigning a new
+Web address to this property will force the Web browser to load the document at
+that address.
+
+The `pathname` property
+If the Web address in the href property points to a file that’s buried in a folder
+somewhere on the server, this property will contain the path to that file.  
+For example, if this is the href property:
+`http://www.baby-palooza.com/strollers/index.htm`
+The pathname property would contain the string `“strollers/index.htm”`.
+
+The `port` property  
+This is a String object containing the port specified in the href property.
+`http://www.baby-palooza.com:80`
+Here, the port property would contain the value `80`.
+
+The `protocol` property   
+This is the protocol (http, ftp, etc.) that was used to load the Web address specified in the href property.
+
+The `search` property  
+This is the query string specified in the Web address in the href property.
+`http://www.baby-palooza.com/search.htm?type=stroller`  
+In this example, the search property would contain the string
+`?type=stroller`. Note that the question mark is included at the start of the
+string.
+
+### Methods of the location object
+
+The `reload()` method  
+This method tells the browser to reload the document referenced in the href
+property. This method can take a Boolean parameter, which is named force. If the
+force parameter is true, the page will be reloaded from the Web server even if an
+up-to-date copy exists in the browser’s cache.
+
+The `replace()` method  
+When you call this method, you pass it the Web address of a new document that
+you want loaded into the Web browser. This new document will be loaded into the
+Web browser and its Web address will replace the Web address of the currently
+loaded document in the browser’s history list.
+
+## The `history` Object
+The only property is the `length` property, which tells you how many entries are in the history list.
+
+### Methods of the history object
+The `back()` method  
+Calling this method will cause the browser to reload the Web address stored in the
+previous history list entry, if one exists. (It’s just like hitting the browser’s Back
+button.)
+
+The `forward()` method
+Calling this method will cause the browser to load the Web address stored in the
+next history list entry, if one exists. (It’s just like hitting the browser’s Forward
+button.)
+
+The `go()` method
+When you call this method, you pass it a positive or a negative integer. The
+browser will jump that many places in the history list (forward if the number is
+positive and backward if the number is negative) and load the Web address stored
+at that point in the history list.
 
 # The Browser Object Model
 A collection of JS objects that act as an intermediary between JS programs and the web browser. It is made up of objects that allow JS programs peek into every corner of the web browser.
@@ -1107,7 +1546,7 @@ The `setTimeout()` method takes two parameters:
 2. The time in milliseconds it takes for the string to be executed
 This method doesn't set up a recursive call - cannot be executed more than once.
 # The Document Object Model
-Represents the HTML file.  
+Represents the HTML file as a network of connected nodes that form a tree-like structure. The DOM treats everything on a web page as a node. The HTML tag is the root node, and every part of the document is a child node of this.
 
 Allows your JS program do the following:
 1. Interact with HTML forms
@@ -1115,6 +1554,129 @@ Allows your JS program do the following:
 3. Interact with images
 4. Interact with Java applets
 
+The DOM treats stores any whitespace in the HTML document as extra text nodes. DOM methods return a node object or a node list (an array-like object). 
+
+All nodes have a numerical code to signify what type they are.  
+> 1 - element  
+> 2 - attribute  
+> 3 - text  
+> 8 - comment  
+> 9 - body  
+
+```js
+body.nodeType; //1
+```
+## Node lists
+Node lists are array-like objects but they are not arrays. You can access each item using index notation.  
+They also have a length property. You can turn a node list into an array using the `Array.from()` method  
+`Array.from(document.images)`  
+Or the spread operator:  
+`const imageArray = [...document.images];`
+## Methods of the DOM
+`document.body` returns the body element of the web page
+
+`document.images` returns a node list of all the images contained in the document
+
+`document.links` returns a node list of all the `<a>` and `<area>` elements that have an `href` attribute
+
+`document.anchors` returns a node list of all the `<a>` elements that have a `name` attribute
+
+`document.forms` returns a node list of all the forms in the document.
+
+The `getElementById()` method
+
+The `getElementsByTagName()` method returns a live node list of all the elements with the tag name that is provided as an argument. If no elements have that tag name, an empty node list is returned.
+
+The `getElementsByClassName()` method returns a live node list of all the elements with the class name that is provided as an argument. If no elements have that tag name, an empty node list is returned.
+
+The `document.querySelector()` method allows you to use CSS notation to find the first element in the document that matches a CSS selector provided as an argument.  
+The `document.querySelectorAll()` method returns a node list of all the elements in the document that match the CSS query selector. If no elements match, an empty node list is returned.
+```js
+document.querySelector('#bats');
+document.querySelectorAll('.hero');
+document.querySelector('li:last-child');
+```
+
+## Navigating the DOM tree
+The `childNodes` property is a list of *all* the nodes that are children of the node concerned. This includes text nodes.
+
+The `children` property only returns any *element* nodes that are children of that node. Does not include text nodes.
+
+The `firstChild` and `lastChild` properties return the first and last child of a node respectively.
+
+The `parentNode` property returns the parent node of an element.
+
+The `previousSibling` and `nextSibling` properties return the previous and next adjacent nodes of the same parent respectively. Returns `null` if the node is the last child node.
+
+### Working with Text
+
+To retrieve the text in a node  
+```js
+variable.firstChild;
+variable.textContent;
+variable.innerText; //IE
+```
+
+### Working with Attributes
+The `getAttribute()` method returns the value of the attribute provided as an argument. Returns `null` if the element does not have the class.
+```js
+variable.getAttribute('class'); //btn
+```
+
+The `setAttribute()` method changes the value of an element's attribute. It takes two arguments - the attribute you wish to change and the new value of the attribute.  
+It can also be used to add an attribute to an element if it doesn't already exist.
+
+Legacy DOM allows access to attributes using dot notation e.g `variable.id`. Some attribute names such as `class` and `for` are reserved keywords in JavaScript, so we need to use `className` and `htmlFor` instead.
+
+
+### Working with Classes of an Element
+The `className` property is used to find out the value of the class attribute. Also used to set the element class. Changing the `className` property overwrites all other classes.
+
+The `classList` property is a list of all the classes an element has.  
+The `add` method can be used to add a class to an element without overwriting the classes that already exist.  
+The `remove` method will remove a specific class from an element.  
+The `toggle` method adds a class if an element doesn't have it already.  
+The `contains` method will check to see if an element has a particular class.
+
+## Creating Dynamic Markup
+The `document.createElement()` method takes a tag name as a parameter and returns that element.  
+```js
+const listItem = document.createElement('li');
+```
+
+The `document.createTextNode()` method takes a parameter, which is a string containing the text that goes in the node.
+```js
+const listItemText = document.createTextNode('List Item One');
+```
+
+The `appendChild()` method adds another node as a child node.
+```js
+listItem.appendChild(listItemText);
+```
+To add a text node to an element without the need to append
+```js
+const listItem = document.createElement('li');
+listItem.textContent = 'List Item One';
+```
+
+The `insertBefore()` method will place a new element in the markup. This method is called on the parent node. It takes two paremeters: the new node to be added and the node you want it to go before.
+```js
+parentElement.insertBefore(newElement, elementAfter);
+```
+
+The `removeChild()` method removes an element from a page. It is called on a parent node.
+```js
+parentElement.removeChild(elementToBeRemoved);
+```
+
+The `replaceChild()` method can be used to replace one node with another. It is called on the parent node and has two parameters: the new node and the node that is to be replaced.
+```js
+parentElement.replaceChild(newElement, oldElement);
+```
+
+The `innerHTML` property returns all the child elements of an element as a string of HTML.  
+It can also be used to place a chunk of HTML inside an element. It will replace all the node's children.
+## Updating CSS
 # The Document Object
 A JS object that represents the HTML page that's currently being loaded into the Web browser.
 
@@ -1308,151 +1870,3 @@ After the name and value pair, other attributes include
 
 4. `secure`: If specified, the cookie will only be sent if the client and the server are joined by a secure connection.
 
-# Objects in JavaScript
-
-## The `Date` object
-### The Date object methods
-The `getDate()` and `setDate()` methods get and set *the day of the month* in a Date object.  
-The `setDate` method takes values from 1 to 31.
-`variable.setDate(24)`
-
-The `getDay()` method gets the day of the week in a Date object. Gets a value between 0(Sunday) and 6(Saturday).
-
-The `getFullYear()` and `setFullYear()` methods are used to get and set full four-digit year values in a Date object.
-
-The `getMinutes()` and `setMinutes()` methods are used to get and set the minutes value in a Date object.
-
-The `getMonth()` and `setMonth()` methods are used to get and set the month value in a Date object. Months are expressed using values from 0(January) to 11(December).
-
-The `getTime()` and `setTime()` methods are used to get and set the time in *milliseconds* since midnight January 1, 1970. 
-
-The `getTimeZoneOffset()` method returns the time difference in minutes between the specified time and GMT.
-
-The `toGMTString()` method returns the equivalent of a specified time in GMT.
-
-The `toLocaleString()` method returns the time from a Date object as a formatted string.
-
-#### The UTC Date methods
-These methods report time as if the client's computer is located in the GMT zone.
-
-
-## The Math Object
-### Properties of the Math object
-
-The `Math.E` property  
-This is the constant value 2.718281828459045.
-
-The `Math.PI` property  
-This is the constant value 3.141592653589793. (that is, π)
-
-The `Math.SQRT2` property  
-This is the constant value 1.4142135623730951. (that is, √2)
-
-### Methods of the Math object
-The `Math.abs()` method  
-This method will return the absolute value of the number you pass to it.
-
-The `Math.max()` and `Math.min()` methods  
-You pass these methods two or more numbers and they return the largest or smallest of those numbers respectively.
-
-The `Math.pow()` method  
-You pass this method two numbers. The first number will be raised to the power of
-the second.
-```js
-var result = Math.pow( 2, 3); //same as 2 * 2 * 2.
-```
-
-The `Math.random()` method  
-This method takes no parameters and returns a pseudorandom number between 0
-and 1.
-
-The `Math.round()` method  
-This method rounds the number you pass it to the closest integer value.
-
-The `Math.sqrt()` method
-This method returns the square root of the number you pass to it.
-
-## The location Object
-### Properties of the location Object
-The hash property  
-This contains a String object containing the “hash” part of the Web address specified in the `href` property.  
-```
-http://www.baby-palooza.com/index.htm#top
-the hash portion is #top.
-```
-
-The host property   
-This contains a String object containing the host information from the Web address
-specified in the href property.  
-For example, if the href property contains
-`http://www.baby-palooza.com`
-the host portion is `“www.baby-palooza.com:80”`.
-
-The hostname property  
-This contains a String object containing just the host name information from the
-Web address in the href property.  
-For example, if the href property contains in
-this link:
-`http://www.baby-palooza.com`
-The hostname portion is `“www.baby-palooza.com”`.
-
-The href property
-This contains the complete Web address of the current location. Assigning a new
-Web address to this property will force the Web browser to load the document at
-that address.
-
-The pathname property
-If the Web address in the href property points to a file that’s buried in a folder
-somewhere on the server, this property will contain the path to that file.  
-For example, if this is the href property:
-`http://www.baby-palooza.com/strollers/index.htm`
-The pathname property would contain the string `“strollers/index.htm”`.
-
-The port property  
-This is a String object containing the port specified in the href property.
-`http://www.baby-palooza.com:80`
-Here, the port property would contain the value `80`.
-
-The protocol property   
-This is the protocol (http, ftp, etc.) that was used to load the Web address specified in the href property.
-
-The search property  
-This is the query string specified in the Web address in the href property.
-`http://www.baby-palooza.com/search.htm?type=stroller`  
-In this example, the search property would contain the string
-`?type=stroller`. Note that the question mark is included at the start of the
-string.
-
-### Methods of the location object
-
-The `reload()` method  
-This method tells the browser to reload the document referenced in the href
-property. This method can take a Boolean parameter, which is named force. If the
-force parameter is true, the page will be reloaded from the Web server even if an
-up-to-date copy exists in the browser’s cache.
-
-The `replace()` method  
-When you call this method, you pass it the Web address of a new document that
-you want loaded into the Web browser. This new document will be loaded into the
-Web browser and its Web address will replace the Web address of the currently
-loaded document in the browser’s history list.
-
-## The `history` Object
-The only property is the `length` property, which tells you how many entries are in the history list.
-
-### Methods of the history object
-The `back()` method  
-Calling this method will cause the browser to reload the Web address stored in the
-previous history list entry, if one exists. (It’s just like hitting the browser’s Back
-button.)
-
-The `forward()` method
-Calling this method will cause the browser to load the Web address stored in the
-next history list entry, if one exists. (It’s just like hitting the browser’s Forward
-button.)
-
-The `go()` method
-When you call this method, you pass it a positive or a negative integer. The
-browser will jump that many places in the history list (forward if the number is
-positive and backward if the number is negative) and load the Web address stored
-at that point in the history list.
